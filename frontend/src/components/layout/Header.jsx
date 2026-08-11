@@ -12,36 +12,36 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
 
 const NAV_LINKS = [
-	{ name: 'Home',     path: '/',        icon: <Home size={17} /> },
-	{ name: 'Blog',     path: '/blog',    icon: <BookOpen size={17} /> },
-	{ name: 'Reviews',  path: '/reviews', icon: <Star size={17} /> },
-	{ name: 'Tools',    path: '/tools',   icon: <Calculator size={17} /> },
+	{ name: 'Home', path: '/', icon: <Home size={17} /> },
+	{ name: 'Blog', path: '/blog', icon: <BookOpen size={17} /> },
+	{ name: 'Reviews', path: '/reviews', icon: <Star size={17} /> },
+	{ name: 'Tools', path: '/tools', icon: <Calculator size={17} /> },
 ];
 
 const MORE_LINKS = [
-	{ name: 'About Us',    path: '/about',  icon: <Info size={17} /> },
+	{ name: 'About Us', path: '/about', icon: <Info size={17} /> },
 	{ name: 'Area Guides', path: '/areas', icon: <MapPin size={17} /> },
 	{ name: 'Society Reviews', path: '/society-reviews', icon: <Building2 size={17} /> },
 	{ name: 'Guides', path: '/guides', icon: <BookOpen size={17} /> },
 	{ name: 'Services', path: '/services', icon: <Briefcase size={17} /> },
-	{ name: 'Refer & Earn',path: '/refer',  icon: <Gift size={17} /> },
-	{ name: 'FAQ',         path: '/faq',    icon: <HelpCircle size={17} /> },
+	{ name: 'Refer & Earn', path: '/refer', icon: <Gift size={17} /> },
+	{ name: 'FAQ', path: '/faq', icon: <HelpCircle size={17} /> },
 ];
 
 const ROLE_DASHBOARD = {
-	ADMIN: { path: '/admin',          label: 'Admin Dashboard',  icon: <Shield size={17} /> },
-	OWNER: { path: '/owner',          label: 'Owner Dashboard',  icon: <Building2 size={17} /> },
-	AGENT: { path: '/agent',          label: 'Agent Dashboard',  icon: <Settings size={17} /> },
-	USER:  { path: '/user/dashboard', label: 'My Dashboard',     icon: <LayoutDashboard size={17} /> },
+	ADMIN: { path: '/admin', label: 'Admin Dashboard', icon: <Shield size={17} /> },
+	OWNER: { path: '/owner', label: 'Owner Dashboard', icon: <Building2 size={17} /> },
+	AGENT: { path: '/agent', label: 'Agent Dashboard', icon: <Settings size={17} /> },
+	USER: { path: '/user/dashboard', label: 'My Dashboard', icon: <LayoutDashboard size={17} /> },
 };
 
 export const Header = () => {
-	const [isScrolled,      setIsScrolled]      = useState(false);
-	const [mobileOpen,      setMobileOpen]      = useState(false);
-	const [openMore,        setOpenMore]        = useState(false);
-	const [openProfile,     setOpenProfile]     = useState(false);
-	const [theme,           setTheme]           = useState('light');
-	const moreRef    = useRef(null);
+	const [isScrolled, setIsScrolled] = useState(false);
+	const [mobileOpen, setMobileOpen] = useState(false);
+	const [openMore, setOpenMore] = useState(false);
+	const [openProfile, setOpenProfile] = useState(false);
+	const [theme, setTheme] = useState('light');
+	const moreRef = useRef(null);
 	const profileRef = useRef(null);
 
 	useEffect(() => {
@@ -91,7 +91,7 @@ export const Header = () => {
 
 	const closeMenu = () => setMobileOpen(false);
 
-	const initial   = (user?.name || user?.email || 'U')[0].toUpperCase();
+	const initial = (user?.name || user?.email || 'U')[0].toUpperCase();
 	const dashboard = user ? (ROLE_DASHBOARD[user.role] || ROLE_DASHBOARD.USER) : null;
 
 	return (
@@ -145,7 +145,7 @@ export const Header = () => {
 							<Button variant="teal" size="sm" asChild>
 								<Link to="/contact">Contact Us</Link>
 							</Button>
-							
+
 							<button
 								type="button"
 								onClick={toggleTheme}
@@ -291,34 +291,38 @@ export const Header = () => {
 					<div style={{ fontSize: '0.63rem', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', padding: '0 8px', marginBottom: 8 }}>Navigation</div>
 					{NAV_LINKS.map(link => (
 						<Link key={link.path} to={link.path} onClick={closeMenu}
-							style={{
-								display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
-								borderRadius: 14, textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem',
-								transition: 'all 0.18s',
-								background: isActive(link.path) ? 'linear-gradient(135deg,#0d9488,#0f766e)' : '#f8fafc',
-								color: isActive(link.path) ? '#fff' : '#334155',
-								border: `1.5px solid ${isActive(link.path) ? '#0d9488' : '#e2e8f0'}`,
-								boxShadow: isActive(link.path) ? '0 4px 12px rgba(13,148,136,0.25)' : 'none',
-							}}>
-							<div style={{ width: 34, height: 34, borderRadius: 10, background: isActive(link.path) ? 'rgba(255,255,255,0.2)' : 'rgba(13,148,136,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+							className={cn(
+								"flex items-center gap-3 px-3.5 py-3 rounded-2xl text-[0.9rem] font-semibold transition-all duration-200 border-[1.5px]",
+								isActive(link.path)
+									? "bg-gradient-to-br from-[#0d9488] to-[#0f766e] text-white border-[#0d9488] shadow-[0_4px_12px_rgba(13,148,136,0.25)]"
+									: "bg-[#f8fafc] dark:bg-white/5 text-[#334155] dark:text-white border-[#e2e8f0] dark:border-white/10"
+							)}
+						>
+							<div className={cn(
+								"w-[34px] h-[34px] rounded-xl flex items-center justify-center shrink-0",
+								isActive(link.path) ? "bg-white/20" : "bg-teal-600/10 dark:bg-teal-500/20"
+							)}>
 								{React.cloneElement(link.icon, { color: isActive(link.path) ? '#fff' : '#0d9488', size: 16 })}
 							</div>
 							{link.name}
-							{isActive(link.path) && <ChevronRight size={14} color="rgba(255,255,255,0.7)" style={{ marginLeft: 'auto' }} />}
+							{isActive(link.path) && <ChevronRight size={14} color="rgba(255,255,255,0.7)" className="ml-auto" />}
 						</Link>
 					))}
 
 					<div style={{ fontSize: '0.63rem', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', padding: '12px 8px 4px', marginTop: 4 }}>More</div>
 					{MORE_LINKS.map(link => (
 						<Link key={link.path} to={link.path} onClick={closeMenu}
-							style={{
-								display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
-								borderRadius: 14, textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem',
-								background: isActive(link.path) ? 'linear-gradient(135deg,#0d9488,#0f766e)' : '#f8fafc',
-								color: isActive(link.path) ? '#fff' : '#334155',
-								border: `1.5px solid ${isActive(link.path) ? '#0d9488' : '#e2e8f0'}`,
-							}}>
-							<div style={{ width: 34, height: 34, borderRadius: 10, background: isActive(link.path) ? 'rgba(255,255,255,0.2)' : 'rgba(13,148,136,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+							className={cn(
+								"flex items-center gap-3 px-3.5 py-3 rounded-2xl text-[0.9rem] font-semibold transition-all duration-200 border-[1.5px]",
+								isActive(link.path)
+									? "bg-gradient-to-br from-[#0d9488] to-[#0f766e] text-white border-[#0d9488]"
+									: "bg-[#f8fafc] dark:bg-white/5 text-[#334155] dark:text-white border-[#e2e8f0] dark:border-white/10"
+							)}
+						>
+							<div className={cn(
+								"w-[34px] h-[34px] rounded-xl flex items-center justify-center shrink-0",
+								isActive(link.path) ? "bg-white/20" : "bg-teal-600/10 dark:bg-teal-500/20"
+							)}>
 								{React.cloneElement(link.icon, { color: isActive(link.path) ? '#fff' : '#0d9488', size: 16 })}
 							</div>
 							{link.name}
@@ -326,13 +330,13 @@ export const Header = () => {
 					))}
 
 					{/* Divider */}
-					<div style={{ height: 1, background: '#e2e8f0', margin: '12px 0' }} />
+					<div className="h-px bg-slate-200 dark:bg-white/10 my-3" />
 
 					{/* Theme Toggle */}
 					<button
 						type="button"
 						onClick={toggleTheme}
-						className="w-full flex items-center justify-center gap-2 px-4 py-3 mb-2 rounded-2xl border dark:border-white/10 bg-white/60 dark:bg-white/5 font-semibold text-sm"
+						className="w-full flex items-center justify-center gap-2 px-4 py-3 mb-2 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 font-semibold text-sm text-slate-700 dark:text-white transition-colors"
 					>
 						{theme === 'light' ? (
 							<Moon className="w-4 h-4" />
@@ -345,9 +349,10 @@ export const Header = () => {
 					{/* Utilities */}
 
 					<Link to="/contact" onClick={closeMenu}
-						style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 14, border: '1.5px solid #e2e8f0', background: '#f8fafc', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem', color: '#334155' }}>
-						<div style={{ width: 34, height: 34, borderRadius: 10, background: 'rgba(59,130,246,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-							<Phone size={16} color="#3b82f6" />
+						className="flex items-center gap-3 px-3.5 py-3 rounded-2xl border-[1.5px] border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-[0.9rem] font-semibold text-slate-700 dark:text-white transition-colors"
+					>
+						<div className="w-[34px] h-[34px] rounded-xl bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center shrink-0">
+							<Phone size={16} className="text-blue-500" />
 						</div>
 						Contact Us
 					</Link>
@@ -355,9 +360,10 @@ export const Header = () => {
 
 				{/* ── BOTTOM ── */}
 				{user && (
-					<div style={{ padding: '12px 16px 20px', borderTop: '1px solid #e2e8f0', flexShrink: 0, background: '#fff' }}>
+					<div className="px-4 py-3 pb-5 border-t border-slate-200 dark:border-white/10 shrink-0 bg-white dark:bg-[#0d1117]">
 						<button onClick={() => { closeMenu(); handleLogout(); }}
-							style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, width: '100%', padding: '13px', background: 'linear-gradient(135deg,#ef4444,#dc2626)', border: 'none', borderRadius: 14, color: '#fff', fontWeight: 800, fontSize: '0.9rem', cursor: 'pointer', boxShadow: '0 4px 14px rgba(239,68,68,0.3)' }}>
+							className="flex items-center justify-center gap-2.5 w-full p-3 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl text-white font-extrabold text-[0.9rem] shadow-[0_4px_14px_rgba(239,68,68,0.3)] transition-transform active:scale-95"
+						>
 							<LogOut size={16} />Logout
 						</button>
 					</div>

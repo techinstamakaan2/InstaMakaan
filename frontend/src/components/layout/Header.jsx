@@ -6,7 +6,7 @@ import {
 	Menu, User, ChevronDown, LogOut, X,
 	Home, BookOpen, Star, Info, Gift, HelpCircle,
 	Phone, LayoutDashboard, Settings, Shield,
-	Building2, ChevronRight, Sparkles, Briefcase, MapPin, Calculator,
+	Building2, ChevronRight, Sparkles, Briefcase, MapPin, Calculator, Moon, Sun
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
@@ -40,8 +40,26 @@ export const Header = () => {
 	const [mobileOpen,      setMobileOpen]      = useState(false);
 	const [openMore,        setOpenMore]        = useState(false);
 	const [openProfile,     setOpenProfile]     = useState(false);
+	const [theme,           setTheme]           = useState('light');
 	const moreRef    = useRef(null);
 	const profileRef = useRef(null);
+
+	useEffect(() => {
+		const savedTheme = localStorage.getItem('theme');
+		if (savedTheme) {
+			setTheme(savedTheme);
+		} else {
+			const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			setTheme(isDark ? 'dark' : 'light');
+		}
+	}, []);
+
+	const toggleTheme = () => {
+		const newTheme = theme === 'light' ? 'dark' : 'light';
+		setTheme(newTheme);
+		localStorage.setItem('theme', newTheme);
+		document.documentElement.classList.toggle('dark', newTheme === 'dark');
+	};
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -127,6 +145,20 @@ export const Header = () => {
 							<Button variant="teal" size="sm" asChild>
 								<Link to="/contact">Contact Us</Link>
 							</Button>
+							
+							<button
+								type="button"
+								onClick={toggleTheme}
+								aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+								className="w-9 h-9 flex items-center justify-center rounded-full border dark:border-white/20 hover:bg-slate-100 dark:hover:bg-white/10"
+							>
+								{theme === 'light' ? (
+									<Moon className="w-4 h-4" />
+								) : (
+									<Sun className="w-4 h-4" />
+								)}
+							</button>
+
 							{!user ? (
 								<Link to="/auth/login"
 									className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border dark:border-white/20">
@@ -295,6 +327,20 @@ export const Header = () => {
 
 					{/* Divider */}
 					<div style={{ height: 1, background: '#e2e8f0', margin: '12px 0' }} />
+
+					{/* Theme Toggle */}
+					<button
+						type="button"
+						onClick={toggleTheme}
+						className="w-full flex items-center justify-center gap-2 px-4 py-3 mb-2 rounded-2xl border dark:border-white/10 bg-white/60 dark:bg-white/5 font-semibold text-sm"
+					>
+						{theme === 'light' ? (
+							<Moon className="w-4 h-4" />
+						) : (
+							<Sun className="w-4 h-4" />
+						)}
+						{theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+					</button>
 
 					{/* Utilities */}
 

@@ -92,6 +92,11 @@ function App() {
 	// visitor's browser/OS is set to dark mode — no manual toggle, just
 	// mirror whatever the browser reports, live.
 	useEffect(() => {
+		const savedTheme = localStorage.getItem('theme');
+		if (savedTheme) {
+			document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+			return;
+		}
 		const mq = window.matchMedia('(prefers-color-scheme: dark)');
 		const applyTheme = (isDark) => document.documentElement.classList.toggle('dark', isDark);
 		applyTheme(mq.matches);

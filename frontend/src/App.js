@@ -39,6 +39,10 @@ const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
 import ScrollToTop from '@/components/ScrollToTop';
 import ScrollRevealObserver from '@/components/ScrollRevealObserver';
 const HeroReviews = lazy(() => import('@/pages/Reviews'));
+const ToolsDashboard = lazy(() => import('@/pages/tools/ToolsDashboard'));
+const RentVsBuyCalculator = lazy(() => import('@/pages/tools/RentVsBuyCalculator'));
+const LoanAffordabilityCalculator = lazy(() => import('@/pages/tools/LoanAffordabilityCalculator'));
+const HomeLoanPrepaymentCalculator = lazy(() => import('@/pages/tools/HomeLoanPrepaymentCalculator'));
 /* ================= AUTH PAGES ================= */
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
@@ -122,6 +126,10 @@ function App() {
 							<Route path="/privacy-policy" element={<PrivacyPolicy />} />
 							<Route path="/terms" element={<TermsOfService />} />
 							<Route path="/reviews" element={<HeroReviews />} />
+							<Route path="/tools" element={<ToolsDashboard />} />
+							<Route path="/tools/rent-vs-buy" element={<RentVsBuyCalculator />} />
+							<Route path="/tools/loan-affordability" element={<LoanAffordabilityCalculator />} />
+							<Route path="/tools/home-loan-prepayment" element={<HomeLoanPrepaymentCalculator />} />
 							<Route path="/rent/:slug" element={<LocalityPage />} />
 							<Route path="/rent" element={<AllPropertiesPage />} />
 							<Route path="/buy" element={<HomePage />} />

@@ -1,0 +1,156 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "priority": "1.0",
+      "changefreq": "daily"
+    },
+    {
+      "path": "/all-properties",
+      "priority": "0.9",
+      "changefreq": "daily"
+    },
+    {
+      "path": "/blog",
+      "priority": "0.8",
+      "changefreq": "daily"
+    },
+    {
+      "path": "/about",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/refer",
+      "priority": "0.6",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/faq",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/contact",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/privacy-policy",
+      "priority": "0.4",
+      "changefreq": "yearly"
+    },
+    {
+      "path": "/terms",
+      "priority": "0.4",
+      "changefreq": "yearly"
+    },
+    {
+      "path": "/reviews",
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    {
+      "path": "/rent",
+      "priority": "0.9",
+      "changefreq": "daily"
+    },
+    {
+      "path": "/buy",
+      "priority": "0.9",
+      "changefreq": "daily"
+    },
+    {
+      "path": "/sell-companies/nx-one-ark",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/sell-companies/aspire-centurian-park",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/sell-companies/aspire-leisure-park",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/sell-companies/paradise-city",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/guides",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/guides/renting-a-property-in-noida",
+      "priority": "0.85",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/guides/buying-a-property-in-noida",
+      "priority": "0.85",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/services",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/services/property-management-greater-noida",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/services/nri-property-investment-noida",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/services/tenant-verification-greater-noida-west",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/services/corporate-housing-it-companies-noida",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/services/rental-agreement-documentation-assistance",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/services/home-loan-assistance-noida",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/areas",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/areas/noida",
+      "priority": "0.85",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/areas/greater-noida",
+      "priority": "0.85",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/areas/greater-noida-west",
+      "priority": "0.9",
+      "changefreq": "weekly"
+    }
+  ],
+  "generatedAt": "2026-07-13T00:00:00.000Z",
+  "count": 30
+}

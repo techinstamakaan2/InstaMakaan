@@ -1,0 +1,19 @@
+# InstaMakaan
+
+> InstaMakaan is a rental property platform helping tenants, owners, and agents find and list verified rental flats, PGs, and co-living spaces across Noida, Greater Noida, Noida Extension, and Ghaziabad.
+
+InstaMakaan connects verified property owners with tenants for hassle-free rentals, and also lists residential plots and projects for sale in the Noida/Greater Noida region.
+
+## Pages
+
+- [Home](https://instamakaan.com/): Search rental flats and PGs by city, locality, and budget.
+- [All Properties](https://instamakaan.com/all-properties): Browse all verified rental listings.
+- [About](https://instamakaan.com/about): Company mission, team, and story.
+- [Blog](https://instamakaan.com/blog): Articles on renting, buying, and property management in Noida/Greater Noida.
+- [Reviews](https://instamakaan.com/reviews): Customer testimonials and reviews.
+- [FAQ](https://instamakaan.com/faq): Common questions about renting, PG, and brokerage.
+- [Contact](https://instamakaan.com/contact): Contact details and inquiry form.
+
+## Sitemap
+
+- [Sitemap](https://instamakaan.com/sitemap.xml): Full list of indexable URLs, generated dynamically.

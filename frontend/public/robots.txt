@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /owner
+Disallow: /agent
+Disallow: /user
+Disallow: /dashboard
+Disallow: /auth
+
+Sitemap: https://instamakaan.com/sitemap.xml

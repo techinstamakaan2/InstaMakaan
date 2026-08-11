@@ -6,7 +6,7 @@ import {
 	Menu, User, ChevronDown, LogOut, X,
 	Home, BookOpen, Star, Info, Gift, HelpCircle,
 	Phone, LayoutDashboard, Settings, Shield,
-	Building2, ChevronRight, Sparkles, Briefcase, MapPin,
+	Building2, ChevronRight, Sparkles, Briefcase, MapPin, Calculator,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
@@ -15,6 +15,7 @@ const NAV_LINKS = [
 	{ name: 'Home',     path: '/',        icon: <Home size={17} /> },
 	{ name: 'Blog',     path: '/blog',    icon: <BookOpen size={17} /> },
 	{ name: 'Reviews',  path: '/reviews', icon: <Star size={17} /> },
+	{ name: 'Tools',    path: '/tools',   icon: <Calculator size={17} /> },
 ];
 
 const MORE_LINKS = [

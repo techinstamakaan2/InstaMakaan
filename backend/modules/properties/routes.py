@@ -54,6 +54,7 @@ async def create(
 ):
     return await create_property(data, user)
 
+@router.get("")
 @router.get("/")
 async def list_all(
     property_type: Optional[str] = None,

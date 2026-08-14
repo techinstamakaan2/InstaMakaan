@@ -34,9 +34,12 @@ from modules.visits.routes import router as visits_router
 from modules.user_profile.routes import router as user_profile_router
 
 
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+
 BASE_DIR = Path(__file__).parent
 
-app = FastAPI(title=APP_NAME)
+app = FastAPI(title=APP_NAME, redirect_slashes=False)
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts=["*"])
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 

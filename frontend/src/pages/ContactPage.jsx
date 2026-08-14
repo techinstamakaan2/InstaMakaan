@@ -33,7 +33,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '@/lib/api';
 
 const API_BASE = (
-	process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000/api'
+	process.env.REACT_APP_API_URL || 'https://instamakaan-website.onrender.com/api'
 ).replace(/\/+$/, '');
 
 const contactInfo = [

@@ -14,7 +14,7 @@ import {
 import { toast } from 'sonner';
 
 const APP_URL  = process.env.REACT_APP_FRONTEND_URL || 'https://instamakaann.vercel.app';
-const API_BASE = (process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000/api').replace('/api', '');
+const API_BASE = (process.env.REACT_APP_API_URL || 'https://instamakaan-website.onrender.com/api').replace('/api', '');
 const fmt  = (n) => Number(n || 0).toLocaleString('en-IN');
 const fmtD = (d) => d ? new Date(d).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' }) : '—';
 /* Resolve relative image URLs — handles string, {url:string}, or null */

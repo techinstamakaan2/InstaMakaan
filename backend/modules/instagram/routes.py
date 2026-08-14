@@ -35,6 +35,7 @@ router = APIRouter(
 # -------------------------------------------------
 # PUBLIC — Frontend fetches active posts
 # -------------------------------------------------
+@router.get("")
 @router.get("/")
 async def list_active_posts(page: int = 1, limit: int = 20):
     """Returns only active posts — used by the public frontend."""
@@ -53,6 +54,7 @@ async def list_all_posts(
     return await get_instagram_posts(admin=True, page=page, limit=limit)
 
 
+@router.post("")
 @router.post("/", response_model=InstagramPost)
 async def create(
     data: InstagramPostCreate,

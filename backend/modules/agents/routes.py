@@ -17,6 +17,7 @@ router = APIRouter(
 )
 
 
+@router.post("")
 @router.post("/", response_model=Agent)
 async def create(
     data: AgentCreate,
@@ -25,6 +26,7 @@ async def create(
     return await create_agent(data)
 
 
+@router.get("")
 @router.get("/", response_model=List[Agent])
 async def list_all(
     status: Optional[str] = None,

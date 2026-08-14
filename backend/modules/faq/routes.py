@@ -8,6 +8,7 @@ router = APIRouter(prefix="/faqs", tags=["FAQ"])
 
 
 # ── Public: get all published categories (with their FAQs) ────────────────────
+@router.get("")
 @router.get("/")
 async def get_faq_categories(
     status:  Optional[str]  = Query(None),
@@ -40,6 +41,7 @@ async def get_faq_category(category_id: str):
 
 
 # ── Admin: create a category ──────────────────────────────────────────────────
+@router.post("")
 @router.post("/", status_code=201, dependencies=[Depends(require_role(["ADMIN"]))])
 async def create_faq_category(payload: FAQCategoryCreateSchema):
     cat = await service.create_category(payload.dict())

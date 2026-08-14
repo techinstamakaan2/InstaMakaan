@@ -8,6 +8,7 @@ import uuid
 router = APIRouter(prefix="/users/me/visits", tags=["Visits"])
 
 
+@router.get("")
 @router.get("/")
 async def get_my_visits(
     current_user=Depends(require_role(["USER", "ADMIN", "AGENT", "OWNER"])),
@@ -19,6 +20,7 @@ async def get_my_visits(
     return {"visits": visits}
 
 
+@router.post("")
 @router.post("/")
 async def schedule_visit(
     payload: dict,

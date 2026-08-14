@@ -47,6 +47,7 @@ async def list_locations():
 async def get_by_short_id(short_id: str):
     return await get_property_by_short_id(short_id)
 
+@router.post("")
 @router.post("/", response_model=Property)
 async def create(
     data: PropertyCreate,
@@ -54,6 +55,7 @@ async def create(
 ):
     return await create_property(data, user)
 
+@router.get("")
 @router.get("")
 @router.get("/")
 async def list_all(

@@ -10,6 +10,7 @@ ALLOWED_UPDATE_FIELDS = {
 }
 
 
+@router.get("")
 @router.get("/")
 async def get_profile(
     current_user=Depends(require_role(["USER", "ADMIN", "AGENT", "OWNER"])),

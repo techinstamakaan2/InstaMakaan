@@ -26,6 +26,7 @@ async def user_stats(
     }
 
 
+@router.get("")
 @router.get("/")
 async def list_users(
     page: int = Query(1, ge=1),

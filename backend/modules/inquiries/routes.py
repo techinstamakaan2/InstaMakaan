@@ -32,10 +32,12 @@ router = APIRouter(
 async def ping():
     return {"message": "Inquiries working"}
 
+@router.post("")
 @router.post("/", response_model=Inquiry)  # ← ONLY CHANGE: added response_model=Inquiry
 async def create(data: InquiryCreate):
     return await create_inquiry(data)
 
+@router.get("")
 @router.get("/", response_model=List[Inquiry])
 async def list_all(
     stage: Optional[str] = None,

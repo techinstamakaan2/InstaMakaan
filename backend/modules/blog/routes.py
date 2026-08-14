@@ -15,6 +15,7 @@ async def upload_image(file: UploadFile = File(...)):
 
 
 # ── blog CRUD ─────────────────────────────────────────────────────────────────
+@router.get("")
 @router.get("/")
 async def get_blogs(
     category: Optional[str] = Query(None),
@@ -50,6 +51,7 @@ async def get_blog(blog_id: str):
     return post
 
 
+@router.post("")
 @router.post("/", status_code=201, dependencies=[Depends(require_role(["ADMIN"]))])
 async def create_blog(payload: BlogCreateSchema):
     post = await service.create_blog(payload.dict())

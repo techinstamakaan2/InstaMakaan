@@ -17,6 +17,7 @@ router = APIRouter(
     tags=["Owners"]
 )
 
+@router.post("")
 @router.post("/", response_model=Owner)
 async def create(
     data: OwnerCreate,
@@ -24,6 +25,7 @@ async def create(
 ):
     return await create_owner(data)
 
+@router.get("")
 @router.get("/", response_model=List[Owner])
 async def list_all(
     status: Optional[str] = None,

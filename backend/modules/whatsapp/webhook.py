@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Request
-from datetime import datetime
-
-from modules.leads.service import _leads
+from datetime import datetime, timezone
+from core.database import get_db
 
 router = APIRouter(
     prefix="/integrations/whatsapp",
@@ -28,10 +27,13 @@ async def whatsapp_webhook(request: Request):
     if not message_id or not status:
         return {"ok": True}
 
-    for lead in _leads.values():
-        if lead.get("whatsapp_message_id") == message_id:
-            lead["whatsapp_status"] = status
-            lead["updated_at"] = datetime.utcnow()
-            break
+    db = get_db()
+    await db.leads.update_one(
+        {"whatsapp_message_id": message_id},
+        {"$set": {
+            "whatsapp_status": status,
+            "updated_at": datetime.now(timezone.utc)
+        }}
+    )
 
     return {"ok": True}

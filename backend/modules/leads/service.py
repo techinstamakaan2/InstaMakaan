@@ -3,6 +3,8 @@ import re
 from datetime import datetime
 from typing import Dict, List, Optional
 
+from core.database import get_db
+
 from modules.whatsapp.service import (
     send_tenant_property_catalogue,
     send_owner_brochure_message
@@ -10,10 +12,6 @@ from modules.whatsapp.service import (
 from modules.listings.service import get_listing_by_id
 
 PHONE_REGEX = re.compile(r"^[6-9]\d{9}$")
-
-# In-memory lead store
-_leads: Dict[str, dict] = {}
-_lead_notes: Dict[str, List[dict]] = {}
 
 ALLOWED_STAGES = [
     "NEW",
@@ -57,6 +55,7 @@ def create_tenant_lead(
         "created_at": datetime.utcnow(),
         "updated_at": datetime.utcnow(),
         "next_followup_at": None,
+        "notes": [],
 
         # WhatsApp tracking
         "whatsapp_consent_at": datetime.utcnow() if whatsapp_opt_in else None,
@@ -65,8 +64,6 @@ def create_tenant_lead(
         "whatsapp_sent_at": None,
     }
 
-    _leads[lead_id] = lead
-
     # Auto-send WhatsApp catalogue
     if whatsapp_opt_in:
         message_id = send_tenant_property_catalogue(lead, listing)
@@ -74,7 +71,13 @@ def create_tenant_lead(
         lead["whatsapp_status"] = "sent"
         lead["whatsapp_sent_at"] = datetime.utcnow()
 
-    return lead
+    db = get_db()
+    db.leads.insert_one(lead)
+    
+    # Remove _id before returning to avoid issues
+    lead.pop("_id", None)
+
+    return lead, None
 
 def create_owner_lead(
     name: str,
@@ -100,6 +103,7 @@ def create_owner_lead(
         "created_at": datetime.utcnow(),
         "updated_at": datetime.utcnow(),
         "next_followup_at": None,
+        "notes": [],
 
         # WhatsApp tracking
         "whatsapp_consent_at": datetime.utcnow() if whatsapp_opt_in else None,
@@ -108,32 +112,37 @@ def create_owner_lead(
         "whatsapp_sent_at": None,
     }
 
-    _leads[lead_id] = lead
-
     if whatsapp_opt_in:
         message_id = send_owner_brochure_message(lead)
         lead["whatsapp_message_id"] = message_id
         lead["whatsapp_status"] = "sent"
         lead["whatsapp_sent_at"] = datetime.utcnow()
 
-    return lead
+    db = get_db()
+    db.leads.insert_one(lead)
+    
+    lead.pop("_id", None)
+
+    return lead, None
 
 def list_leads(
     lead_type: Optional[str] = None,
     stage: Optional[str] = None,
     listing_id: Optional[str] = None,
 ):
-    results = list(_leads.values())
+    filter_query = {}
 
     if lead_type:
-        results = [l for l in results if l["type"] == lead_type.upper()]
+        filter_query["type"] = lead_type.upper()
 
     if stage:
-        results = [l for l in results if l["stage"] == stage]
+        filter_query["stage"] = stage
 
     if listing_id:
-        results = [l for l in results if l.get("listing_id") == listing_id]
+        filter_query["listing_id"] = listing_id
 
+    db = get_db()
+    results = list(db.leads.find(filter_query, {"_id": 0}))
     return results
 
 
@@ -142,29 +151,42 @@ def update_lead(
     stage: Optional[str] = None,
     next_followup_at: Optional[datetime] = None,
 ):
-    lead = _leads.get(lead_id)
-    if not lead:
-        return None
+    db = get_db()
+    
+    update_fields = {"updated_at": datetime.utcnow()}
 
     if stage:
         if stage not in ALLOWED_STAGES:
             return None
-        lead["stage"] = stage
+        update_fields["stage"] = stage
 
     if next_followup_at:
-        lead["next_followup_at"] = next_followup_at
+        update_fields["next_followup_at"] = next_followup_at
 
-    lead["updated_at"] = datetime.utcnow()
-    return lead
+    result = db.leads.find_one_and_update(
+        {"id": lead_id},
+        {"$set": update_fields},
+        return_document=True
+    )
+    
+    if result:
+        result.pop("_id", None)
+
+    return result
 
 
 def add_lead_note(lead_id: str, note: str):
-    if lead_id not in _leads:
-        return None
-
-    _lead_notes.setdefault(lead_id, []).append({
+    db = get_db()
+    
+    new_note = {
         "note": note,
         "created_at": datetime.utcnow()
-    })
+    }
+    
+    result = db.leads.update_one(
+        {"id": lead_id},
+        {"$push": {"notes": new_note}}
+    )
+    
+    return result.modified_count > 0
 
-    return True

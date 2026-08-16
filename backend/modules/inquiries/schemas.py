@@ -38,7 +38,7 @@ class Inquiry(InquiryBase):
     stage: str = "NEW"
     assigned_agent_id: Optional[str] = None
     assigned_agent_name: Optional[str] = None
-    notes: List[str] = []
+    notes: List[dict] = []
     conversation_logs: List[dict] = []
     created_at: datetime
     updated_at: datetime

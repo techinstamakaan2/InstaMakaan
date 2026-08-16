@@ -11,7 +11,7 @@ from modules.owners.service import (
 )
 
 from core.security import require_role
-
+from core.database import get_db
 router = APIRouter(
     prefix="/owners",
     tags=["Owners"]
@@ -40,7 +40,7 @@ async def list_all(
 @router.get("/{owner_id}", response_model=Owner)
 async def get_one(
     owner_id: str,
-    user=Depends(require_role(["ADMIN"]))
+    user=Depends(require_role(["ADMIN", "OWNER"]))
 ):
     return await get_owner_by_id(owner_id)
 
@@ -59,6 +59,24 @@ async def delete(
 ):
     await delete_owner(owner_id)
     return {"message": "Owner deleted successfully"}
+@router.get("/{owner_id}/dashboard")
+async def get_owner_dashboard(
+    owner_id: str,
+    user=Depends(require_role(["ADMIN", "OWNER"]))
+):
+    owner = await get_owner_by_id(owner_id)
+    db = get_db()
+    properties = await db.properties.find({"owner_id": owner_id}).to_list(100)
+    
+    return {
+        "owner": owner,
+        "total_properties": len(properties),
+        "active_properties": len([p for p in properties if p.get("status") == "active"]),
+        "total_earnings": sum(e.get("amount", 0) for e in owner.get("earnings_history", []) if e.get("status") == "paid"),
+        "current_month_earnings": 0,
+        "properties": properties,
+        "earnings_history": owner.get("earnings_history", [])
+    }
 
 @router.get("/ping")
 async def ping():

@@ -33,6 +33,7 @@ import {
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
+import api from '@/lib/api';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -62,11 +63,8 @@ const InquiryDetailDrawer = ({ inquiryId, agentId, isOpen, onClose, onUpdate }) 
   const fetchInquiry = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${BACKEND_URL}/api/inquiries/${inquiryId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setInquiry(data);
-      }
+      const { data } = await api.get(`/inquiries/${inquiryId}`);
+      setInquiry(data);
     } catch (error) {
       console.error('Error fetching inquiry:', error);
     } finally {
@@ -92,11 +90,9 @@ const InquiryDetailDrawer = ({ inquiryId, agentId, isOpen, onClose, onUpdate }) 
         new_status: status,
       });
 
-      const response = await fetch(`${BACKEND_URL}/api/inquiries/${inquiryId}/log?${params}`, {
-        method: 'POST',
-      });
+      const response = await api.post(`/inquiries/${inquiryId}/log?${params}`);
 
-      if (response.ok) {
+      if (response.status >= 200 && response.status < 300) {
         toast.success(`Status updated to ${status.replace('_', ' ')}`);
         fetchInquiry();
         if (onUpdate) onUpdate();
@@ -124,11 +120,9 @@ const InquiryDetailDrawer = ({ inquiryId, agentId, isOpen, onClose, onUpdate }) 
         params.append('new_status', newStatus);
       }
 
-      const response = await fetch(`${BACKEND_URL}/api/inquiries/${inquiryId}/log?${params}`, {
-        method: 'POST',
-      });
+      const response = await api.post(`/inquiries/${inquiryId}/log?${params}`);
 
-      if (response.ok) {
+      if (response.status >= 200 && response.status < 300) {
         toast.success('Log added successfully');
         setNewMessage('');
         setNewStatus('');

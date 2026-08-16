@@ -22,6 +22,7 @@ async def get_profile(
     return user
 
 
+@router.patch("")
 @router.patch("/")
 async def update_profile(
     payload: dict,

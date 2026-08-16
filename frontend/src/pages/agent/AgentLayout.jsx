@@ -23,8 +23,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import api from '@/lib/api';
 
 const sidebarItems = [
   {
@@ -123,11 +122,8 @@ const AgentLayout = () => {
 
   const fetchAgentData = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/agents/${user.linked_id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setAgentData(data);
-      }
+      const { data } = await api.get(`/agents/${user.linked_id}`);
+      setAgentData(data);
     } catch (error) {
       console.error('Error fetching agent data:', error);
     }

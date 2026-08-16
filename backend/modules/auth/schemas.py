@@ -59,3 +59,10 @@ class RequestLoginOTPRequest(BaseModel):
 class LoginWithOTPRequest(BaseModel):
     email: EmailStr
     otp: str = Field(min_length=6, max_length=6)
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str

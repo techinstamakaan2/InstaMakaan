@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { format, subMonths, startOfMonth, endOfMonth } from 'date-fns';
+import api from '@/lib/api';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -39,11 +40,8 @@ const OwnerEarnings = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/owners/${user.linked_id}/dashboard`);
-      if (response.ok) {
-        const data = await response.json();
-        setDashboardData(data);
-      }
+      const { data } = await api.get(`/owners/${user.linked_id}/dashboard`);
+      setDashboardData(data);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {

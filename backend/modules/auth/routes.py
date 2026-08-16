@@ -29,6 +29,8 @@ from modules.auth.schemas import (
     ResendOTPRequest,
     RequestLoginOTPRequest,
     LoginWithOTPRequest,
+    ForgotPasswordRequest,
+    ResetPasswordRequest,
 )
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
@@ -307,3 +309,47 @@ async def get_me(current_user=Depends(get_current_user), db=Depends(get_db)):
         "referral_code": user.get("referral_code", "") if user else "",
         "wallet_balance": user.get("wallet_balance", 0) if user else 0,
     }
+
+# ── FORGOT PASSWORD ───────────────────────────────────────────────────────────
+
+@router.post("/forgot-password")
+async def forgot_password(payload: ForgotPasswordRequest, db=Depends(get_db)):
+    user = await db.users.find_one({"email": payload.email})
+    if not user:
+        # Prevent email enumeration by returning a generic success message
+        return {"message": "Password reset link sent"}
+    
+    token = str(uuid.uuid4())
+    # Save the token in DB with expiration (e.g., 15 mins)
+    expires_at = (datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat()
+    await db.reset_tokens.replace_one(
+        {"email": payload.email},
+        {"email": payload.email, "token": token, "expires_at": expires_at},
+        upsert=True
+    )
+    
+    return {"message": "Password reset link sent", "debug_token": token}
+
+
+# ── RESET PASSWORD ────────────────────────────────────────────────────────────
+
+@router.post("/reset-password")
+async def reset_password(payload: ResetPasswordRequest, db=Depends(get_db)):
+    record = await db.reset_tokens.find_one({"token": payload.token})
+    if not record:
+        raise HTTPException(status_code=400, detail="Invalid or expired reset token")
+    
+    expires_at = datetime.fromisoformat(record["expires_at"])
+    if datetime.now(timezone.utc) > expires_at:
+        raise HTTPException(status_code=400, detail="Reset token has expired")
+    
+    hashed_password = get_password_hash(payload.new_password)
+    result = await db.users.update_one(
+        {"email": record["email"]},
+        {"$set": {"password": hashed_password}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    await db.reset_tokens.delete_one({"token": payload.token})
+    return {"message": "Password reset successfully"}

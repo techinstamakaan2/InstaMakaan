@@ -20,8 +20,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 import InquiryDetailDrawer from '@/components/admin/InquiryDetailDrawer';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import api from '@/lib/api';
 
 // Inquiry status workflow
 const statusWorkflow = [
@@ -49,11 +48,8 @@ const AgentDashboard = () => {
 
   const fetchAgentInquiries = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/agents/${user.linked_id}/inquiries`);
-      if (response.ok) {
-        const result = await response.json();
-        setData(result);
-      }
+      const { data: result } = await api.get(`/agents/${user.linked_id}/inquiries`);
+      setData(result);
     } catch (error) {
       console.error('Error fetching agent inquiries:', error);
     } finally {
@@ -76,22 +72,16 @@ const AgentDashboard = () => {
   const updateInquiryStatus = async (inquiryId, status) => {
     setSubmitting(true);
     try {
-      const params = new URLSearchParams({
-        agent_id: user.linked_id,
-        message: `Status updated to ${status.replace('_', ' ')}`,
-        new_status: status,
+      await api.post(`/inquiries/${inquiryId}/log`, null, {
+        params: {
+          agent_id: user.linked_id,
+          message: `Status updated to ${status.replace('_', ' ')}`,
+          new_status: status,
+        },
       });
 
-      const response = await fetch(`${BACKEND_URL}/api/inquiries/${inquiryId}/log?${params}`, {
-        method: 'POST',
-      });
-
-      if (response.ok) {
-        toast.success(`Status updated to ${status.replace('_', ' ')}`);
-        fetchAgentInquiries();
-      } else {
-        throw new Error('Failed to update status');
-      }
+      toast.success(`Status updated to ${status.replace('_', ' ')}`);
+      fetchAgentInquiries();
     } catch (error) {
       console.error('Error updating status:', error);
       toast.error('Failed to update status');

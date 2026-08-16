@@ -4,14 +4,7 @@ from typing import List, Optional
 from modules.listings.schemas import ListingCreate, ListingResponse
 from modules.listings import service
 
-try:
-    from core.rbac import require_role
-except ImportError:
-    def require_role(role: str):
-        def _noop():
-            return None
-        return _noop
-
+from core.security import require_role
 
 router = APIRouter(prefix="/listings", tags=["Listings"])
 

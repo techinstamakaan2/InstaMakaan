@@ -205,7 +205,9 @@ function App() {
 								<Route path="faqs/:id/edit" element={<AdminFAQEditor />} />
 
 								<Route path="owners" element={<OwnersPage />} />
+								<Route path="owners/:ownerId/dashboard" element={<AdminOwnerDashboardPage />} />
 								<Route path="agents" element={<AgentsPage />} />
+								<Route path="agents/:agentId/inquiries" element={<AdminAgentInquiriesPage />} />
 								<Route path="inquiries" element={<InquiriesPage />} />
 								<Route path="instagram" element={<AdminInstagramPage />} />
 								<Route path="users" element={<AdminUsersPage />} />

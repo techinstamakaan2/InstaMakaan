@@ -1,9 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from datetime import datetime, timezone
@@ -121,6 +121,14 @@ app.include_router(dashboard_router, prefix="/api")
 app.include_router(whatsapp_webhook_router)
 app.include_router(user_auth_router)
 app.include_router(blog_router, prefix="/api")
+
+@app.api_route("/api/blog/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"], include_in_schema=False)
+async def blog_singular_redirect(path: str, request: Request):
+    return RedirectResponse(url=f"/api/blogs/{path}", status_code=307)
+
+@app.api_route("/api/blog", methods=["GET", "POST"], include_in_schema=False)
+async def blog_singular_redirect_root(request: Request):
+    return RedirectResponse(url="/api/blogs", status_code=307)
 app.include_router(instagram_router, prefix="/api")
 app.include_router(faq_router, prefix="/api")
 app.include_router(sitemap_router)

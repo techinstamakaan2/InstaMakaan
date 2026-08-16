@@ -10,20 +10,13 @@ from modules.leads.schemas import (
     LeadNoteCreate
 )
 from modules.leads import service
-try:
-    from core.rbac import require_role
-except ImportError:
-    def require_role(role: str):
-        def _noop():
-            return None
-        return _noop
-
+from core.security import require_role
 
 router = APIRouter(prefix="/leads", tags=["Leads"])
 
 @router.post("/tenant", response_model=LeadResponse)
 def create_tenant_lead(payload: TenantLeadCreate):
-    lead, error = service.create_tenant_lead(payload.dict())
+    lead, error = service.create_tenant_lead(**payload.dict())
     if error:
         raise HTTPException(status_code=400, detail=error)
     return {"lead_id": lead["id"], "created": True}
@@ -31,7 +24,7 @@ def create_tenant_lead(payload: TenantLeadCreate):
 
 @router.post("/owner", response_model=LeadResponse)
 def create_owner_lead(payload: OwnerLeadCreate):
-    lead, error = service.create_owner_lead(payload.dict())
+    lead, error = service.create_owner_lead(**payload.dict())
     if error:
         raise HTTPException(status_code=400, detail=error)
     return {
@@ -50,7 +43,7 @@ def admin_get_leads(
     stage: Optional[str] = Query(None),
     listing_id: Optional[str] = Query(None)
 ):
-    return service.get_all_leads(type, stage, listing_id)
+    return service.list_leads(type, stage, listing_id)
 
 
 @router.patch(
@@ -58,7 +51,7 @@ def admin_get_leads(
     dependencies=[Depends(require_role("ADMIN"))]
 )
 def admin_update_lead_stage(lead_id: str, payload: LeadStageUpdate):
-    lead = service.update_lead_stage(
+    lead = service.update_lead(
         lead_id,
         payload.stage,
         payload.next_followup_at

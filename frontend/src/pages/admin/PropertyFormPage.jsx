@@ -57,6 +57,7 @@ import {
 	ChefHat,
 	BookOpen,
 	Bath,
+	Star,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -763,7 +764,7 @@ const PropertyFormPage = () => {
 			</div>
 		);
 
-	const isRoomWise = false;
+	const isRoomWise = listingMode === 'room-wise';
 
 	const totalAmenities = Object.values(roomAmenities).reduce(
 		(sum, arr) => sum + arr.length,
@@ -861,7 +862,7 @@ const PropertyFormPage = () => {
 							/>
 						</div>
 
-						<div className="grid sm:grid-cols-2 gap-4">
+						<div className="grid sm:grid-cols-3 gap-4">
 							<div>
 								<Label>Property Type *</Label>
 								<Select
@@ -874,6 +875,21 @@ const PropertyFormPage = () => {
 									<SelectContent>
 										<SelectItem value="rent">Rent</SelectItem>
 										<SelectItem value="buy">Buy</SelectItem>
+									</SelectContent>
+								</Select>
+							</div>
+							<div>
+								<Label>Listing Mode</Label>
+								<Select
+									value={listingMode}
+									onValueChange={setListingMode}
+								>
+									<SelectTrigger>
+										<SelectValue />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectItem value="full">Entire Property</SelectItem>
+										<SelectItem value="room-wise">Room-wise</SelectItem>
 									</SelectContent>
 								</Select>
 							</div>
@@ -1345,18 +1361,44 @@ const PropertyFormPage = () => {
 												alt=""
 												className="w-full h-full object-cover"
 											/>
-											<div className="absolute top-2 left-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded-full">
-												{img.label}
+											<div className="absolute top-2 left-2 flex gap-1">
+												<div className="bg-black/70 text-white text-[10px] px-2 py-0.5 rounded-full">
+													{img.label}
+												</div>
+												{i === 0 && (
+													<div className="bg-primary/90 text-primary-foreground text-[10px] px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
+														<Star className="w-3 h-3 fill-current" /> Thumbnail
+													</div>
+												)}
 											</div>
-											<button
-												type="button"
-												onClick={() =>
-													setImages((p) => p.filter((_, j) => j !== i))
-												}
-												className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white"
-											>
-												<X className="w-3.5 h-3.5" />
-											</button>
+											<div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+												{i !== 0 && (
+													<button
+														type="button"
+														onClick={() => {
+															setImages((p) => {
+																const newP = [...p];
+																const [selectedImg] = newP.splice(i, 1);
+																newP.unshift(selectedImg);
+																return newP;
+															});
+														}}
+														className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center hover:bg-primary hover:text-white"
+														title="Set as Thumbnail"
+													>
+														<Star className="w-3.5 h-3.5" />
+													</button>
+												)}
+												<button
+													type="button"
+													onClick={() =>
+														setImages((p) => p.filter((_, j) => j !== i))
+													}
+													className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center hover:bg-red-500 hover:text-white"
+												>
+													<X className="w-3.5 h-3.5" />
+												</button>
+											</div>
 										</div>
 									);
 								})}
@@ -1381,13 +1423,7 @@ const PropertyFormPage = () => {
 					</SectionCard>
 
 					{/* ── Optional sections toggle ── */}
-					<details className="group space-y-4">
-						<summary className="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center gap-2 select-none border border-dashed border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3">
-							<span className="group-open:rotate-90 transition-transform inline-block">▸</span>
-							Optional: Map Embed &amp; Neighborhood Details
-							<span className="text-xs font-normal text-slate-400 ml-1">(add after basic info is saved)</span>
-						</summary>
-						<div className="space-y-4 pt-2">
+					<div className="space-y-4">
 
 					{/* ── Map ── */}
 					<SectionCard id="map" title="Map Embed" icon={Map}>
@@ -1518,8 +1554,8 @@ const PropertyFormPage = () => {
 						))}
 					</SectionCard>
 
-					</div>{/* end optional sections inner */}
-					</details>{/* end optional sections toggle */}
+					</div>
+
 
 					{/* ── Submit (mobile) ── */}
 					<div className="flex items-center gap-3 lg:hidden sticky bottom-0 bg-background/95 backdrop-blur border-t border-border py-4 -mx-4 px-4">

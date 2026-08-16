@@ -23,8 +23,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import api from '@/lib/api';
 
 const sidebarItems = [
 	{ name: 'Dashboard', path: '/owner', icon: LayoutDashboard },
@@ -106,13 +105,8 @@ const OwnerLayout = () => {
 		if (!user?.linked_id) return;
 
 		try {
-			const response = await fetch(
-				`${BACKEND_URL}/api/owners/${user.linked_id}`,
-			);
-			if (response.ok) {
-				const data = await response.json();
-				setOwnerData(data);
-			}
+			const { data } = await api.get(`/owners/${user.linked_id}`);
+			setOwnerData(data);
 		} catch (error) {
 			console.error('Error fetching owner data:', error);
 		}

@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import PropertyPreviewDrawer from '@/components/admin/PropertyPreviewDrawer';
 import { toast } from 'sonner';
+import api from '@/lib/api';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -111,10 +112,8 @@ const OwnerDashboardPage = () => {
 			if (silent) setRefreshing(true);
 			else setLoading(true);
 			try {
-				const res = await fetch(
-					`${BACKEND_URL}/api/owners/${ownerId}/dashboard`,
-				);
-				if (res.ok) setData(await res.json());
+				const { data } = await api.get(`/owners/${ownerId}/dashboard`);
+				setData(data);
 			} catch {
 				toast.error('Failed to load dashboard');
 			} finally {

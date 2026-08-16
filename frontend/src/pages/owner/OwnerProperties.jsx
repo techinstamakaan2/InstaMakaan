@@ -20,8 +20,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PropertyPreviewDrawer from '@/components/admin/PropertyPreviewDrawer';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import api from '@/lib/api';
 
 const OwnerProperties = () => {
   const { user } = useAuth();
@@ -38,13 +37,8 @@ const OwnerProperties = () => {
     }
 
     try {
-      const response = await fetch(
-        `${BACKEND_URL}/api/owners/${user.linked_id}/dashboard`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setProperties(data.properties || []);
-      }
+      const { data } = await api.get(`/owners/${user.linked_id}/dashboard`);
+      setProperties(data.properties || []);
     } catch (error) {
       console.error('Error fetching properties:', error);
     } finally {

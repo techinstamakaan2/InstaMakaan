@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import api from '@/lib/api';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -41,11 +42,8 @@ const PropertyPreviewDrawer = ({ propertyId, isOpen, onClose }) => {
   const fetchProperty = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${BACKEND_URL}/api/properties/${propertyId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setProperty(data);
-      }
+      const { data } = await api.get(`/properties/${propertyId}`);
+      setProperty(data);
     } catch (error) {
       console.error('Error fetching property:', error);
     } finally {

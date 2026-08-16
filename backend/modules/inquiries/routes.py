@@ -117,3 +117,36 @@ async def delete_inquiry(
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Inquiry not found")
     return {"message": "Deleted successfully"}
+
+# ✅ ADD LOG route
+@router.post("/{inquiry_id}/log")
+async def add_log(
+    inquiry_id: str,
+    agent_id: str,
+    message: str,
+    new_status: Optional[str] = None,
+    user=Depends(require_role(["admin", "agent"])),
+    db=Depends(get_db)
+):
+    log_entry = {
+        "agent_id": agent_id,
+        "message": message,
+        "status_change": new_status,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+    
+    update_fields = {
+        "$push": {"conversation_logs": log_entry},
+        "$set": {"updated_at": datetime.now(timezone.utc).isoformat()}
+    }
+    if new_status:
+        update_fields["$set"]["stage"] = new_status
+
+    result = await db.inquiries.update_one(
+        {"id": inquiry_id},
+        update_fields
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Inquiry not found")
+        
+    return {"message": "Log added successfully"}

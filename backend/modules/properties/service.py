@@ -17,7 +17,9 @@ async def create_property(data: PropertyCreate, user: dict):
         "updated_at": now,
     })
     await db.properties.insert_one(prop)
+    prop.pop("_id", None)  # Remove PyMongo injected _id
     return prop
+
 
 
 async def get_properties(filters: dict, page: int = 1, limit: int = 10):

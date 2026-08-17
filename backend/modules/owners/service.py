@@ -53,6 +53,7 @@ async def create_owner(data: OwnerCreate):
     })
 
     await db.owners.insert_one(owner)
+    owner.pop("_id", None)
     return owner
 
 

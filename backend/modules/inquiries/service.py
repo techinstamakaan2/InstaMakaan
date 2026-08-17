@@ -61,6 +61,7 @@ async def create_inquiry(data: InquiryCreate):
         )
     # ─────────────────────────────────────────────────
 
+    inquiry.pop("_id", None)
     return inquiry
 
 

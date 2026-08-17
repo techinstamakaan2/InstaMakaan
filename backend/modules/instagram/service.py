@@ -20,6 +20,7 @@ async def create_instagram_post(data: InstagramPostCreate, user: dict):
     })
 
     await db.instagram_posts.insert_one(post)
+    post.pop("_id", None)
     return post
 
 

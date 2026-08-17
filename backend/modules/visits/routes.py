@@ -55,6 +55,7 @@ async def schedule_visit(
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
     await db.visits.insert_one(visit)
+    visit.pop("_id", None)
     return {"message": "Visit scheduled", "visit": visit}
 
 

@@ -7,6 +7,13 @@ from core.security import require_role
 router = APIRouter(prefix="/faqs", tags=["FAQ"])
 
 
+# ── Admin: reorder categories ─────────────────────────────────────────────────
+@router.post("/reorder", dependencies=[Depends(require_role(["ADMIN"]))])
+async def reorder_faq_categories(ordered_ids: list[str]):
+    await service.reorder_categories(ordered_ids)
+    return {"message": "Order updated"}
+
+
 # ── Public: get all published categories (with their FAQs) ────────────────────
 @router.get("")
 @router.get("/")
@@ -84,8 +91,4 @@ async def add_faq_item(category_id: str, payload: FAQItemSchema):
     return cat
 
 
-# ── Admin: reorder categories ─────────────────────────────────────────────────
-@router.post("/reorder", dependencies=[Depends(require_role(["ADMIN"]))])
-async def reorder_faq_categories(ordered_ids: list[str]):
-    await service.reorder_categories(ordered_ids)
-    return {"message": "Order updated"}
+

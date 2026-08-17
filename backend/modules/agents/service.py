@@ -19,6 +19,7 @@ async def create_agent(data: AgentCreate):
     })
 
     await db.agents.insert_one(agent)
+    agent.pop("_id", None)
     return agent
 
 

@@ -33,6 +33,13 @@ router = APIRouter(
 )
 
 # -------------------------------------------------
+# HEALTH CHECK
+# -------------------------------------------------
+@router.get("/ping")
+async def ping():
+    return {"message": "Instagram module working"}
+
+# -------------------------------------------------
 # PUBLIC — Frontend fetches active posts
 # -------------------------------------------------
 @router.get("")
@@ -99,10 +106,4 @@ async def delete(
 
     return {"message": "Instagram post deleted successfully"}
 
-
-# -------------------------------------------------
-# HEALTH CHECK
-# -------------------------------------------------
-@router.get("/ping")
-async def ping():
-    return {"message": "Instagram module working"}
+

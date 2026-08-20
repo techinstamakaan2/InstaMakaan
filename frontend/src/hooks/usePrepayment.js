@@ -5,7 +5,8 @@ export const usePrepayment = (initialState = {}) => {
   const [principal, setPrincipal] = useState(initialState.principal || 5000000);
   const [interestRate, setInterestRate] = useState(initialState.interestRate || 8.5);
   const [tenureYears, setTenureYears] = useState(initialState.tenureYears || 20);
-  
+  const [monthsAlreadyPaid, setMonthsAlreadyPaid] = useState(initialState.monthsAlreadyPaid || 0);
+
   const [prepaymentAmount, setPrepaymentAmount] = useState(initialState.prepaymentAmount || 10000);
   const [prepaymentFrequency, setPrepaymentFrequency] = useState(initialState.prepaymentFrequency || 'Monthly'); // Monthly, Quarterly, Half-Yearly, Yearly, One-Time
   const [prepaymentStartYear, setPrepaymentStartYear] = useState(initialState.prepaymentStartYear || 1);
@@ -16,13 +17,14 @@ export const usePrepayment = (initialState = {}) => {
       principal,
       interestRate,
       tenureYears,
+      monthsAlreadyPaid,
       prepaymentAmount,
       prepaymentFrequency,
       prepaymentStartYear,
       prepaymentType
     });
   }, [
-    principal, interestRate, tenureYears,
+    principal, interestRate, tenureYears, monthsAlreadyPaid,
     prepaymentAmount, prepaymentFrequency, prepaymentStartYear, prepaymentType
   ]);
 
@@ -31,6 +33,7 @@ export const usePrepayment = (initialState = {}) => {
       principal, setPrincipal,
       interestRate, setInterestRate,
       tenureYears, setTenureYears,
+      monthsAlreadyPaid, setMonthsAlreadyPaid,
       prepaymentAmount, setPrepaymentAmount,
       prepaymentFrequency, setPrepaymentFrequency,
       prepaymentStartYear, setPrepaymentStartYear,

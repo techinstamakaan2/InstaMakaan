@@ -7,25 +7,54 @@ export const calculatePrepayment = ({
   principal,
   interestRate,
   tenureYears,
+  monthsAlreadyPaid = 0,
   prepaymentAmount,
   prepaymentFrequency, // 'Monthly', 'Quarterly', 'Half-Yearly', 'Yearly', 'One-Time'
-  prepaymentStartYear,
-  prepaymentType // 'Reduce Tenure' or 'Reduce EMI'
+  prepaymentStartYear = 1,
+  prepaymentType = 'Reduce Tenure' // 'Reduce Tenure' or 'Reduce EMI'
 }) => {
   const r = interestRate / 12 / 100;
   const n = tenureYears * 12;
   const baseEmi = calculateEMI(principal, interestRate, tenureYears);
   
   if (principal <= 0 || tenureYears <= 0) {
-    return { baseEmi: 0, interestSaved: 0, monthsSaved: 0, chartData: [], amortization: [] };
+    return {
+      baseEmi: 0,
+      outstandingBalance: 0,
+      totalInterestBase: 0,
+      totalInterestPrepay: 0,
+      interestSaved: 0,
+      monthsSaved: 0,
+      yearsSaved: 0,
+      extraMonthsSaved: 0,
+      newTenureMonths: 0,
+      chartData: [],
+      amortization: [],
+      insights: []
+    };
   }
 
-  // Scenario 1: Base Loan (Without Prepayment)
-  let balanceBase = principal;
+  // 1. Calculate actual current balance after monthsAlreadyPaid
+  let outstandingBalance = principal;
+  let totalInterestAlreadyPaid = 0;
+  const actualMonthsPaid = Math.min(monthsAlreadyPaid, n - 1);
+
+  for (let m = 1; m <= actualMonthsPaid; m++) {
+    const interest = outstandingBalance * r;
+    totalInterestAlreadyPaid += interest;
+    let prin = baseEmi - interest;
+    if (prin > outstandingBalance) prin = outstandingBalance;
+    outstandingBalance -= prin;
+  }
+
+  const remainingMonths = n - actualMonthsPaid;
+
+  // Scenario 1: Base Loan (Without Prepayment over remaining tenure)
+  let balanceBase = outstandingBalance;
   let totalInterestBase = 0;
   let monthsBase = 0;
 
-  for (let m = 1; m <= n; m++) {
+  for (let m = 1; m <= remainingMonths; m++) {
     if (balanceBase <= 0) break;
     const interest = balanceBase * r;
     totalInterestBase += interest;
@@ -36,7 +65,7 @@ export const calculatePrepayment = ({
   }
 
   // Scenario 2: With Prepayment
-  let balancePrepay = principal;
+  let balancePrepay = outstandingBalance;
   let totalInterestPrepay = 0;
   let monthsPrepay = 0;
   let currentEmi = baseEmi;
@@ -44,22 +73,20 @@ export const calculatePrepayment = ({
   const amortization = [];
   const chartData = [];
 
-  // Initial chart data point
+  // Initial chart point (at starting month)
   chartData.push({
-    year: 0,
-    Base: Math.round(principal),
-    Prepay: Math.round(principal)
+    month: actualMonthsPaid,
+    balanceWithoutPrepay: Math.round(outstandingBalance),
+    balanceWithPrepay: Math.round(outstandingBalance)
   });
 
-  // Track yearly balances for chart
-  let yearlyBalanceBase = principal;
-  let yearlyBalancePrepay = principal;
+  let yearlyBalanceBase = outstandingBalance;
+  let yearlyBalancePrepay = outstandingBalance;
 
-  // Simulate month by month for maximum 40 years to prevent infinite loops on weird inputs
   for (let m = 1; m <= 480; m++) {
-    if (balancePrepay <= 0 && yearlyBalanceBase <= 0) break; // Both loans finished
+    if (balancePrepay <= 0 && yearlyBalanceBase <= 0) break;
 
-    // --- Process Base Loan (just for yearly chart tracking) ---
+    // Process Base Loan for chart tracking
     if (yearlyBalanceBase > 0) {
       const baseInt = yearlyBalanceBase * r;
       let basePrin = baseEmi - baseInt;
@@ -67,7 +94,7 @@ export const calculatePrepayment = ({
       yearlyBalanceBase -= basePrin;
     }
 
-    // --- Process Prepay Loan ---
+    // Process Prepay Loan
     let interestForMonth = 0;
     let principalPaid = 0;
     let extraPayment = 0;
@@ -76,7 +103,6 @@ export const calculatePrepayment = ({
       interestForMonth = balancePrepay * r;
       totalInterestPrepay += interestForMonth;
 
-      // Determine if a prepayment happens this month
       if (m >= startMonth) {
         if (prepaymentFrequency === 'Monthly') extraPayment = prepaymentAmount;
         else if (prepaymentFrequency === 'Quarterly' && (m - startMonth) % 3 === 0) extraPayment = prepaymentAmount;
@@ -85,62 +111,47 @@ export const calculatePrepayment = ({
         else if (prepaymentFrequency === 'One-Time' && m === startMonth) extraPayment = prepaymentAmount;
       }
 
-      // If Reduce EMI strategy is selected and a prepayment was just made, recalculate EMI
       if (extraPayment > 0 && prepaymentType === 'Reduce EMI') {
-         // Temporarily subtract extra payment to calculate new EMI for remaining tenure
-         const newBalance = Math.max(0, balancePrepay - extraPayment);
-         const remainingMonths = n - m + 1; // months left including this one
-         if (remainingMonths > 0) {
-             currentEmi = calculateEMI(newBalance, interestRate, remainingMonths / 12);
-         }
+        const newBalance = Math.max(0, balancePrepay - extraPayment);
+        const remM = remainingMonths - m + 1;
+        if (remM > 0) {
+          currentEmi = calculateEMI(newBalance, interestRate, remM / 12);
+        }
       }
 
       const totalMonthlyPayment = currentEmi + extraPayment;
       principalPaid = totalMonthlyPayment - interestForMonth;
-      
       if (principalPaid > balancePrepay) {
-          principalPaid = balancePrepay; // Final month
+        principalPaid = balancePrepay;
       }
-      
+
       balancePrepay -= principalPaid;
       monthsPrepay++;
       yearlyBalancePrepay = balancePrepay;
-      
-      // Save amortization details
+
+      const currentMonthNumber = actualMonthsPaid + m;
       amortization.push({
-        month: m,
-        year: Math.ceil(m / 12),
+        month: currentMonthNumber,
+        year: Math.ceil(currentMonthNumber / 12),
         emi: currentEmi,
         extraPayment,
-        principal: principalPaid - extraPayment,
+        principal: Math.max(0, principalPaid - extraPayment),
         interest: interestForMonth,
-        balance: Math.max(0, balancePrepay)
+        balance: Math.max(0, balancePrepay),
+        remainingBalance: Math.max(0, balancePrepay),
+        principalPaid: Math.max(0, principalPaid - extraPayment),
+        interestPaid: interestForMonth,
+        prepaymentAmount: extraPayment
       });
     }
 
-    // Save chart data at the end of every year
-    if (m % 12 === 0) {
+    const monthNumber = actualMonthsPaid + m;
+    if (m % 12 === 0 || balancePrepay <= 0) {
       chartData.push({
-        year: m / 12,
-        Base: Math.max(0, Math.round(yearlyBalanceBase)),
-        Prepay: Math.max(0, Math.round(yearlyBalancePrepay))
+        month: monthNumber,
+        balanceWithoutPrepay: Math.max(0, Math.round(yearlyBalanceBase)),
+        balanceWithPrepay: Math.max(0, Math.round(yearlyBalancePrepay))
       });
-    }
-  }
-
-  // Handle fractional year at the end if loan ends mid-year
-  if (monthsBase % 12 !== 0 || monthsPrepay % 12 !== 0) {
-    const finalYear = Math.ceil(Math.max(monthsBase, monthsPrepay) / 12);
-    // Ensure we don't duplicate the last year if it exactly hit a 12 month mark in the loop
-    if (chartData[chartData.length - 1].year !== finalYear) {
-      chartData.push({
-        year: finalYear,
-        Base: 0,
-        Prepay: 0
-      });
-    } else {
-        chartData[chartData.length - 1].Base = 0;
-        chartData[chartData.length - 1].Prepay = 0;
     }
   }
 
@@ -149,15 +160,12 @@ export const calculatePrepayment = ({
   const yearsSaved = Math.floor(monthsSaved / 12);
   const extraMonthsSaved = monthsSaved % 12;
 
-  // Generate Insights
   const insights = [];
   if (interestSaved > 0) {
-    insights.push(`Paying <strong>₹${prepaymentAmount.toLocaleString('en-IN')}</strong> ${prepaymentFrequency.toLowerCase()} saves you <strong>₹${(interestSaved >= 100000 ? (interestSaved/100000).toFixed(1) + ' Lakhs' : interestSaved.toLocaleString('en-IN'))}</strong>.`);
+    insights.push(`Paying <strong>₹${prepaymentAmount.toLocaleString('en-IN')}</strong> ${prepaymentFrequency.toLowerCase()} saves you <strong>₹${(interestSaved >= 100000 ? (interestSaved/100000).toFixed(2) + ' Lakhs' : interestSaved.toLocaleString('en-IN'))}</strong> in interest.`);
     insights.push(`Your loan finishes <strong>${yearsSaved} years and ${extraMonthsSaved} months</strong> earlier.`);
-    if (prepaymentStartYear > 1) {
-      insights.push(`Starting prepayment from Year 1 instead of Year ${prepaymentStartYear} would save you significantly more, as interest is heaviest early on.`);
-    } else {
-      insights.push(`You are maximizing savings by prepaying early when the interest component of your EMI is at its highest.`);
+    if (actualMonthsPaid > 0) {
+      insights.push(`With ${actualMonthsPaid} months already paid, your current outstanding loan balance is <strong>₹${(outstandingBalance >= 100000 ? (outstandingBalance/100000).toFixed(2) + ' Lakhs' : outstandingBalance.toLocaleString('en-IN'))}</strong>.`);
     }
   } else {
     insights.push(`Increase your prepayment amount to see significant interest savings.`);
@@ -165,6 +173,7 @@ export const calculatePrepayment = ({
 
   return {
     baseEmi,
+    outstandingBalance,
     totalInterestBase,
     totalInterestPrepay,
     interestSaved,

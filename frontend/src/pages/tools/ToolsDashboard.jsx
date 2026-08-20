@@ -69,8 +69,9 @@ export default function ToolsDashboard() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium mb-6">
             <TrendingUp className="w-4 h-4" /> Data-Driven Real Estate
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight">
-            Smart Tools for Smart Buyers
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+            <span className="text-teal-600 dark:text-teal-400">Smart Tools for</span>{' '}
+            <span className="text-amber-500 dark:text-amber-400">Smart Buyers</span>
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10">
             Make confident, data-backed financial decisions with our advanced suite of real estate calculators. We handle the complex math so you can focus on finding your dream home.

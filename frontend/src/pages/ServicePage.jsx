@@ -84,7 +84,7 @@ const ServicePage = () => {
 							<Briefcase className="w-3.5 h-3.5" />
 							{service.location}
 						</div>
-						<h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">
+						<h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight text-teal-600 dark:text-teal-400">
 							{service.title}
 						</h1>
 						<p className="mt-3 text-lg text-teal-600 dark:text-teal-400 font-medium">{service.tagline}</p>

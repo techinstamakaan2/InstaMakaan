@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import * as Accordion from '@radix-ui/react-accordion';
-import { ChevronDown, BarChart3, TrendingUp, Home, ArrowRightLeft } from 'lucide-react';
+import { ChevronDown, BarChart3, TrendingUp, Home, ArrowRightLeft, Layers, CheckCircle2 } from 'lucide-react';
 import {
   AreaChart,
   Area,
@@ -79,8 +79,9 @@ export default function RentVsBuyCalculator() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 font-medium mb-6">
             <ArrowRightLeft className="w-4 h-4" /> Comprehensive Financial Model
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
-            Rent vs Buy Calculator
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+            <span className="text-teal-600 dark:text-teal-400">Rent vs Buy</span>{' '}
+            <span className="text-amber-500 dark:text-amber-400">Calculator</span>
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Stop guessing. This model factors in property taxes, maintenance, rent inflation, compounding investments, and home equity to give you a definitive mathematical answer.
@@ -218,6 +219,22 @@ export default function RentVsBuyCalculator() {
               </TabsContent>
             </Tabs>
 
+            {/* TIMELINE */}
+            <Card className="shadow-lg border-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl print:shadow-none print:border">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-xl font-bold flex items-center gap-2 text-gray-900 dark:text-white">
+                  <TrendingUp className="w-5 h-5 text-blue-500" /> Financial Timeline
+                </CardTitle>
+                <CardDescription className="text-sm">Key financial milestones across your loan tenure</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Timeline milestones={milestones} />
+              </CardContent>
+            </Card>
+
+            {/* EXPORT PANEL */}
+            <ExportPanel csvData={generateCSV(csvData)} csvFilename="rent_vs_buy_projection.csv" />
+
           </div>
 
           {/* RIGHT COLUMN - RESULTS */}
@@ -327,61 +344,95 @@ export default function RentVsBuyCalculator() {
               </CardContent>
             </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print:flex print:flex-row print:w-full">
-                {/* TIMELINE */}
-                <Card className="shadow-lg border-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl h-full print:shadow-none print:border print:w-1/2">
-                    <CardHeader>
-                        <CardTitle className="text-xl">Financial Timeline</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <Timeline milestones={milestones} />
-                    </CardContent>
-                </Card>
-
-                {/* SENSITIVITY & SCENARIOS */}
-                <div className="space-y-4 print:w-1/2">
-                    <Accordion.Root type="single" collapsible className="space-y-4 print:hidden">
-                        <Accordion.Item value="scenarios" className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm">
-                            <Accordion.Header className="flex">
-                                <Accordion.Trigger className="flex flex-1 items-center justify-between p-5 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors [&[data-state=open]>svg]:rotate-180">
-                                    Compare Down Payment Scenarios
-                                    <ChevronDown className="w-5 h-5 text-gray-400 transition-transform duration-300" />
-                                </Accordion.Trigger>
-                            </Accordion.Header>
-                            <Accordion.Content className="overflow-hidden text-gray-700 dark:text-gray-300 text-sm data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
-                                <div className="p-5 border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/20">
-                                    <div className="overflow-x-auto">
-                                        <table className="w-full text-left">
-                                            <thead>
-                                                <tr className="border-b dark:border-gray-700 text-xs uppercase text-gray-500">
-                                                    <th className="pb-3 pr-4 font-semibold">Downpayment</th>
-                                                    <th className="pb-3 px-4 font-semibold text-right">Loan Needed</th>
-                                                    <th className="pb-3 pl-4 font-semibold text-right text-primary">Monthly EMI</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {results.scenarios.map((scen, idx) => (
-                                                    <tr key={idx} className={`border-b dark:border-gray-700/50 hover:bg-white dark:hover:bg-gray-800 transition-colors ${scen.downPaymentPct === state.downPaymentPercent ? 'bg-primary/5 dark:bg-primary/10' : ''}`}>
-                                                        <td className="py-4 pr-4 font-medium">
-                                                            {scen.downPaymentPct}% 
-                                                            {scen.downPaymentPct === state.downPaymentPercent && <span className="ml-2 text-xs bg-primary text-white px-2 py-0.5 rounded-full">Current</span>}
-                                                        </td>
-                                                        <td className="py-4 px-4 text-right text-gray-600 dark:text-gray-400">{formatCurrency(scen.loanAmount)}</td>
-                                                        <td className="py-4 pl-4 text-right font-bold text-gray-900 dark:text-white">{formatCurrency(scen.emi)}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </Accordion.Content>
-                        </Accordion.Item>
-                    </Accordion.Root>
+            {/* COMPARE DOWN PAYMENT SCENARIOS */}
+            <Card className="shadow-lg border-0 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl overflow-hidden print:shadow-none print:border">
+              <CardHeader className="pb-4 border-b border-gray-100 dark:border-gray-800/80 bg-gray-50/50 dark:bg-gray-800/30">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div>
+                    <CardTitle className="text-lg md:text-xl font-bold flex items-center gap-2.5 text-gray-900 dark:text-white">
+                      <div className="w-8 h-8 rounded-lg bg-blue-500/10 dark:bg-blue-400/20 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                        <Layers className="w-4 h-4" />
+                      </div>
+                      Compare Down Payment Scenarios
+                    </CardTitle>
+                    <CardDescription className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Analyze how higher or lower down payments impact your required loan amount & monthly EMI
+                    </CardDescription>
+                  </div>
                 </div>
-            </div>
-            
-            <ExportPanel csvData={generateCSV(csvData)} csvFilename="rent_vs_buy_projection.csv" />
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto custom-scrollbar">
+                  <table className="w-full text-left border-collapse min-w-[560px]">
+                    <thead>
+                      <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50/80 dark:bg-gray-800/50 text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                        <th className="py-3 px-4 md:px-5">Down Payment</th>
+                        <th className="py-3 px-4 md:px-5 text-right">Down Payment Amount</th>
+                        <th className="py-3 px-4 md:px-5 text-right">Loan Needed</th>
+                        <th className="py-3 px-4 md:px-5 text-right">Monthly EMI</th>
+                        <th className="py-3 px-4 md:px-5 text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800/60 text-xs md:text-sm">
+                      {results.scenarios.map((scen, idx) => {
+                        const isCurrent = scen.downPaymentPct === state.downPaymentPercent;
+                        return (
+                          <tr 
+                            key={idx} 
+                            className={`transition-colors ${
+                              isCurrent 
+                                ? 'bg-blue-50/80 dark:bg-blue-950/40 font-medium' 
+                                : 'hover:bg-gray-50/60 dark:hover:bg-gray-800/40'
+                            }`}
+                          >
+                            <td className="py-3.5 px-4 md:px-5">
+                              <div className="flex items-center gap-2">
+                                <span className="font-bold text-gray-900 dark:text-white text-sm">
+                                  {scen.downPaymentPct}%
+                                </span>
+                                {isCurrent && (
+                                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-600 text-white shadow-xs">
+                                    Current
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+                            <td className="py-3.5 px-4 md:px-5 text-right text-gray-700 dark:text-gray-300 font-medium">
+                              {formatCurrency(scen.downPaymentAmt)}
+                            </td>
+                            <td className="py-3.5 px-4 md:px-5 text-right text-gray-600 dark:text-gray-400">
+                              {formatCurrency(scen.loanAmount)}
+                            </td>
+                            <td className="py-3.5 px-4 md:px-5 text-right font-bold text-gray-900 dark:text-white">
+                              {formatCurrency(scen.emi)}
+                              <span className="text-[10px] text-gray-400 dark:text-gray-500 font-normal block">/ month</span>
+                            </td>
+                            <td className="py-3.5 px-4 md:px-5 text-center">
+                              {isCurrent ? (
+                                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-100/70 dark:bg-blue-900/50 px-2.5 py-1 rounded-lg">
+                                  <CheckCircle2 className="w-3.5 h-3.5" /> Selected
+                                </span>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => state.setDownPaymentPercent(scen.downPaymentPct)}
+                                  className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-500 px-3 py-1 rounded-lg border border-blue-200 dark:border-blue-800 transition-all duration-150 shadow-2xs"
+                                >
+                                  Apply
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+
           </div>
+
         </div>
       </div>
     </Layout>

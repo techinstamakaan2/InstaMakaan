@@ -259,7 +259,7 @@ export default function HeroSection() {
 				.hero-title span:nth-child(3) { color:#0d9488; animation-delay:.5s; }
 				.dark .hero-title span:nth-child(1),
 				.dark .hero-title span:nth-child(3) { color:#14b8a6; }
-				.dark .hero-title span:nth-child(2)  {  } /* teal-400 */
+				.dark .hero-title span:nth-child(2) { color:#fbbf24; }
 				.hero-subtitle {
 					font-family: 'Cabinet Grotesk', sans-serif;
 					font-size: clamp(.82rem,2.2vw,1.05rem);

@@ -21,8 +21,8 @@ const modeConfig = {
 		filterTwoLabel: 'BHK',
 		filterTwoOptions: ['1', '2', '3', '4', '5+'],
 		searchBtnText: 'Search',
-		accentColor: 'text-teal-500',
-		highlightColor: 'text-yellow-500 dark:text-teal-400',
+		accentColor: 'text-teal-600 dark:text-teal-400',
+		highlightColor: 'text-amber-500 dark:text-amber-400',
 		overlay:
 			'bg-gradient-to-b from-white/70 via-white/60 to-white/80 dark:from-[#0b1220]/90 dark:via-[#0b1220]/85 dark:to-[#0b1220]/95',
 		inputFocus: 'focus:ring-teal-400 focus:border-teal-400',
@@ -51,8 +51,8 @@ const modeConfig = {
 		filterTwoLabel: 'Budget',
 		filterTwoOptions: ['Under 30L', '30L–60L', '60L–1Cr', '1Cr–2Cr', '2Cr+'],
 		searchBtnText: 'Search',
-		accentColor: 'text-teal-500',
-		highlightColor: 'text-yellow-500 dark:text-teal-400',
+		accentColor: 'text-teal-600 dark:text-teal-400',
+		highlightColor: 'text-amber-500 dark:text-amber-400',
 		overlay:
 			'bg-gradient-to-b from-white/70 via-white/60 to-white/80 dark:from-[#0b1220]/90 dark:via-[#0b1220]/85 dark:to-[#0b1220]/95',
 		inputFocus: 'focus:ring-teal-400 focus:border-teal-400',
@@ -301,7 +301,7 @@ export const HeroSection = forwardRef((props, ref) => {
 
 				{/* HEADLINE — always single line */}
 				<h1
-					className={`text-2xl sm:text-6xl md:text-7xl font-bold leading-tight transition-colors duration-500 ${cfg.accentColor} dark:text-white`}
+					className={`text-2xl sm:text-6xl md:text-7xl font-bold leading-tight transition-colors duration-500 ${cfg.accentColor}`}
 				>
 					{cfg.headline}{' '}
 					<span

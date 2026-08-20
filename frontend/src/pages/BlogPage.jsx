@@ -414,16 +414,11 @@ const BlogPage = () => {
 
 						{/* Heading */}
 						<h1
-							className="blog-reveal text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold text-foreground mb-3 leading-tight tracking-tight"
+							className="blog-reveal text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold mb-3 leading-tight tracking-tight"
 							style={{ animationDelay: '80ms' }}
 						>
-							Real Estate, Guides
-							<br />
-							&amp;{' '}
-							<span className="bg-clip-text text-transparent"
-								style={{ backgroundImage: 'linear-gradient(135deg, hsl(175 65% 30%), hsl(175 70% 45%))' }}>
-								Local Insights
-							</span>
+							<span className="text-teal-600 dark:text-teal-400">Real Estate, Guides &amp;</span>{' '}
+							<span className="text-amber-500 dark:text-amber-400">Local Insights</span>
 						</h1>
 
 						{/* Subtitle */}

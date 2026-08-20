@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/context/AuthContext';
 import { ModeProvider } from '@/context/ModeContext';
+import { ThemeProvider } from '@/context/ThemeContext';
 import ProtectedRoute, {
 	RoleBasedRedirect,
 } from '@/components/auth/ProtectedRoute';
@@ -88,27 +89,11 @@ const OwnerProperties = lazy(() => import('@/pages/owner/OwnerProperties'));
 const OwnerEarnings = lazy(() => import('@/pages/owner/OwnerEarnings'));
 
 function App() {
-	// Site has a single design, but should still render correctly if the
-	// visitor's browser/OS is set to dark mode — no manual toggle, just
-	// mirror whatever the browser reports, live.
-	useEffect(() => {
-		const savedTheme = localStorage.getItem('theme');
-		if (savedTheme) {
-			document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-			return;
-		}
-		const mq = window.matchMedia('(prefers-color-scheme: dark)');
-		const applyTheme = (isDark) => document.documentElement.classList.toggle('dark', isDark);
-		applyTheme(mq.matches);
-		const handleChange = (e) => applyTheme(e.matches);
-		mq.addEventListener('change', handleChange);
-		return () => mq.removeEventListener('change', handleChange);
-	}, []);
-
 	return (
-		<div className="App">
-			<ModeProvider>
-			<AuthProvider>
+		<ThemeProvider>
+			<div className="App">
+				<ModeProvider>
+				<AuthProvider>
 				<BrowserRouter>
 					<ScrollToTop />
 					<ScrollRevealObserver />
@@ -247,6 +232,7 @@ function App() {
 			</AuthProvider>
 			</ModeProvider>
 		</div>
+	</ThemeProvider>
 	);
 }
 

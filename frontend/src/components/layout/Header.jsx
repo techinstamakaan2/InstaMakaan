@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '@/context/ThemeContext';
 
 const NAV_LINKS = [
 	{ name: 'Home', path: '/', icon: <Home size={17} /> },
@@ -40,26 +41,10 @@ export const Header = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [openMore, setOpenMore] = useState(false);
 	const [openProfile, setOpenProfile] = useState(false);
-	const [theme, setTheme] = useState('light');
+	const { theme, toggleTheme } = useTheme();
 	const moreRef = useRef(null);
 	const profileRef = useRef(null);
 
-	useEffect(() => {
-		const savedTheme = localStorage.getItem('theme');
-		if (savedTheme) {
-			setTheme(savedTheme);
-		} else {
-			const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			setTheme(isDark ? 'dark' : 'light');
-		}
-	}, []);
-
-	const toggleTheme = () => {
-		const newTheme = theme === 'light' ? 'dark' : 'light';
-		setTheme(newTheme);
-		localStorage.setItem('theme', newTheme);
-		document.documentElement.classList.toggle('dark', newTheme === 'dark');
-	};
 
 	const location = useLocation();
 	const navigate = useNavigate();

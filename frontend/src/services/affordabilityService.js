@@ -92,8 +92,10 @@ export const calculateAffordability = ({
       insights.push(`A 1% lower interest rate would increase your affordability by <strong>₹${(rateDiff/100000).toFixed(1)} Lakhs</strong>.`);
   }
 
-  // Compare Scenarios (20%, 30%, 40% down payments)
-  const scenarios = [20, 30, 40].map(pct => {
+  // Compare Scenarios (10%, 20%, 30%, 40%, 50% + current if custom)
+  const defaultPcts = [10, 20, 30, 40, 50];
+  const pcts = Array.from(new Set([...defaultPcts, downPaymentPercent])).sort((a, b) => a - b);
+  const scenarios = pcts.map(pct => {
       const dpAmt = (maxHomePrice * (pct / 100));
       const loanAmt = maxHomePrice - dpAmt;
       const emi = calculateEMI(loanAmt, homeLoanRate, loanTenure);
@@ -105,6 +107,7 @@ export const calculateAffordability = ({
           totalInterest: (emi * loanTenure * 12) - loanAmt
       };
   });
+
 
   // Chart Data Preparation
   const chartData = [

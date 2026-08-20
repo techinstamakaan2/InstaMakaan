@@ -185,8 +185,9 @@ const SocietyReviewPage = () => {
 								<MapPin className="w-3.5 h-3.5" />
 								{societyName}
 							</div>
-							<h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">
-								{societyName} <span className="text-teal-600 dark:text-teal-400">Review</span>
+							<h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
+								<span className="text-teal-600 dark:text-teal-400">{societyName}</span>{' '}
+								<span className="text-amber-500 dark:text-amber-400">Review</span>
 							</h1>
 							<p className="mt-3 text-slate-500 dark:text-slate-400 text-base">
 								An independent overview to help you decide — connectivity, amenities, and things to know

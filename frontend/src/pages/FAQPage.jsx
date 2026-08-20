@@ -125,8 +125,9 @@ const FAQPage = () => {
 						</div>
 
 						{/* TITLE — "help" teal, "you" yellow */}
-						<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-5 leading-tight">
-							How can we help you?
+						<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
+							<span className="text-teal-600 dark:text-teal-400">How can we help</span>{' '}
+							<span className="text-amber-500 dark:text-amber-400">you?</span>
 						</h1>
 
 						<p className="text-gray-500 dark:text-gray-400 text-base md:text-lg mb-10 leading-relaxed">

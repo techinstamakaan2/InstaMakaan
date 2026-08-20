@@ -70,8 +70,9 @@ export default function HomeLoanPrepaymentCalculator() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-emerald-600 font-medium mb-6">
             <FastForward className="w-4 h-4" /> Debt Freedom Planner
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
-            Home Loan Prepayment Calculator
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+            <span className="text-teal-600 dark:text-teal-400">Home Loan Prepayment</span>{' '}
+            <span className="text-amber-500 dark:text-amber-400">Calculator</span>
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Find out exactly how many years you can shave off your mortgage and how much interest you can save by making extra payments.
@@ -86,8 +87,8 @@ export default function HomeLoanPrepaymentCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* LEFT COLUMN - INPUTS */}
-          <div className="lg:col-span-4 space-y-6 print:hidden">
+          {/* LEFT COLUMN - INPUTS & TIMELINE */}
+          <div className="lg:col-span-5 space-y-6 print:hidden">
             <Card className="shadow-lg border-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl">
               <CardHeader className="pb-4">
                 <CardTitle className="text-xl flex items-center gap-2"><Calculator className="w-5 h-5 text-emerald-500" /> Current Loan Details</CardTitle>
@@ -100,17 +101,17 @@ export default function HomeLoanPrepaymentCalculator() {
                 />
                 <SliderInput 
                   label="Interest Rate" 
-                  value={state.annualRate} min={5} max={15} step={0.1}
-                  onChange={state.setAnnualRate} formatDisplay={formatPercentage} 
+                  value={state.interestRate} min={5} max={15} step={0.1}
+                  onChange={state.setInterestRate} formatDisplay={formatPercentage} 
                 />
                 <SliderInput 
                   label="Original Tenure (Years)" 
-                  value={state.loanTenure} min={1} max={30} step={1}
-                  onChange={state.setLoanTenure} formatDisplay={(v) => `${v} Yrs`} 
+                  value={state.tenureYears} min={1} max={30} step={1}
+                  onChange={state.setTenureYears} formatDisplay={(v) => `${v} Yrs`} 
                 />
                 <SliderInput 
                   label={<InfoTooltip text="Months Already Paid" content="How many EMIs you have already paid since taking the loan." />}
-                  value={state.monthsAlreadyPaid} min={0} max={state.loanTenure * 12} step={1}
+                  value={state.monthsAlreadyPaid} min={0} max={state.tenureYears * 12} step={1}
                   onChange={state.setMonthsAlreadyPaid} formatDisplay={(v) => `${v} Months`} 
                 />
               </CardContent>
@@ -168,12 +169,33 @@ export default function HomeLoanPrepaymentCalculator() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* TIMELINE */}
+            <Card className="shadow-lg border-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-xl font-bold flex items-center gap-2 text-gray-900 dark:text-white">
+                  <CalendarClock className="w-5 h-5 text-emerald-500" /> Loan Timeline
+                </CardTitle>
+                <CardDescription className="text-sm">Payoff milestones with prepayments</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Timeline milestones={milestones} />
+              </CardContent>
+            </Card>
+
+            <ExportPanel csvData={generateCSV(csvData)} csvFilename="prepayment_schedule.csv" />
           </div>
 
           {/* RIGHT COLUMN - RESULTS */}
-          <div className="lg:col-span-8 space-y-6">
+          <div className="lg:col-span-7 space-y-6">
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <ResultCard 
+                title={<InfoTooltip text="Outstanding Balance" content="Current remaining principal loan balance after previous EMI payments." />}
+                value={<AnimatedCounter value={results.outstandingBalance} formatter={formatCurrency} />} 
+                subtitle={`After ${state.monthsAlreadyPaid} Months Paid`}
+                highlight={true}
+              />
               <ResultCard 
                 title="Interest Saved" 
                 value={<AnimatedCounter value={results.interestSaved} formatter={formatCurrency} />} 
@@ -192,7 +214,7 @@ export default function HomeLoanPrepaymentCalculator() {
               />
               <ResultCard 
                 title={<InfoTooltip text="Revised New EMI" content="If you chose to Reduce EMI, this will be your new monthly bill. Otherwise it stays the same." />}
-                value={<AnimatedCounter value={state.prepaymentType === 'Reduce EMI' ? (results.baseEmi * 0.9) : results.baseEmi} formatter={formatCurrency} />} 
+                value={<AnimatedCounter value={state.prepaymentType === 'Reduce EMI' ? (results.baseEmi * 0.85) : results.baseEmi} formatter={formatCurrency} />} 
                 subtitle="After prepayment"
               />
             </div>
@@ -209,7 +231,7 @@ export default function HomeLoanPrepaymentCalculator() {
                 <Card className="shadow-lg border-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl">
                   <CardHeader>
                     <CardTitle className="text-xl flex items-center gap-2"><CalendarClock className="w-5 h-5" /> Outstanding Loan Balance</CardTitle>
-                    <CardDescription>See how quickly your debt drops to zero.</CardDescription>
+                    <CardDescription>See how quickly your debt drops to zero with prepayments.</CardDescription>
                   </CardHeader>
                   <CardContent className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
@@ -244,67 +266,16 @@ export default function HomeLoanPrepaymentCalculator() {
                     </ResponsiveContainer>
                   </CardContent>
                 </Card>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print:flex print:flex-row print:w-full">
-                    <Card className="shadow-lg border-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl h-full print:shadow-none print:border print:w-1/2">
-                        <CardHeader>
-                            <CardTitle className="text-xl">Loan Timeline</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <Timeline milestones={milestones} />
-                        </CardContent>
-                    </Card>
-
-                    <div className="space-y-4 print:w-1/2">
-                       {/* Additional insights can go here if needed in print mode */}
-                    </div>
-                </div>
-
-                <ExportPanel csvData={generateCSV(csvData)} csvFilename="prepayment_schedule.csv" />
               </TabsContent>
 
               <TabsContent value="schedule" className="animate-in fade-in duration-300 print:hidden">
                 <Card className="shadow-lg border-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl overflow-hidden">
                   <CardHeader>
                     <CardTitle className="text-xl">Monthly Amortization Schedule</CardTitle>
-                    <CardDescription>A detailed breakdown of every payment.</CardDescription>
+                    <CardDescription>A detailed breakdown of every payment (scroll to view full schedule).</CardDescription>
                   </CardHeader>
-                  <CardContent className="p-0">
-                    <div className="hidden md:block">
-                        <AmortizationTable data={results.amortization} />
-                    </div>
-                    {/* Mobile Card View for Tables to prevent horizontal scroll */}
-                    <div className="md:hidden space-y-4 p-4 max-h-[600px] overflow-y-auto">
-                        {results.amortization.slice(0, 50).map((row) => (
-                            <div key={row.month} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
-                                <div className="flex justify-between items-center mb-3">
-                                    <span className="font-bold text-gray-900 dark:text-white">Month {row.month}</span>
-                                    <span className="text-xs bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-1 rounded-full font-medium">Balance: {formatCurrency(row.remainingBalance)}</span>
-                                </div>
-                                <div className="space-y-1 text-sm">
-                                    <div className="flex justify-between text-gray-600 dark:text-gray-400">
-                                        <span>Principal</span>
-                                        <span>{formatCurrency(row.principalPaid)}</span>
-                                    </div>
-                                    <div className="flex justify-between text-red-500/80">
-                                        <span>Interest</span>
-                                        <span>{formatCurrency(row.interestPaid)}</span>
-                                    </div>
-                                    {row.prepaymentAmount > 0 && (
-                                        <div className="flex justify-between text-primary font-medium pt-1 border-t dark:border-gray-700 mt-1">
-                                            <span>Prepayment</span>
-                                            <span>{formatCurrency(row.prepaymentAmount)}</span>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                        {results.amortization.length > 50 && (
-                            <div className="text-center text-gray-500 py-4 text-sm font-medium">
-                                Showing first 50 months. Export to CSV for full schedule.
-                            </div>
-                        )}
-                    </div>
+                  <CardContent className="p-4">
+                    <AmortizationTable data={results.amortization} />
                   </CardContent>
                 </Card>
               </TabsContent>

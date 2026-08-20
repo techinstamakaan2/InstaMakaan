@@ -132,9 +132,10 @@ export const calculateRentVsBuy = (inputs) => {
     insights.push(`Break-even occurs in <strong>Year ${breakEvenYear}</strong>. If you plan to move before this, renting is financially safer.`);
   }
 
-  // Scenarios for Rent vs Buy (Down payments 10%, 20%, 30%)
-  // For simplicity we just return a structured object for the UI to render if needed
-  const scenarios = [10, 20, 30].map(pct => {
+  // Dynamic scenarios for Down payments (10%, 20%, 30%, 40%, 50% + current if custom)
+  const defaultPcts = [10, 20, 30, 40, 50];
+  const pcts = Array.from(new Set([...defaultPcts, downPaymentPercent])).sort((a, b) => a - b);
+  const scenarios = pcts.map(pct => {
       const dpAmt = propertyValue * (pct / 100);
       const loanAmt = propertyValue - dpAmt;
       const r_scenario = homeLoanRate / 12 / 100;
@@ -146,6 +147,7 @@ export const calculateRentVsBuy = (inputs) => {
           emi: emi_scenario
       };
   });
+
 
   return {
     downPayment,

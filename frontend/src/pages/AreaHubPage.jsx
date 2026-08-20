@@ -129,8 +129,9 @@ const AreaHubPage = () => {
 							<MapPin className="w-3.5 h-3.5" />
 							{hub.kicker}
 						</div>
-						<h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">
-							<span className="text-teal-600 dark:text-teal-400">{hub.title}</span> Real Estate Guide
+						<h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
+							<span className="text-teal-600 dark:text-teal-400">{hub.title}</span>{' '}
+							<span className="text-amber-500 dark:text-amber-400">Real Estate Guide</span>
 						</h1>
 						<p className="mt-4 text-slate-500 dark:text-slate-400 text-base">{hub.heroSubtitle}</p>
 

@@ -10,8 +10,11 @@ import ProtectedRoute, {
 } from '@/components/auth/ProtectedRoute';
 const NxOneArkDetailPage = lazy(() => import('@/pages/sell/NxOneArkDetailPage'));
 const AspireCenturianParkPage = lazy(() => import('@/pages/sell/AspireCenturianParkPage'));
+const EterniaPage = lazy(() => import('@/pages/sell/EterniaPage'));
 const AlpgPage = lazy(() => import('@/pages/sell/AlpgPage'));
 const ParadiseCityPage = lazy(() => import('@/pages/sell/ParadiseCityPage'));
+const ShriVillaPage = lazy(() => import('@/pages/sell/ShriVillaPage'));
+const YamunaCommercialPage = lazy(() => import('@/pages/sell/YamunaCommercialPage'));
 /* ================= PUBLIC PAGES ================= */
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const AllPropertiesPage = lazy(() => import('@/pages/AllPropertiesPage'));
@@ -133,8 +136,11 @@ function App() {
 							<Route path="/areas/:slug" element={<AreaHubPage />} />
 							<Route path="/sell-companies/nx-one-ark" element={<NxOneArkDetailPage />} />
 							<Route path="/sell-companies/aspire-centurian-park" element={<AspireCenturianParkPage />} />
+							<Route path="/sell-companies/eternia" element={<EterniaPage />} />
 							<Route path="/sell-companies/aspire-leisure-park" element={<AlpgPage />} />
 							<Route path="/sell-companies/paradise-city" element={<ParadiseCityPage />} />
+							<Route path="/sell-companies/shri-villa" element={<ShriVillaPage />} />
+							<Route path="/sell-companies/codename-bento" element={<YamunaCommercialPage />} />
 							{/* ================= AUTH ROUTES ================= */}
 							<Route path="/auth/login" element={<LoginPage />} />
 							<Route path="/auth/register" element={<RegisterPage />} />

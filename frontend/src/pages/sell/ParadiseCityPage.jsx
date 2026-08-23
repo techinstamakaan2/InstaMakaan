@@ -347,17 +347,6 @@ const SectionHeading = ({ kicker, title, sub, light = false, center = true }) =>
 );
 
 /* ── Scroll Progress ── */
-const ScrollProgress = () => {
-	const [p, setP] = useState(0);
-	useEffect(() => {
-		const fn = () => { const h = document.documentElement; setP(h.scrollHeight - h.clientHeight > 0 ? h.scrollTop / (h.scrollHeight - h.clientHeight) : 0); };
-		fn(); window.addEventListener('scroll', fn, { passive: true });
-		return () => window.removeEventListener('scroll', fn);
-	}, []);
-	return <div className="fixed top-0 left-0 z-[60] h-[3px] shadow-[0_0_8px_rgba(196,154,42,.6)]"
-		style={{ width: `${p * 100}%`, background: `linear-gradient(to right,${GOLD},#e8c44a)`, transition: 'width .1s linear' }} />;
-};
-
 /* ── Lead Form ── */
 const PC_SIZES = [
 	"150 Sq Yd (27' × 50')", "200 Sq Yd (30' × 60')", "250 Sq Yd (30' × 75')",
@@ -599,9 +588,9 @@ export default function ParadiseCityPage() {
 	}, []);
 
 	return (
-		<Layout>
+		<Layout noPadding>
 			<style>{GLOBAL_CSS}</style>
-			<ScrollProgress />
+			<div className="fixed top-14 inset-x-0 h-[1.5px] z-[9998] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent pointer-events-none" />
 			<Helmet>
 				<title>Paradise City Sec-138 Noida | Plots ₹60,000/sq.yd | GRDA INFRA</title>
 				<meta name="description" content="Paradise City by GRDA INFRA — plotted development in Sector-138, Noida. Plots from 150 sq yd at ₹60,000/sq.yd on 45M Pusta Road near Noida–Greater Noida Expressway. RERA: BRERAA12606/24/2024." />
@@ -650,7 +639,7 @@ export default function ParadiseCityPage() {
 			{/* ═══════════════════════════════════
 			    §1  HERO
 			═══════════════════════════════════ */}
-			<section id="home" className="relative min-h-screen flex items-center overflow-hidden -mt-16 md:-mt-20 pt-16 md:pt-20" style={{ background: DARK }}>
+			<section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16 md:pt-20" style={{ background: DARK }}>
 				<img src={HERO_IMG} alt="Paradise City Sec-138 Noida" className="absolute inset-0 w-full h-full object-fill pc-kb"
 					onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85'; }} />
 				<div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/25" />

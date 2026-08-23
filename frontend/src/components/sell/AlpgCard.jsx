@@ -33,7 +33,7 @@ export const AlpgCard = () => {
 	return (
 		<div
 			onClick={() => navigate('/sell-companies/aspire-leisure-park')}
-			className="group cursor-pointer w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] shadow-md hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-400/40 transition-all duration-300 flex flex-col md:flex-row md:h-[300px]"
+			className="group cursor-pointer w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c1810] shadow-md hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-400/40 transition-all duration-300 flex flex-col md:flex-row md:h-[320px]"
 		>
 			{/* ── Left: Image ── */}
 			<div className="relative w-full md:w-[42%] h-52 md:h-full flex-shrink-0 overflow-hidden bg-slate-900">
@@ -44,11 +44,11 @@ export const AlpgCard = () => {
 				/>
 
 				{/* gradient overlay */}
-				<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/20" />
+				<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-black/25" />
 
 				{/* top badge */}
 				<div className="absolute top-3 left-3">
-					<span className="bg-emerald-700/90 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">
+					<span className="bg-emerald-700/90 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-sm">
 						Landmark Luxury Residences
 					</span>
 				</div>
@@ -82,10 +82,10 @@ export const AlpgCard = () => {
 
 				{/* Top: name + location */}
 				<div>
-					<div className="flex items-start justify-between gap-3 mb-3">
+					<div className="flex items-start justify-between gap-3 mb-2.5">
 						<div className="flex items-center gap-2.5 min-w-0">
 							<div className="flex flex-col leading-tight min-w-0">
-								<span className="text-[10px] font-bold tracking-[0.18em] uppercase text-amber-600">Aspire</span>
+								<span className="text-[10px] font-bold tracking-[0.18em] uppercase text-amber-600 dark:text-amber-400">Aspire</span>
 								<span className="text-[15px] font-black text-slate-900 dark:text-white leading-tight">LEISURE PARK</span>
 								<span className="text-[10px] text-slate-400 dark:text-slate-500">by GAURS</span>
 							</div>
@@ -96,25 +96,25 @@ export const AlpgCard = () => {
 								className="h-6 w-auto object-contain flex-shrink-0"
 							/>
 						</div>
-						<span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700/30 px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0">
+						<span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700/30 px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0">
 							New Launch
 						</span>
 					</div>
-					<div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs mb-1.5">
-						<MapPin size={12} className="text-emerald-500 flex-shrink-0" />
+					<div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs mb-1">
+						<MapPin size={12} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
 						<span className="truncate">Landmark Luxury Residences · Techzone-4, Greater Noida (W)</span>
 					</div>
-					<div className="flex items-center gap-1.5 text-yellow-600 dark:text-yellow-400 text-xs mb-4">
+					<div className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-300 text-xs mb-3">
 						<Award size={12} className="flex-shrink-0" />
 						<span>7 Acres · Podium Style Living · Central Greens &amp; Water Bodies</span>
 					</div>
 
 					{/* Stats row */}
-					<div className="grid grid-cols-4 gap-2 mb-4">
+					<div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
 						{STATS.map(({ label, value, accent }) => (
-							<div key={label} className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 text-center">
+							<div key={label} className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 text-center border border-slate-100 dark:border-slate-800">
 								<p className="text-[10px] text-slate-400 mb-0.5 leading-tight">{label}</p>
-								<p className={`font-bold text-xs leading-tight ${accent ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-800 dark:text-white'}`}>
+								<p className={`font-bold text-xs leading-tight break-words ${accent ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-800 dark:text-white'}`}>
 									{value}
 								</p>
 							</div>
@@ -132,7 +132,7 @@ export const AlpgCard = () => {
 				</div>
 
 				{/* Bottom: CTA row */}
-				<div className="flex items-center justify-between gap-3 pt-4 mt-1 border-t border-slate-100 dark:border-slate-800">
+				<div className="flex items-center justify-between gap-3 pt-3.5 mt-2 border-t border-slate-100 dark:border-slate-800">
 					<div className="text-xs text-slate-400 hidden sm:block">
 						7 Acres · 7 Towers · Techzone-4 · Greater Noida West
 					</div>

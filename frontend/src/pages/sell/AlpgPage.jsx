@@ -399,17 +399,6 @@ const Counter = ({ text, duration = 1500 }) => {
 	return <span ref={ref}>{m[1]}{display}{m[3]}</span>;
 };
 
-const ScrollProgress = () => {
-	const [p,setP] = useState(0);
-	useEffect(() => {
-		const fn = () => { const h=document.documentElement; setP(h.scrollHeight-h.clientHeight>0?h.scrollTop/(h.scrollHeight-h.clientHeight):0); };
-		fn(); window.addEventListener('scroll',fn,{passive:true});
-		return () => window.removeEventListener('scroll',fn);
-	},[]);
-	return <div className="fixed top-0 left-0 z-[60] h-[3px] bg-gradient-to-r from-green-900 via-green-500 to-emerald-400 shadow-[0_0_8px_rgba(34,197,94,.5)]" style={{width:`${p*100}%`,transition:'width .1s linear'}}/>;
-};
-
-
 const GoldDivider = ({ center=true }) => (
 	<div className={`flex items-center gap-3 my-4 ${center?'justify-center':''}`}>
 		<div className="h-px w-16 bg-gradient-to-r from-transparent to-[#c4a84f]"/>
@@ -830,9 +819,9 @@ export default function AlpgPage() {
 	const L = 'bg-[#0d2818]';
 
 	return (
-		<Layout>
+		<Layout noPadding>
 			<style>{GLOBAL_CSS}</style>
-			<ScrollProgress/>
+			<div className="fixed top-14 inset-x-0 h-[1.5px] z-[9998] bg-gradient-to-r from-transparent via-green-500/40 to-transparent pointer-events-none" />
 			<Helmet>
 				<title>Aspire Leisure Park by GAURS | 3 & 4 BHK Luxury Residences · Techzone-4, Greater Noida</title>
 				<meta name="description" content="Aspire Leisure Park by Gaursons India — Supreme Court Monitored luxury residences. 3 BHK from Rs.2.99 Cr* | 4 BHK from Rs.3.62 Cr*. 7 Acres, 7 Towers, 33-floor Iconic Tower. Techzone-4, Greater Noida (W)." />
@@ -882,7 +871,7 @@ export default function AlpgPage() {
 			{/* ═══════════════════════════════════════
 			    §1  HERO
 			═══════════════════════════════════════ */}
-			<section id="home" className="relative min-h-screen flex items-center overflow-hidden" style={{scrollSnapAlign:'start'}}>
+			<section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16 md:pt-20" style={{scrollSnapAlign:'start'}}>
 				<img src={I.heroBg} alt="Aspire Leisure Park Towers" className="absolute inset-0 w-full h-full object-cover alpg-kb"/>
 				<div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/65 to-black/25"/>
 				<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20"/>

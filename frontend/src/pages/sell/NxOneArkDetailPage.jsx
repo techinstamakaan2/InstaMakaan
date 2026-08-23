@@ -740,7 +740,8 @@ const NxOneArkDetailPage = () => {
 	)}`;
 
 	return (
-		<Layout>
+		<Layout noPadding>
+			<div className="fixed top-14 inset-x-0 h-[1.5px] z-[9998] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent pointer-events-none" />
 			<Helmet>
 				<title>NX ONE ARK | Premium Commercial Tower · Tech Zone IV, Greater Noida</title>
 				<meta name="description" content="NX ONE ARK · Story of Growth. G+26 premium commercial tower at Tech Zone IV, Greater Noida (West). BSP Rs.11,990/sqft. RERA approved." />
@@ -800,7 +801,7 @@ const NxOneArkDetailPage = () => {
 			{/* ═══════════ HERO ═══════════ */}
 			<section
 				id="home"
-				className="relative min-h-[580px] md:min-h-[700px] flex items-center overflow-hidden"
+				className="relative min-h-[580px] md:min-h-[700px] flex items-center overflow-hidden pt-16 md:pt-20"
 			>
 				<SmartImg
 					src={IMG.heroNight}

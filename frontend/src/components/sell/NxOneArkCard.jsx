@@ -32,7 +32,7 @@ export const NxOneArkCard = () => {
   return (
     <div
       onClick={() => navigate('/sell-companies/nx-one-ark')}
-      className="group cursor-pointer w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] shadow-md hover:shadow-xl hover:shadow-teal-500/10 hover:border-teal-400/40 transition-all duration-300 flex flex-col md:flex-row md:h-[300px]"
+      className="group cursor-pointer w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] shadow-md hover:shadow-xl hover:shadow-teal-500/10 hover:border-teal-400/40 transition-all duration-300 flex flex-col md:flex-row md:h-[320px]"
     >
       {/* ── Left: Video ── */}
       <div className="relative w-full md:w-[42%] h-52 md:h-full flex-shrink-0 overflow-hidden bg-slate-900">
@@ -96,11 +96,11 @@ export const NxOneArkCard = () => {
           </div>
 
           {/* Stats row */}
-          <div className="grid grid-cols-4 gap-2 mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
             {STATS.map(({ label, value, accent }) => (
               <div key={label} className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 text-center">
                 <p className="text-[10px] text-slate-400 mb-0.5 leading-tight">{label}</p>
-                <p className={`font-bold text-xs leading-tight ${accent ? 'text-teal-600 dark:text-teal-400' : 'text-slate-800 dark:text-white'}`}>
+                <p className={`font-bold text-xs leading-tight break-words ${accent ? 'text-teal-600 dark:text-teal-400' : 'text-slate-800 dark:text-white'}`}>
                   {value}
                 </p>
               </div>

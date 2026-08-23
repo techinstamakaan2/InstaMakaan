@@ -590,17 +590,6 @@ const Counter = ({ text, duration = 1500 }) => {
 	return <span ref={ref}>{m[1]}{display}{m[3]}</span>;
 };
 
-const ScrollProgress = () => {
-	const [p, setP] = useState(0);
-	useEffect(() => {
-		const onScroll = () => { const h = document.documentElement; const max = h.scrollHeight - h.clientHeight; setP(max > 0 ? h.scrollTop / max : 0); };
-		onScroll();
-		window.addEventListener('scroll', onScroll, { passive: true });
-		return () => window.removeEventListener('scroll', onScroll);
-	}, []);
-	return <div className="fixed top-0 left-0 z-[60] h-[3px] bg-gradient-to-r from-amber-700 via-amber-400 to-amber-500 shadow-[0_0_8px_rgba(245,158,11,.6)]" style={{ width: `${p * 100}%`, transition: 'width .1s linear' }} />;
-};
-
 const FloatingActions = () => {
 	const [show, setShow] = useState(false);
 	useEffect(() => {
@@ -1145,9 +1134,9 @@ export default function AspireCenturianParkPage() {
 	const dl = () => { const a = document.createElement('a'); a.href = PROJECT.brochure; a.download = 'Aspire-Centurian-Park-Brochure.pdf'; a.target = '_blank'; a.click(); };
 
 	return (
-		<Layout>
+		<Layout noPadding>
 			<style>{GLOBAL_CSS}</style>
-			<ScrollProgress />
+			<div className="fixed top-14 inset-x-0 h-[1.5px] z-[9998] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent pointer-events-none" />
 			<Helmet>
 				<title>Aspire Centurian Park by Gaurs | 3 & 4 BHK Luxury Residences · Techzone-4, Greater Noida</title>
 				<meta name="description" content="Aspire Centurian Park by Gaursons India — Supreme Court Monitored luxury residences. 3 BHK + Study from Rs.3.57 Cr* | 4 BHK + Study from Rs.4.37 Cr*. Designed by Chapman Taylor. 12 Acres, 11 Towers, 45-floor Tower. Techzone-4, Greater Noida (W)." />
@@ -1194,7 +1183,7 @@ export default function AspireCenturianParkPage() {
 			{/* ═══════════════════════════════════════
 			    §1  HERO
 			═══════════════════════════════════════ */}
-			<section id="home" className="relative min-h-[620px] md:min-h-[740px] flex items-center overflow-hidden">
+			<section id="home" className="relative min-h-[620px] md:min-h-[740px] flex items-center overflow-hidden pt-16 md:pt-20">
 				<img src={I.heroBg} alt="Aspire Centurian Park Towers" className="absolute inset-0 w-full h-full object-cover acp-kenburns" />
 				<div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/30" />
 				<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />

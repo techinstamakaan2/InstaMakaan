@@ -4,9 +4,12 @@ import { NxOneArkCard } from '@/components/sell/NxOneArkCard';
 import { AspireCenturianParkCard } from '@/components/sell/AspireCenturianParkCard';
 import { AlpgCard } from '@/components/sell/AlpgCard';
 import { ParadiseCityCard } from '@/components/sell/ParadiseCityCard';
+import { ShriVillaCard } from '@/components/sell/ShriVillaCard';
+import { YamunaCommercialCard } from '@/components/sell/YamunaCommercialCard';
+import { EterniaCard } from '@/components/sell/EterniaCard';
 
-// Temporarily hidden — flip back to true to bring NX One Ark back into the Commercial tab.
-const SHOW_NX_ONE_ARK = false;
+// NX One Ark is visible in the Commercial tab
+const SHOW_NX_ONE_ARK = true;
 
 const ComingSoonCard = () => (
 	<div className="w-full rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-white/5 flex flex-col items-center justify-center text-center py-16 px-6 md:h-[300px]">
@@ -52,13 +55,15 @@ export const BuyCategoryTabs = () => {
 
 			{/* Tab content */}
 			{buyTab === 'commercial' && (
-				<div className="max-w-5xl mx-auto">
-					{SHOW_NX_ONE_ARK ? <NxOneArkCard /> : <ComingSoonCard />}
+				<div className="max-w-5xl mx-auto flex flex-col gap-5">
+					<YamunaCommercialCard />
+					{SHOW_NX_ONE_ARK && <NxOneArkCard />}
 				</div>
 			)}
 
 			{buyTab === 'residential' && (
 				<div className="max-w-5xl mx-auto flex flex-col gap-5">
+					<EterniaCard />
 					<AspireCenturianParkCard />
 					<AlpgCard />
 				</div>
@@ -66,6 +71,7 @@ export const BuyCategoryTabs = () => {
 
 			{buyTab === 'plot' && (
 				<div className="max-w-5xl mx-auto flex flex-col gap-5">
+					<ShriVillaCard />
 					<ParadiseCityCard />
 				</div>
 			)}

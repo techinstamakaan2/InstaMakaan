@@ -111,6 +111,11 @@
       "changefreq": "monthly"
     },
     {
+      "path": "/sell-companies/eternia",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
       "path": "/sell-companies/aspire-leisure-park",
       "priority": "0.8",
       "changefreq": "monthly"
@@ -119,8 +124,13 @@
       "path": "/sell-companies/paradise-city",
       "priority": "0.8",
       "changefreq": "monthly"
+    },
+    {
+      "path": "/sell-companies/codename-bento",
+      "priority": "0.8",
+      "changefreq": "monthly"
     }
   ],
-  "generatedAt": "2026-08-18T06:17:03.629Z",
-  "count": 24
+  "generatedAt": "2026-08-21T12:38:53.539Z",
+  "count": 26
 }

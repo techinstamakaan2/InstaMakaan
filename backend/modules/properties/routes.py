@@ -89,13 +89,14 @@ async def list_all(
         ]
     return await get_properties(filters, page, limit)
 
-ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp"}
-ALLOWED_VIDEO_TYPES = {"video/mp4", "video/webm"}
-MAX_FILE_SIZE_MB = 20
-UPLOAD_DIR = "uploads"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+from utils.cloudinary import (
+    upload_file_to_cloudinary,
+    ALLOWED_IMAGE_TYPES,
+    ALLOWED_VIDEO_TYPES,
+    MAX_FILE_SIZE_MB,
+)
 
-# ✅ Bug 10 Fix: db = get_db() direct call — Depends(get_db) hataya
+# ✅ Cloudinary Upload for single media file
 @router.post("/media")
 async def upload_media(
     file: UploadFile = File(...),
@@ -103,45 +104,34 @@ async def upload_media(
 ):
     if file.content_type not in (ALLOWED_IMAGE_TYPES | ALLOWED_VIDEO_TYPES):
         raise HTTPException(status_code=400, detail="Unsupported file type")
-    contents = await file.read()
-    if len(contents) / (1024 * 1024) > MAX_FILE_SIZE_MB:
-        raise HTTPException(status_code=400, detail="File too large")
 
-    db = get_db()  # ✅ consistent with baaki routes
+    result = await upload_file_to_cloudinary(file, folder="instamakaan/properties")
 
+    db = get_db()
     media_id = str(uuid4())
-    filename = f"{media_id}.{file.filename.split('.')[-1]}"
-    path = f"{UPLOAD_DIR}/{filename}"
-    with open(path, "wb") as f:
-        f.write(contents)
     media_doc = {
-        "id": media_id, "filename": filename, "path": path,
-        "content_type": file.content_type, "uploaded_by": user["id"],
+        "id": media_id,
+        "url": result["url"],
+        "public_id": result.get("public_id"),
+        "content_type": file.content_type,
+        "uploaded_by": user["id"],
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     await db.media.insert_one(media_doc)
-    return {"media_id": media_id, "url": f"/uploads/{filename}", "type": file.content_type}
+    return {"media_id": media_id, "url": result["url"], "type": file.content_type}
 
-# ✅ Bug 1 Fix: Multiple files upload ke liye /upload/multiple endpoint
+# ✅ Cloudinary Upload for multiple property images
 @router.post("/upload/multiple")
 async def upload_multiple_images(
     files: List[UploadFile] = File(...),
     user=Depends(require_role(["ADMIN", "admin"])),
 ):
-    db = get_db()  # ✅ consistent
     uploaded = []
     for file in files:
         if file.content_type not in ALLOWED_IMAGE_TYPES:
             raise HTTPException(status_code=400, detail=f"Unsupported file type: {file.content_type}")
-        contents = await file.read()
-        if len(contents) / (1024 * 1024) > MAX_FILE_SIZE_MB:
-            raise HTTPException(status_code=400, detail="File too large")
-        media_id = str(uuid4())
-        filename = f"{media_id}.{file.filename.split('.')[-1]}"
-        path = f"{UPLOAD_DIR}/{filename}"
-        with open(path, "wb") as f:
-            f.write(contents)
-        uploaded.append({"url": f"/{path}", "type": file.content_type})
+        result = await upload_file_to_cloudinary(file, folder="instamakaan/properties")
+        uploaded.append({"url": result["url"], "type": file.content_type})
     return uploaded
 
 @router.post("/{property_id}/images")

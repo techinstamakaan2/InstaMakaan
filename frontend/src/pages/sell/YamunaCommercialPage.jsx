@@ -27,7 +27,7 @@ const PH = {
 	pool:      'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1600&q=85',
 	gym:       'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=85',
 	lobby:     'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1600&q=85',
-	spa:       'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?auto=format&fit=crop&w=1600&q=85',
+	spa:       'https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=1600&q=85',
 	restaurant:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=85',
 	theater:   'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1600&q=85',
 	garden:    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=85',
@@ -788,7 +788,15 @@ const AmenitySlider = ({ slides }) => {
 			<div className="relative overflow-hidden" style={{ minHeight: 'clamp(220px,50vw,380px)' }}>
 				{slides.map((sl, i) => (
 					<div key={i} className={`absolute inset-0 transition-opacity duration-700 ${i === idx ? 'opacity-100' : 'opacity-0'}`}>
-						<img src={sl.img} alt={sl.label} className="w-full h-full object-cover" />
+						<img
+							src={sl.img}
+							alt={sl.label}
+							className="w-full h-full object-cover"
+							onError={(e) => {
+								e.target.onerror = null;
+								e.target.src = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=85';
+							}}
+						/>
 					</div>
 				))}
 				<div className="absolute top-4 left-4 z-10 bg-black/55 backdrop-blur-sm border border-white/15 text-white text-[11px] font-bold px-3 py-1.5 rounded-full">

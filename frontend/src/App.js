@@ -15,6 +15,7 @@ const AlpgPage = lazy(() => import('@/pages/sell/AlpgPage'));
 const ParadiseCityPage = lazy(() => import('@/pages/sell/ParadiseCityPage'));
 const ShriVillaPage = lazy(() => import('@/pages/sell/ShriVillaPage'));
 const YamunaCommercialPage = lazy(() => import('@/pages/sell/YamunaCommercialPage'));
+const CoreUltraWidePage = lazy(() => import('@/pages/sell/CoreUltraWidePage'));
 /* ================= PUBLIC PAGES ================= */
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const AllPropertiesPage = lazy(() => import('@/pages/AllPropertiesPage'));
@@ -141,6 +142,7 @@ function App() {
 							<Route path="/sell-companies/paradise-city" element={<ParadiseCityPage />} />
 							<Route path="/sell-companies/shri-villa" element={<ShriVillaPage />} />
 							<Route path="/sell-companies/codename-bento" element={<YamunaCommercialPage />} />
+							<Route path="/sell-companies/core-ultra-wide" element={<CoreUltraWidePage />} />
 							{/* ================= AUTH ROUTES ================= */}
 							<Route path="/auth/login" element={<LoginPage />} />
 							<Route path="/auth/register" element={<RegisterPage />} />

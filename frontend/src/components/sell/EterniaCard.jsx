@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Shield, ArrowRight, Download, Check, Award } from 'lucide-react';
 
-const BROCHURE_PATH = '/brochures/eternia-brochure.pdf'; // Placeholder
+const BROCHURE_PATH = '/brochures/eternia-brochure.pdf';
 
 const STATS = [
 	{ label: 'Towers',   value: '6 Towers' },
@@ -33,11 +33,10 @@ export const EterniaCard = () => {
 	return (
 		<div
 			onClick={() => navigate('/sell-companies/eternia')}
-			className="group cursor-pointer w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] shadow-md hover:shadow-xl hover:shadow-rose-500/10 hover:border-rose-400/40 transition-all duration-300 flex flex-col md:flex-row md:h-[320px]"
+			className="group cursor-pointer w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#160c11] shadow-md hover:shadow-xl hover:shadow-rose-500/10 hover:border-rose-400/40 transition-all duration-300 flex flex-col md:flex-row md:h-[320px]"
 		>
 			{/* ═══ Left: Image ═══ */}
 			<div className="relative w-full md:w-[42%] h-52 md:h-full flex-shrink-0 overflow-hidden bg-slate-900">
-				{/* Note: Using Unsplash placeholders matching the luxury red/rose gold high-rise theme */}
 				<img
 					src="/images/eternia/towers-hero.jpg"
 					alt="Eternia Luxury Residences"
@@ -69,8 +68,8 @@ export const EterniaCard = () => {
 				</div>
 			</div>
 
-			{/* ═══ Right: Content ═══ */}
-			<div className="flex-1 flex flex-col justify-between p-5 md:p-6 min-w-0">
+			{/* ═══ Right: Content (with Rose Color Accent) ═══ */}
+			<div className="flex-1 flex flex-col justify-between p-5 md:p-6 min-w-0 bg-gradient-to-br from-transparent to-rose-50/40 dark:to-rose-950/20">
 
 				{/* Top: name + location */}
 				<div>
@@ -96,7 +95,7 @@ export const EterniaCard = () => {
 					{/* Stats row */}
 					<div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
 						{STATS.map(({ label, value, accent }) => (
-							<div key={label} className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 text-center">
+							<div key={label} className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 text-center border border-slate-100 dark:border-slate-800">
 								<p className="text-[10px] text-slate-400 mb-0.5 leading-tight">{label}</p>
 								<p className={`font-bold text-xs leading-tight break-words ${accent ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-white'}`}>
 									{value}
@@ -139,3 +138,5 @@ export const EterniaCard = () => {
 		</div>
 	);
 };
+
+export default EterniaCard;

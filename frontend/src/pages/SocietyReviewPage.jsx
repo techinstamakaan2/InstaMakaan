@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import MobileBottomBar from '@/components/MobileBottomBar';
 import api from '@/lib/api';
 import { getSocietyInsights } from '@/data/societyInsights';
+import { getProjectReview } from '@/data/projectReviewsData';
+import ProjectReviewPage from './ProjectReviewPage';
 import {
 	MapPin,
 	ChevronRight,
@@ -43,8 +45,9 @@ const ScoreBar = ({ label, value }) => (
 	</div>
 );
 
-const SocietyReviewPage = () => {
+const SocietyReviewPageContent = () => {
 	const { slug } = useParams();
+
 	const [areas, setAreas] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [properties, setProperties] = useState([]);
@@ -430,6 +433,14 @@ const SocietyReviewPage = () => {
 			/>
 		</Layout>
 	);
+};
+
+const SocietyReviewPage = () => {
+	const { slug } = useParams();
+	if (getProjectReview(slug)) {
+		return <ProjectReviewPage />;
+	}
+	return <SocietyReviewPageContent />;
 };
 
 export default SocietyReviewPage;

@@ -23,6 +23,7 @@ const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const LocalityPage = lazy(() => import('@/pages/LocalityPage'));
 const SocietyReviewsIndexPage = lazy(() => import('@/pages/SocietyReviewsIndexPage'));
 const SocietyReviewPage = lazy(() => import('@/pages/SocietyReviewPage'));
+const ProjectReviewPage = lazy(() => import('@/pages/ProjectReviewPage'));
 const PillarGuidesIndexPage = lazy(() => import('@/pages/PillarGuidesIndexPage'));
 const PillarGuidePage = lazy(() => import('@/pages/PillarGuidePage'));
 const ServicesIndexPage = lazy(() => import('@/pages/ServicesIndexPage'));

@@ -276,8 +276,22 @@ const styles = `
   ══════════════════════════════════════════════════════ */
 
   html, body {
-    overflow-x: hidden !important;
+    overflow-x: clip !important;
     max-width: 100vw !important;
+  }
+
+  .toc-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .toc-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .toc-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 99px;
+  }
+  .dark .toc-scrollbar::-webkit-scrollbar-thumb {
+    background: #475569;
   }
 
   .article-content-col {
@@ -510,10 +524,10 @@ const ReadingProgress = () => {
 };
 
 /* ─── TABLE OF CONTENTS ─── */
-const TableOfContents = ({ items, activeSection, onSectionClick }) => {
+const TableOfContents = ({ items, activeSection, onSectionClick, isSidebar = false }) => {
 	const [open, setOpen] = useState(true);
 	return (
-		<div className="rounded-2xl overflow-hidden mb-5 w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+		<div className="rounded-2xl overflow-hidden w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
 			<button
 				onClick={() => setOpen((o) => !o)}
 				className="w-full flex items-center justify-between px-4 py-3 bg-teal-50 dark:bg-teal-900/20"
@@ -524,7 +538,12 @@ const TableOfContents = ({ items, activeSection, onSectionClick }) => {
 				<ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
 			</button>
 			{open && (
-				<ol className="px-2 py-2 flex flex-col gap-0.5 bg-white dark:bg-gray-800">
+				<ol
+					className={`px-2 py-2 flex flex-col gap-0.5 bg-white dark:bg-gray-800 ${
+						isSidebar ? 'toc-scrollbar overflow-y-auto' : ''
+					}`}
+					style={isSidebar ? { maxHeight: 'min(42vh, 320px)' } : {}}
+				>
 					{items.map((item, i) => {
 						const active = activeSection === i;
 						return (
@@ -1029,7 +1048,6 @@ const BlogDetailPage = () => {
 	const [copied, setCopied] = useState(false);
 	const sectionRefs    = useRef([]);
 	const manualClick    = useRef(false);
-	const tocSidebarRef  = useRef(null);
 
 	const fetchPost = useCallback(async () => {
 		setLoading(true);
@@ -1089,46 +1107,6 @@ const BlogDetailPage = () => {
 		return () => obs.disconnect();
 	}, [post]);
 
-	/* ── JS sticky sidebar ── */
-	useEffect(() => {
-		if (loading || !post) return;
-		const el = tocSidebarRef.current;
-		if (!el) return;
-		const parent = el.parentElement;
-		if (!parent) return;
-
-		const HEADER_H = 88;
-		// Cache once — parentAbsTop never changes during scroll, only on resize
-		let parentAbsTop = parent.getBoundingClientRect().top + window.scrollY;
-		let rafId = null;
-
-		const apply = () => {
-			const scrollY = window.scrollY;
-			const translate = Math.max(0, scrollY + HEADER_H - parentAbsTop);
-			const maxTranslate = Math.max(0, parent.offsetHeight - el.offsetHeight - 20);
-			el.style.transform = `translateY(${Math.min(translate, maxTranslate)}px)`;
-		};
-
-		const onScroll = () => {
-			if (rafId) cancelAnimationFrame(rafId);
-			rafId = requestAnimationFrame(apply);
-		};
-
-		const onResize = () => {
-			parentAbsTop = parent.getBoundingClientRect().top + window.scrollY;
-			apply();
-		};
-
-		window.addEventListener('scroll', onScroll, { passive: true });
-		window.addEventListener('resize', onResize, { passive: true });
-		apply();
-
-		return () => {
-			window.removeEventListener('scroll', onScroll);
-			window.removeEventListener('resize', onResize);
-			if (rafId) cancelAnimationFrame(rafId);
-		};
-	}, [post, loading]);
 
 	const handleCopy = () => {
 		navigator.clipboard?.writeText(window.location.href);
@@ -1667,35 +1645,32 @@ const BlogDetailPage = () => {
 
 						{/* ─── STICKY SIDEBAR ─── */}
 						<aside
-							ref={tocSidebarRef}
-							className="hidden lg:block w-72 xl:w-80 shrink-0"
-							style={{ alignSelf: 'flex-start' }}
+							className="hidden lg:block w-72 xl:w-80 shrink-0 sticky top-24 self-start space-y-4"
 						>
-							<div style={{ maxHeight: 'calc(100vh - 108px)', overflowY: 'auto', scrollbarWidth: 'none' }}>
-								<TableOfContents
-									items={toc}
-									activeSection={activeSection}
-									onSectionClick={(i) => {
-										manualClick.current = true;
-										setActiveSection(i);
-										setTimeout(() => { manualClick.current = false; }, 1000);
-									}}
-								/>
-								<div className="p-5 rounded-2xl text-center bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/20 dark:to-gray-800 border border-teal-100 dark:border-teal-800">
-									<div className="flex justify-center mb-2">
-										<span className="w-10 h-10 rounded-xl flex items-center justify-center bg-teal-100 dark:bg-teal-900/40">
-											<Home size={18} className="text-teal-600" />
-										</span>
-									</div>
-									<p className="font-bold text-sm mb-1 display-font text-gray-800 dark:text-gray-100">Need expert advice?</p>
-									<p className="text-xs mb-4 text-gray-500">Our property consultants are available now.</p>
-									<Link
-										to="/contact"
-										className="block w-full py-2.5 rounded-xl text-xs font-bold text-white bg-teal-600 hover:bg-teal-700 transition-colors"
-									>
-										Talk to an Expert
-									</Link>
+							<TableOfContents
+								items={toc}
+								activeSection={activeSection}
+								isSidebar={true}
+								onSectionClick={(i) => {
+									manualClick.current = true;
+									setActiveSection(i);
+									setTimeout(() => { manualClick.current = false; }, 1000);
+								}}
+							/>
+							<div className="p-5 rounded-2xl text-center bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/20 dark:to-gray-800 border border-teal-100 dark:border-teal-800 shadow-sm">
+								<div className="flex justify-center mb-2">
+									<span className="w-10 h-10 rounded-xl flex items-center justify-center bg-teal-100 dark:bg-teal-900/40">
+										<Home size={18} className="text-teal-600" />
+									</span>
 								</div>
+								<p className="font-bold text-sm mb-1 display-font text-gray-800 dark:text-gray-100">Need expert advice?</p>
+								<p className="text-xs mb-4 text-gray-500 dark:text-gray-400">Our property consultants are available now.</p>
+								<Link
+									to="/contact"
+									className="block w-full py-2.5 rounded-xl text-xs font-bold text-white bg-teal-600 hover:bg-teal-700 transition-colors shadow-sm"
+								>
+									Talk to an Expert
+								</Link>
 							</div>
 						</aside>
 					</div>

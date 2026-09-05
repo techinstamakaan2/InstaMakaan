@@ -39,9 +39,7 @@ Example: "How to Break Rent Agreement Early in Noida"
 
 ---
 
-## 3. The 3 Seeded Articles (Ready in `backend/scripts/seed_seo_blogs.py`)
-
-Run `python scripts/seed_seo_blogs.py` from the backend directory to automatically push these articles into your database, or copy-paste them directly into your Admin Blog Editor (`/admin/blogs/new`):
+## 3. The 7 New High-Impact Articles Added to the Database
 
 ### Article 1: Legal & Move-In Compliance
 - **Title:** Online Police Verification for Tenants in Noida & Greater Noida: Step-by-Step UP Cop App Guide (2026)
@@ -63,6 +61,34 @@ Run `python scripts/seed_seo_blogs.py` from the backend directory to automatical
 - **Category:** `For Owners`
 - **Search Intent:** Property owners struggling with vacant flats in high-rise societies.
 - **Key Features:** Realistic rent pricing guide, tenant screening checklist, avoiding vacancy losses, call-to-action to list on InstaMakaan.
+
+### Article 4: Financial & Living Cost Comparison
+- **Title:** 1 BHK vs 2 BHK Flat for Rent in Noida: Price, Maintenance & Cost of Living Breakdown (2026)
+- **Slug:** `1bhk-vs-2bhk-flat-rent-noida-cost-breakdown`
+- **Category:** `For Tenants`
+- **Search Intent:** Renters deciding between living solo in 1 BHK vs sharing a 2 BHK.
+- **Key Features:** Itemized living cost table (rent, maintenance, cook, electricity, water), best sectors, 4 FAQs.
+
+### Article 5: Tenant Rights & Security Deposits
+- **Title:** Security Deposit Rules in Noida & NCR: How Landlords Deduct Money & How to Protect Yours (2026)
+- **Slug:** `security-deposit-rules-noida-landlord-deduction-guide`
+- **Category:** `For Tenants`
+- **Search Intent:** Renters looking to protect their security deposit and dispute arbitrary deductions.
+- **Key Features:** Normal wear & tear vs damage table, painting clause rules, 30-day refund checklist, 4 FAQs.
+
+### Article 6: Commute & Metro Connectivity
+- **Title:** Best Sectors to Live in Noida Near Metro Stations for Working Professionals (2026)
+- **Slug:** `best-sectors-to-live-noida-near-metro-station`
+- **Category:** `Noida Living`
+- **Search Intent:** Corporate & IT workers seeking homes within walking distance of metro stations.
+- **Key Features:** Blue Line vs Aqua Line comparison table, Sector 52/62/76/137/143 breakdowns, walking distance, safety.
+
+### Article 7: Non-Destructive Home Living
+- **Title:** Vastu for Rented Flats: 7 Simple Remedies for Tenants Without Any Renovation
+- **Slug:** `vastu-tips-rented-flats-simple-remedies-without-renovation`
+- **Category:** `Vastu Tips & Guides`
+- **Search Intent:** Tenants looking for peace, health, and prosperity remedies without remodeling rented flats.
+- **Key Features:** 7 non-destructive remedies (plants, salt, lighting, bed/desk placement), 4 FAQs.
 
 ---
 

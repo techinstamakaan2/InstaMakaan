@@ -1,10 +1,17 @@
 """
-Run this script once with the backend running:
+Run this script once from backend folder:
   python scripts/create_blog_documents_checklist.py
 """
-import requests, json
+import sys, os, asyncio
+from pathlib import Path
+from datetime import datetime, timezone
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+from motor.motor_asyncio import AsyncIOMotorClient
 
-API = "http://127.0.0.1:8000/api/blogs/"
+MONGO_URL = os.environ["MONGO_URL"]
+DB_NAME   = os.environ.get("DB_NAME", "instamakaan")
 
 blog = {
     "title": "Renting a Flat in Noida Extension: The Complete Documents Checklist for Tenants & Owners",
@@ -115,13 +122,28 @@ blog = {
     "status": "published"
 }
 
-resp = requests.post(API, json=blog)
-if resp.status_code == 201:
-    data = resp.json()
-    print(f"✅ Blog created successfully!")
-    print(f"   ID   : {data.get('_id') or data.get('id')}")
-    print(f"   Slug : {data.get('slug')}")
-    print(f"   URL  : http://localhost:3000/blog/{data.get('slug')}")
-else:
-    print(f"❌ Failed: {resp.status_code}")
-    print(resp.text)
+async def main():
+    client = AsyncIOMotorClient(MONGO_URL)
+    db = client[DB_NAME]
+    collection = db["blogs"]
+
+    hero = blog.pop("heroImage", None)
+    if not blog.get("image") and hero:
+        blog["image"] = hero
+
+    blog["created_at"] = datetime.now(timezone.utc)
+    blog["updated_at"] = datetime.now(timezone.utc)
+    blog.setdefault("views", 0)
+
+    existing = await collection.find_one({"slug": blog["slug"]})
+    if existing:
+        await collection.update_one({"slug": blog["slug"]}, {"$set": blog})
+        print(f"[OK] Blog updated successfully: {blog['slug']}")
+    else:
+        await collection.insert_one(blog)
+        print(f"[OK] Blog created successfully: {blog['slug']}")
+
+    client.close()
+
+if __name__ == "__main__":
+    asyncio.run(main())

@@ -5,7 +5,7 @@ Inserts directly into MongoDB — no API auth needed.
 """
 import sys, os, asyncio, re
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 
 # ── make sure backend packages are importable ─────────────────────────────────
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -303,17 +303,14 @@ async def main():
     if not blog.get("image") and hero:
         blog["image"] = hero
 
-    blog["created_at"] = datetime.utcnow()
-    blog["updated_at"] = datetime.utcnow()
+    blog["created_at"] = datetime.now(timezone.utc)
+    blog["updated_at"] = datetime.now(timezone.utc)
     blog.setdefault("views", 0)
 
     result = await collection.insert_one(blog)
     created = await collection.find_one({"_id": result.inserted_id})
 
-    print(f"✅ Blog created successfully!")
-    print(f"   ID   : {result.inserted_id}")
-    print(f"   Slug : {created.get('slug')}")
-    print(f"   URL  : https://instamakaan.com/blog/{created.get('slug')}")
+    print(f"[OK] Blog created successfully: {created.get('slug')}")
     client.close()
 
 

@@ -1161,7 +1161,7 @@ const BlogDetailPage = () => {
 	const heroImage   = post ? (post.image || post.heroImage || '') : '';
 	const authorName  = post ? (post.author?.name || '').trim() : '';
 	const authorRole  = post ? (post.author?.role || '').trim() : '';
-	const rawExcerpt  = post ? (post.excerpt || '').trim() : '';
+	const rawExcerpt  = post ? (post.meta_description || post.excerpt || '').trim() : '';
 	const metaDescription = rawExcerpt.length > 160 ? rawExcerpt.slice(0, 157) + '…' : rawExcerpt;
 	const pageTitle   = post?.title ? `${post.title} | InstaMakaan` : 'InstaMakaan Blog';
 

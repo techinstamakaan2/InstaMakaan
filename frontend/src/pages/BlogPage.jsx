@@ -417,8 +417,8 @@ const BlogPage = () => {
 							className="blog-reveal text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold mb-3 leading-tight tracking-tight"
 							style={{ animationDelay: '80ms' }}
 						>
-							<span className="text-teal-600 dark:text-teal-400">Real Estate, Guides &amp;</span>{' '}
-							<span className="text-amber-500 dark:text-amber-400">Local Insights</span>
+							<span className="text-[#42949C]">Real Estate, Guides &amp;</span>{' '}
+							<span className="text-[#F5C94D]">Local Insights</span>
 						</h1>
 
 						{/* Subtitle */}

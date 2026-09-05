@@ -94,8 +94,8 @@ export const Header = () => {
 						<Link to="/" className="flex items-center gap-2 mr-3 shrink-0">
 							<CustomIcon src="/images/orglogo.webp" className="h-8 w-8" />
 							<div className="leading-tight">
-								<div className="text-sm font-bold text-slate-900 dark:text-teal-400">Insta</div>
-								<div className="text-sm font-bold text-slate-900 dark:text-yellow-400 -mt-1">Makaan</div>
+								<div className="text-sm font-bold text-[#42949C]">Insta</div>
+								<div className="text-sm font-bold text-[#F5C94D] -mt-1">Makaan</div>
 							</div>
 						</Link>
 
@@ -223,7 +223,7 @@ export const Header = () => {
 							<CustomIcon src="/images/orglogo.webp" className="h-8 w-8" />
 							<div className="leading-tight">
 								<div style={{ fontSize: '0.85rem', fontWeight: 900, color: '#fff' }}>Insta</div>
-								<div style={{ fontSize: '0.85rem', fontWeight: 900, color: '#fbbf24', marginTop: -2 }}>Makaan</div>
+								<div style={{ fontSize: '0.85rem', fontWeight: 900, color: '#F5C94D', marginTop: -2 }}>Makaan</div>
 							</div>
 						</Link>
 						<button onClick={closeMenu} aria-label="Close menu"

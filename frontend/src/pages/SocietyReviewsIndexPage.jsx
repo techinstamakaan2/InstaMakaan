@@ -76,8 +76,8 @@ const SocietyReviewsIndexPage = () => {
 						{PROJECT_REVIEWS.length} Projects &amp; {areas.length > 0 ? areas.length : 'Many'} Societies
 					</div>
 					<h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
-						<span className="text-teal-600 dark:text-teal-400">Society &amp; Project</span>{' '}
-						<span className="text-amber-500 dark:text-amber-400">Reviews</span>
+						<span className="text-[#42949C]">Society &amp; Project</span>{' '}
+						<span className="text-[#F5C94D]">Reviews</span>
 					</h1>
 					<p className="mt-4 text-slate-500 dark:text-slate-400 text-base max-w-2xl mx-auto">
 						Independent overviews to help you decide — connectivity, amenities, construction quality and things to know

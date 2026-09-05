@@ -125,8 +125,8 @@ const ReferPage = () => {
 				<div className="container-custom text-center relative z-10">
 					<p className="text-[11px] font-bold tracking-[0.3em] uppercase text-teal-600 dark:text-teal-400 mb-3">Referral Program</p>
 					<h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3">
-						<span className="text-teal-600 dark:text-teal-400">Refer &amp;</span>{' '}
-						<span className="text-amber-500 dark:text-amber-400">Earn</span>
+						<span className="text-[#42949C]">Refer &amp;</span>{' '}
+						<span className="text-[#F5C94D]">Earn</span>
 					</h1>
 					<p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto text-base">
 						Share InstaMakaan. Earn real money — every time someone rents or buys through your link.

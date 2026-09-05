@@ -21,8 +21,8 @@ const modeConfig = {
 		filterTwoLabel: 'BHK',
 		filterTwoOptions: ['1', '2', '3', '4', '5+'],
 		searchBtnText: 'Search',
-		accentColor: 'text-teal-600 dark:text-teal-400',
-		highlightColor: 'text-amber-500 dark:text-amber-400',
+		accentColor: 'text-[#42949C]',
+		highlightColor: 'text-[#F5C94D]',
 		overlay:
 			'bg-gradient-to-b from-white/70 via-white/60 to-white/80 dark:from-[#0b1220]/90 dark:via-[#0b1220]/85 dark:to-[#0b1220]/95',
 		inputFocus: 'focus:ring-teal-400 focus:border-teal-400',
@@ -51,8 +51,8 @@ const modeConfig = {
 		filterTwoLabel: 'Budget',
 		filterTwoOptions: ['Under 30L', '30L–60L', '60L–1Cr', '1Cr–2Cr', '2Cr+'],
 		searchBtnText: 'Search',
-		accentColor: 'text-teal-600 dark:text-teal-400',
-		highlightColor: 'text-amber-500 dark:text-amber-400',
+		accentColor: 'text-[#42949C]',
+		highlightColor: 'text-[#F5C94D]',
 		overlay:
 			'bg-gradient-to-b from-white/70 via-white/60 to-white/80 dark:from-[#0b1220]/90 dark:via-[#0b1220]/85 dark:to-[#0b1220]/95',
 		inputFocus: 'focus:ring-teal-400 focus:border-teal-400',

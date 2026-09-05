@@ -71,8 +71,8 @@ export default function HomeLoanPrepaymentCalculator() {
             <FastForward className="w-4 h-4" /> Debt Freedom Planner
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
-            <span className="text-teal-600 dark:text-teal-400">Home Loan Prepayment</span>{' '}
-            <span className="text-amber-500 dark:text-amber-400">Calculator</span>
+            <span className="text-[#42949C]">Home Loan Prepayment</span>{' '}
+            <span className="text-[#F5C94D]">Calculator</span>
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Find out exactly how many years you can shave off your mortgage and how much interest you can save by making extra payments.

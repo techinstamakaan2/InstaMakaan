@@ -430,10 +430,10 @@ const AboutPage = () => {
           animation: im-fadeUp .8s ease both .25s;
         }
         .dark .im-hero-title { color:#f8fafc; }
-        .im-hero-title .teal   { color:#0d9488; }
-        .im-hero-title .yellow { color:#eab308; }
-        .dark .im-hero-title .teal   { color:#14b8a6; }
-        .dark .im-hero-title .yellow { color:#eab308; }
+        .im-hero-title .teal   { color:#42949C; }
+        .im-hero-title .yellow { color:#F5C94D; }
+        .dark .im-hero-title .teal   { color:#42949C; }
+        .dark .im-hero-title .yellow { color:#F5C94D; }
 
         .im-hero-sub {
           font-family:'Cabinet Grotesk',sans-serif;

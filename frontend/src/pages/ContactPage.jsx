@@ -268,8 +268,8 @@ const ContactPage = () => {
 
 				<div className="container-custom text-center">
 					<h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3">
-						<span className="text-teal-600 dark:text-teal-400">Get in</span>{' '}
-						<span className="text-amber-500 dark:text-amber-400">Touch</span>
+						<span className="text-[#42949C]">Get in</span>{' '}
+						<span className="text-[#F5C94D]">Touch</span>
 					</h1>
 					<p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto">
 						Have questions? We&apos;re here to help. Reach out to our team for

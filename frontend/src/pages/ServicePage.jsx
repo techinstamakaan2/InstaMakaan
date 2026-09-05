@@ -84,9 +84,18 @@ const ServicePage = () => {
 							<Briefcase className="w-3.5 h-3.5" />
 							{service.location}
 						</div>
-						<h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight text-teal-600 dark:text-teal-400">
-							{service.title}
-						</h1>
+						{(() => {
+							const parts = (service.title || '').split(' ');
+							const mid = Math.ceil(parts.length / 2);
+							const first = parts.slice(0, mid).join(' ');
+							const rest = parts.slice(mid).join(' ');
+							return (
+								<h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
+									<span className="text-[#42949C]">{first}</span>{' '}
+									<span className="text-[#F5C94D]">{rest}</span>
+								</h1>
+							);
+						})()}
 						<p className="mt-3 text-lg text-teal-600 dark:text-teal-400 font-medium">{service.tagline}</p>
 						<p className="mt-4 text-slate-500 dark:text-slate-400 text-base leading-relaxed">{service.intro}</p>
 

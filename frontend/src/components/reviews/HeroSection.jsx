@@ -254,12 +254,12 @@ export default function HeroSection() {
 					display: inline-block; opacity: 0;
 					animation: heroWordPop .7s cubic-bezier(.22,1,.36,1) both;
 				}
-				.hero-title span:nth-child(1) { color:#0d9488; animation-delay:.1s; }
-				.hero-title span:nth-child(2) { color:#eab308; }   /* yellow-500 */				
-				.hero-title span:nth-child(3) { color:#0d9488; animation-delay:.5s; }
+				.hero-title span:nth-child(1) { color:#42949C; animation-delay:.1s; }
+				.hero-title span:nth-child(2) { color:#F5C94D; }   /* brand-yellow */				
+				.hero-title span:nth-child(3) { color:#42949C; animation-delay:.5s; }
 				.dark .hero-title span:nth-child(1),
-				.dark .hero-title span:nth-child(3) { color:#14b8a6; }
-				.dark .hero-title span:nth-child(2) { color:#fbbf24; }
+				.dark .hero-title span:nth-child(3) { color:#42949C; }
+				.dark .hero-title span:nth-child(2) { color:#F5C94D; }
 				.hero-subtitle {
 					font-family: 'Cabinet Grotesk', sans-serif;
 					font-size: clamp(.82rem,2.2vw,1.05rem);

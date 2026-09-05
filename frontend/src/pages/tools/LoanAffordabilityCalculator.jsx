@@ -52,8 +52,8 @@ export default function LoanAffordabilityCalculator() {
             <BarChart3 className="w-4 h-4" /> Pro-Grade Analysis
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
-            <span className="text-teal-600 dark:text-teal-400">Loan Affordability</span>{' '}
-            <span className="text-amber-500 dark:text-amber-400">Calculator</span>
+            <span className="text-[#42949C]">Loan Affordability</span>{' '}
+            <span className="text-[#F5C94D]">Calculator</span>
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Find out exactly how much home you can afford. Our advanced calculator factors in your entire financial picture to give you a bank-grade affordability assessment.

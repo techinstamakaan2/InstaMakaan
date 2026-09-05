@@ -24,8 +24,8 @@ const PillarGuidesIndexPage = () => {
 				<div className="absolute inset-0 bg-gradient-to-br from-teal-50 via-white to-sky-50 dark:from-[#0a1628] dark:via-[#0b1220] dark:to-[#0a1628]" />
 				<div className="relative container-custom text-center">
 					<h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
-						<span className="text-teal-600 dark:text-teal-400">Property</span>{' '}
-						<span className="text-amber-500 dark:text-amber-400">Guides</span>
+						<span className="text-[#42949C]">Property</span>{' '}
+						<span className="text-[#F5C94D]">Guides</span>
 					</h1>
 					<p className="mt-4 text-slate-500 dark:text-slate-400 text-base max-w-2xl mx-auto">
 						Complete, practical guides to renting and buying property in Noida &amp; Greater Noida.

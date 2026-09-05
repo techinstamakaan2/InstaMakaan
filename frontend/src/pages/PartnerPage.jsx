@@ -247,9 +247,9 @@ const PartnerPage = () => {
 
 				<div className="relative z-10 min-h-screen flex items-center justify-center text-center px-4 sm:px-6">
 					<div className="max-w-5xl">
-						<h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-bold text-teal-500 dark:text-white whitespace-normal sm:whitespace-nowrap leading-tight">
-							Are You a Property{' '}
-							<span className="text-yellow-500 dark:text-teal-400 font-bold ml-2">
+						<h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-bold whitespace-normal sm:whitespace-nowrap leading-tight">
+							<span className="text-[#42949C]">Are You a Property</span>{' '}
+							<span className="text-[#F5C94D] font-bold">
 								Owner?
 							</span>
 						</h1>

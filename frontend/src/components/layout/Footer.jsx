@@ -102,8 +102,8 @@ export const Footer = () => {
 							/>
 
 							<div className="leading-tight">
-								<span className="text-xl font-bold text-slate-900 dark:text-white">Insta</span>
-								<span className="text-xl font-bold text-slate-900 dark:text-white">Makaan</span>
+								<span className="text-xl font-bold text-[#42949C]">Insta</span>
+								<span className="text-xl font-bold text-[#F5C94D]">Makaan</span>
 							</div>
 						</Link>
 

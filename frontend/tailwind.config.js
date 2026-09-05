@@ -88,6 +88,12 @@ module.exports = {
 				darkbg: '#06090F',
 				darkcard: '#0E121A',
 				neon: '#24ffce',
+
+				/* ⭐ BRAND LOGO EXACT COLORS */
+				brandGreen: '#42949C',
+				brandYellow: '#F5C94D',
+				'brand-green': '#42949C',
+				'brand-yellow': '#F5C94D',
 			},
 
 			/* ⭐ YOUR SHADOW SYSTEM */

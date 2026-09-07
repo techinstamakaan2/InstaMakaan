@@ -1006,17 +1006,19 @@ export default function ParadiseCityPage() {
 					<SectionHeading kicker="Lifestyle Zones" title="World-Class Amenities" sub="Four dedicated zones — every facility you need, all within Paradise City." light={true} />
 
 					{/* ── Zone selector tabs ── */}
-					<div className="flex flex-wrap justify-center gap-3 mb-10">
-						{AMENITY_ZONES.map((z, i) => (
-							<button key={i} onClick={() => setActiveZone(i)}
-								className="flex items-center gap-2.5 px-5 py-3 rounded-2xl border transition-all duration-300"
-								style={activeZone === i
-									? { background: `${GOLD}18`, borderColor: `${GOLD}55`, color: GOLD, boxShadow: `0 0 24px ${GOLD}20` }
-									: { background: 'rgba(255,255,255,0.03)', borderColor: `${GOLD}18`, color: 'rgba(255,255,255,0.42)' }}>
-								<span style={{ color: activeZone === i ? GOLD : 'rgba(255,255,255,0.38)', display: 'flex' }}>{z.icon}</span>
-								<span className="text-sm font-bold tracking-wide">{z.zone}</span>
-							</button>
-						))}
+					<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mb-10">
+						<div className="inline-flex gap-3 flex-nowrap sm:flex-wrap justify-start sm:justify-center min-w-max">
+							{AMENITY_ZONES.map((z, i) => (
+								<button key={i} onClick={() => setActiveZone(i)}
+									className="flex items-center gap-2.5 px-5 py-3 rounded-2xl border transition-all duration-300 whitespace-nowrap flex-shrink-0"
+									style={activeZone === i
+										? { background: `${GOLD}18`, borderColor: `${GOLD}55`, color: GOLD, boxShadow: `0 0 24px ${GOLD}20` }
+										: { background: 'rgba(255,255,255,0.03)', borderColor: `${GOLD}18`, color: 'rgba(255,255,255,0.42)' }}>
+									<span style={{ color: activeZone === i ? GOLD : 'rgba(255,255,255,0.38)', display: 'flex' }}>{z.icon}</span>
+									<span className="text-sm font-bold tracking-wide">{z.zone}</span>
+								</button>
+							))}
+						</div>
 					</div>
 
 					{/* ── Zone content: photo + items ── */}

@@ -660,22 +660,24 @@ const FloorPlanViewer = ({ units, onEnquire }) => {
 		<div className="max-w-5xl mx-auto">
 
 			{/* ── Unit selector pills ── */}
-			<div className="flex gap-2 mb-5">
-				{units.map((unit,i)=>(
-					<button key={i} onClick={()=>reset(i)}
-						className={`flex-1 min-w-0 flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border transition-all duration-200 text-left ${
-							sel===i
-								? 'bg-[#c4a84f]/12 border-[#c4a84f]/55 shadow-lg'
-								: 'bg-white/4 border-white/8 hover:border-white/22 hover:bg-white/7'
-						}`}>
-						<span className={`text-[9px] font-bold tracking-widest uppercase ${sel===i?'text-[#c4a84f]':'text-white/35'}`}>{unit.towers.split('(')[0].trim()}</span>
-						<span className={`text-sm font-black leading-tight ${sel===i?'text-white':'text-white/40'}`}>{unit.type.replace(' + Servant Room','')}</span>
-						<div className="flex items-center gap-1.5 mt-1">
-							<span className={`text-[10px] font-semibold ${sel===i?'text-white/60':'text-white/25'}`}>{unit.sqft.toLocaleString('en-IN')} sq.ft</span>
-							{unit.tag&&<span className={`text-[8px] font-black px-1.5 py-0.5 rounded-full ${sel===i?'bg-[#c4a84f] text-[#071a0e]':'bg-white/8 text-white/40'}`}>{unit.tag}</span>}
-						</div>
-					</button>
-				))}
+			<div className="w-full overflow-x-auto no-scrollbar pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 mb-5">
+				<div className="flex gap-2 min-w-max sm:min-w-0 sm:w-full">
+					{units.map((unit,i)=>(
+						<button key={i} onClick={()=>reset(i)}
+							className={`flex-1 min-w-[150px] sm:min-w-0 flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border transition-all duration-200 text-left ${
+								sel===i
+									? 'bg-[#c4a84f]/12 border-[#c4a84f]/55 shadow-lg'
+									: 'bg-white/4 border-white/8 hover:border-white/22 hover:bg-white/7'
+							}`}>
+							<span className={`text-[9px] font-bold tracking-widest uppercase ${sel===i?'text-[#c4a84f]':'text-white/35'}`}>{unit.towers.split('(')[0].trim()}</span>
+							<span className={`text-sm font-black leading-tight whitespace-nowrap ${sel===i?'text-white':'text-white/40'}`}>{unit.type.replace(' + Servant Room','')}</span>
+							<div className="flex items-center gap-1.5 mt-1">
+								<span className={`text-[10px] font-semibold ${sel===i?'text-white/60':'text-white/25'}`}>{unit.sqft.toLocaleString('en-IN')} sq.ft</span>
+								{unit.tag&&<span className={`text-[8px] font-black px-1.5 py-0.5 rounded-full ${sel===i?'bg-[#c4a84f] text-[#071a0e]':'bg-white/8 text-white/40'}`}>{unit.tag}</span>}
+							</div>
+						</button>
+					))}
+				</div>
 			</div>
 
 			{/* ── Main layout: floor plan + details panel ── */}
@@ -1123,10 +1125,10 @@ export default function AlpgPage() {
 					<div className="mb-10">
 						<AmenitySlider slides={AMENITY_SLIDES}/>
 					</div>
-					<div className="flex flex-wrap justify-center gap-2 mb-6">
+					<div className="w-full overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:flex-wrap sm:justify-center gap-2 flex-nowrap mb-6">
 						{AMENITY_ZONES.map((z,i)=>(
 							<button key={i} onClick={()=>setActiveZone(i)}
-								className={`px-5 py-2 rounded-xl text-sm font-bold transition-all ${activeZone===i?'text-white shadow-lg':'bg-white/8 border border-[#c4a84f]/20 text-white/60 hover:text-white hover:bg-white/12 hover:border-[#c4a84f]/40'}`}
+								className={`px-5 py-2 rounded-xl text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${activeZone===i?'text-white shadow-lg':'bg-white/8 border border-[#c4a84f]/20 text-white/60 hover:text-white hover:bg-white/12 hover:border-[#c4a84f]/40'}`}
 								style={activeZone===i?{background:z.color}:{}}>
 								{z.zone}
 							</button>
@@ -1311,14 +1313,14 @@ export default function AlpgPage() {
 					{/* Payment Plan */}
 					<Reveal>
 						<div className="max-w-4xl mx-auto">
-							<div className="flex justify-center gap-2 mb-6 flex-wrap">
+							<div className="w-full overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center gap-2 flex-nowrap sm:flex-wrap mb-6">
 								{[
 									{key:'clp-typical',label:'CLP · Typical Tower'},
 									{key:'clp-iconic', label:'CLP · Iconic Tower'},
 									{key:'special',    label:'Special Plan'},
 								].map(t=>(
 									<button key={t.key} onClick={()=>setPayTab(t.key)}
-										className={`px-5 py-2 rounded-full text-sm font-semibold transition-all border ${payTab===t.key?'bg-green-700 text-white border-green-700':'border-white/20 text-white/60 hover:border-green-400/40 hover:text-white'}`}>
+										className={`px-5 py-2 rounded-full text-sm font-semibold transition-all border whitespace-nowrap flex-shrink-0 ${payTab===t.key?'bg-green-700 text-white border-green-700':'border-white/20 text-white/60 hover:border-green-400/40 hover:text-white'}`}>
 										{t.label}
 									</button>
 								))}

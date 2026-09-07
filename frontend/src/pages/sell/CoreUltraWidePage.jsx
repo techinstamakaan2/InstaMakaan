@@ -1043,20 +1043,22 @@ export default function CoreUltraWidePage() {
 						</div>
 
 						{/* Category Filter Pills */}
-						<div className="flex flex-wrap gap-1.5 p-1.5 rounded-2xl bg-white/95 dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 self-start shadow-sm">
-							{['All', 'Rooftop Lounge', 'Studio Suites', 'Cinema', 'Fine Dining', 'Retail'].map((cat) => (
-								<button
-									key={cat}
-									onClick={() => setGalleryFilter(cat)}
-									className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-										galleryFilter === cat
-											? 'bg-violet-700 text-white shadow-md scale-105'
-											: 'text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-									}`}
-								>
-									{cat}
-								</button>
-							))}
+						<div className="w-full md:w-auto overflow-x-auto no-scrollbar py-1 self-start">
+							<div className="inline-flex gap-1.5 p-1.5 rounded-2xl bg-white/95 dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 flex-nowrap sm:flex-wrap min-w-max shadow-sm">
+								{['All', 'Rooftop Lounge', 'Studio Suites', 'Cinema', 'Fine Dining', 'Retail'].map((cat) => (
+									<button
+										key={cat}
+										onClick={() => setGalleryFilter(cat)}
+										className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex-shrink-0 ${
+											galleryFilter === cat
+												? 'bg-violet-700 text-white shadow-md scale-105'
+												: 'text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+										}`}
+									>
+										{cat}
+									</button>
+								))}
+							</div>
 						</div>
 					</div>
 

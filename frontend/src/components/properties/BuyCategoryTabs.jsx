@@ -38,13 +38,13 @@ export const BuyCategoryTabs = () => {
 	return (
 		<>
 			{/* Pill tab bar — centered */}
-			<div data-reveal="scale" data-delay="150" className="flex justify-center mb-10">
-				<div className="inline-flex items-center gap-1 p-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-inner">
+			<div data-reveal="scale" data-delay="150" className="w-full overflow-x-auto no-scrollbar py-1 flex justify-center mb-8 sm:mb-10 px-2">
+				<div className="inline-flex items-center gap-1 p-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-inner min-w-max">
 					{BUY_TABS.map((tab) => (
 						<button
 							key={tab.id}
 							onClick={() => setBuyTab(tab.id)}
-							className={`px-6 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
+							className={`px-5 sm:px-6 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
 								buyTab === tab.id
 									? 'bg-teal-600 text-white shadow-md shadow-teal-500/30'
 									: 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'

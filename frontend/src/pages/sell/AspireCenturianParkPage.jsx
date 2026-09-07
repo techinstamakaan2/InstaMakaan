@@ -682,14 +682,14 @@ const SpecsPanel = () => {
 	return (
 		<div>
 			{/* Tower toggle */}
-			<div className="flex justify-center mb-8">
-				<div className="inline-flex rounded-full border border-amber-300/60 overflow-hidden">
+			<div className="w-full overflow-x-auto no-scrollbar py-1 flex justify-center mb-8 px-2">
+				<div className="inline-flex rounded-full border border-amber-300/60 overflow-hidden min-w-max">
 					{[
 						{ key: 'iconic',  label: 'Iconic Tower',   sub: '45 Floors · 4 BHK+ST' },
 						{ key: 'typical', label: 'Typical Towers', sub: 'T1–T10 · 3 & 4 BHK' },
 					].map(t => (
 						<button key={t.key} onClick={() => switchTab(t.key)}
-							className={`px-7 py-2.5 text-sm font-semibold transition-all duration-200 ${
+							className={`px-5 sm:px-7 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
 								tab === t.key ? 'bg-amber-600 text-white' : 'text-slate-500 hover:text-slate-800 bg-white/40'
 							}`}>
 							{t.label}
@@ -1052,17 +1052,18 @@ const FloorPlanViewer = ({ units }) => {
 		<Reveal>
 		<div className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-amber-200 shadow-2xl shadow-black/30">
 			{/* Tab bar */}
-			<div className="bg-slate-900 px-4 py-3 flex items-center gap-2 flex-wrap border-b border-amber-900/20">
-				{units.map((u, i) => (
-					<button key={i} onClick={() => reset(i)}
-						className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${sel === i ? 'bg-amber-600 text-white shadow-md' : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white'}`}>
-						{u.label}
-						{u.tag && <span className={`ml-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full ${sel === i ? 'bg-white/20 text-white' : 'bg-amber-100 text-amber-400'}`}>{u.tag}</span>}
-					</button>
-				))}
-				<div className="flex-1" />
+			<div className="bg-slate-900 px-4 py-2.5 flex items-center justify-between gap-3 border-b border-amber-900/20">
+				<div className="overflow-x-auto no-scrollbar flex items-center gap-2 flex-nowrap min-w-0 py-0.5">
+					{units.map((u, i) => (
+						<button key={i} onClick={() => reset(i)}
+							className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap flex-shrink-0 ${sel === i ? 'bg-amber-600 text-white shadow-md' : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white'}`}>
+							{u.label}
+							{u.tag && <span className={`ml-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full ${sel === i ? 'bg-white/20 text-white' : 'bg-amber-100 text-amber-400'}`}>{u.tag}</span>}
+						</button>
+					))}
+				</div>
 				{/* zoom controls */}
-				<div className="flex items-center bg-white/5 border border-white/8 rounded-lg overflow-hidden">
+				<div className="flex items-center bg-white/5 border border-white/8 rounded-lg overflow-hidden flex-shrink-0">
 					<button onClick={() => setZoom(z => { const n = Math.max(1, +(z - 0.5).toFixed(1)); if (n === 1) setPan({ x: 0, y: 0 }); return n; })}
 						disabled={zoom <= 1} className="px-2.5 py-1 text-white/50 hover:text-amber-400 disabled:opacity-20 text-base font-bold leading-none">−</button>
 					<span className="text-white/40 text-[11px] font-mono px-1.5 w-9 text-center select-none">{zoom.toFixed(1)}×</span>
@@ -1459,10 +1460,10 @@ export default function AspireCenturianParkPage() {
 					</div>
 
 					{/* Zone tabs + grid */}
-					<div className="flex flex-wrap justify-center gap-2 mb-6">
+					<div className="w-full overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:flex-wrap sm:justify-center gap-2 flex-nowrap mb-6">
 						{AMENITY_ZONES.map((z, i) => (
 							<button key={i} onClick={() => setActiveZone(i)}
-								className={`px-5 py-2 rounded-xl text-sm font-bold transition-all ${activeZone === i ? 'text-white shadow-lg' : 'bg-white/75 text-slate-800 hover:bg-white/90'}`}
+								className={`px-5 py-2 rounded-xl text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${activeZone === i ? 'text-white shadow-lg' : 'bg-white/75 text-slate-800 hover:bg-white/90'}`}
 								style={activeZone === i ? { background: z.color } : {}}>
 								{z.zone}
 							</button>
@@ -1734,13 +1735,15 @@ export default function AspireCenturianParkPage() {
 					<SectionHeading kicker="For All Sizes" title="Payment Plans" />
 
 					{/* Plan tabs */}
-					<div className="flex justify-center gap-3 mb-8">
-						{[['clp', 'Construction Linked Plan (CLP)'], ['special', 'Special Payment Plan']].map(([key, label]) => (
-							<button key={key} onClick={() => setPayTab(key)}
-								className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${payTab === key ? 'bg-amber-600 text-white shadow-lg' : 'bg-white/85 text-slate-600 hover:bg-white/90 hover:text-slate-900 border border-amber-200'}`}>
-								{label}
-							</button>
-						))}
+					<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mb-8">
+						<div className="inline-flex items-center gap-3 flex-nowrap min-w-max">
+							{[['clp', 'Construction Linked Plan (CLP)'], ['special', 'Special Payment Plan']].map(([key, label]) => (
+								<button key={key} onClick={() => setPayTab(key)}
+									className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${payTab === key ? 'bg-amber-600 text-white shadow-lg' : 'bg-white/85 text-slate-600 hover:bg-white/90 hover:text-slate-900 border border-amber-200'}`}>
+									{label}
+								</button>
+							))}
+						</div>
 					</div>
 
 					<div className="max-w-2xl mx-auto">

@@ -126,11 +126,21 @@
       "changefreq": "monthly"
     },
     {
+      "path": "/sell-companies/shri-villa",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
       "path": "/sell-companies/codename-bento",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/sell-companies/core-ultra-wide",
       "priority": "0.8",
       "changefreq": "monthly"
     }
   ],
-  "generatedAt": "2026-08-21T12:38:53.539Z",
-  "count": 26
+  "generatedAt": "2026-09-07T06:00:45.641Z",
+  "count": 28
 }

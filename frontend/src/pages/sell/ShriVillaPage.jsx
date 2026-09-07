@@ -991,25 +991,27 @@ export default function ShriVillaPage() {
 								</p>
 
 								{/* Filter Pill Bar */}
-								<div className="inline-flex items-center gap-1.5 p-1.5 mt-8 rounded-2xl bg-blue-100/80 dark:bg-slate-900/80 border border-blue-200 dark:border-blue-900 shadow-md backdrop-blur-md">
-									{[
-										{ id: 'All', label: 'All Plots (50)' },
-										{ id: 'Compact', label: 'Compact (89–120 Sq.Yd)' },
-										{ id: 'Standard', label: 'Standard (130–200 Sq.Yd)' },
-										{ id: 'Grand Estate', label: 'Grand Estates (210–500 Sq.Yd)' },
-									].map(f => (
-										<button
-											key={f.id}
-											onClick={() => setPlotFilter(f.id)}
-											className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-												plotFilter === f.id
-													? 'bg-gradient-to-r from-blue-900 to-indigo-900 text-white shadow-lg border border-blue-400/30'
-													: 'text-slate-600 dark:text-slate-300 hover:text-blue-800 dark:hover:text-amber-300'
-											}`}
-										>
-											{f.label}
-										</button>
-									))}
+								<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mt-6 sm:mt-8">
+									<div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-blue-100/80 dark:bg-slate-900/80 border border-blue-200 dark:border-blue-900 shadow-md backdrop-blur-md flex-nowrap min-w-max">
+										{[
+											{ id: 'All', label: 'All Plots (50)' },
+											{ id: 'Compact', label: 'Compact (89–120 Sq.Yd)' },
+											{ id: 'Standard', label: 'Standard (130–200 Sq.Yd)' },
+											{ id: 'Grand Estate', label: 'Grand Estates (210–500 Sq.Yd)' },
+										].map(f => (
+											<button
+												key={f.id}
+												onClick={() => setPlotFilter(f.id)}
+												className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex-shrink-0 ${
+													plotFilter === f.id
+														? 'bg-gradient-to-r from-blue-900 to-indigo-900 text-white shadow-lg border border-blue-400/30'
+														: 'text-slate-600 dark:text-slate-300 hover:text-blue-800 dark:hover:text-amber-300'
+												}`}
+											>
+												{f.label}
+											</button>
+										))}
+									</div>
 								</div>
 							</div>
 						</FadeUp>
@@ -1234,26 +1236,28 @@ export default function ShriVillaPage() {
 								</p>
 
 								{/* Amenity Filter */}
-								<div className="inline-flex items-center gap-1.5 p-1.5 mt-8 rounded-2xl bg-blue-100/80 dark:bg-slate-900/80 border border-blue-200 dark:border-blue-900 shadow-md backdrop-blur-md">
-									{[
-										{ id: 'All', label: 'All Amenities (12)' },
-										{ id: 'Clubhouse', label: 'Clubhouse & Pool' },
-										{ id: 'Sports', label: 'Sports & Gym' },
-										{ id: 'Community', label: 'Community & Temple' },
-										{ id: 'Safety', label: 'Safety & Roads' },
-									].map(f => (
-										<button
-											key={f.id}
-											onClick={() => setAmenityFilter(f.id)}
-											className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-												amenityFilter === f.id
-													? 'bg-gradient-to-r from-blue-900 to-indigo-900 text-white shadow-lg border border-blue-400/30'
-													: 'text-slate-600 dark:text-slate-300 hover:text-blue-800 dark:hover:text-amber-300'
-											}`}
-										>
-											{f.label}
-										</button>
-									))}
+								<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mt-6 sm:mt-8">
+									<div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-blue-100/80 dark:bg-slate-900/80 border border-blue-200 dark:border-blue-900 shadow-md backdrop-blur-md flex-nowrap min-w-max">
+										{[
+											{ id: 'All', label: 'All Amenities (12)' },
+											{ id: 'Clubhouse', label: 'Clubhouse & Pool' },
+											{ id: 'Sports', label: 'Sports & Gym' },
+											{ id: 'Community', label: 'Community & Temple' },
+											{ id: 'Safety', label: 'Safety & Roads' },
+										].map(f => (
+											<button
+												key={f.id}
+												onClick={() => setAmenityFilter(f.id)}
+												className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex-shrink-0 ${
+													amenityFilter === f.id
+														? 'bg-gradient-to-r from-blue-900 to-indigo-900 text-white shadow-lg border border-blue-400/30'
+														: 'text-slate-600 dark:text-slate-300 hover:text-blue-800 dark:hover:text-amber-300'
+												}`}
+											>
+												{f.label}
+											</button>
+										))}
+									</div>
 								</div>
 							</div>
 						</FadeUp>
@@ -1324,24 +1328,26 @@ export default function ShriVillaPage() {
 								</p>
 
 								{/* Connectivity Tab Buttons */}
-								<div className="inline-flex items-center gap-1.5 p-1.5 mt-8 rounded-2xl bg-blue-100/80 dark:bg-slate-900/80 border border-blue-200 dark:border-blue-900 shadow-md backdrop-blur-md">
-									{[
-										{ id: 'local', label: 'Local Landmarks (0–15 KM)' },
-										{ id: 'regional', label: 'Regional Transit (Air/Expressway)' },
-										{ id: 'scenic', label: 'Hill Getaways (Mussoorie/Rishikesh)' },
-									].map(t => (
-										<button
-											key={t.id}
-											onClick={() => setConnectTab(t.id)}
-											className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-												connectTab === t.id
-													? 'bg-gradient-to-r from-blue-900 to-indigo-900 text-white shadow-lg border border-blue-400/30'
-													: 'text-slate-600 dark:text-slate-300 hover:text-blue-800 dark:hover:text-amber-300'
-											}`}
-										>
-											{t.label}
-										</button>
-									))}
+								<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mt-6 sm:mt-8">
+									<div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-blue-100/80 dark:bg-slate-900/80 border border-blue-200 dark:border-blue-900 shadow-md backdrop-blur-md flex-nowrap min-w-max">
+										{[
+											{ id: 'local', label: 'Local Landmarks (0–15 KM)' },
+											{ id: 'regional', label: 'Regional Transit (Air/Expressway)' },
+											{ id: 'scenic', label: 'Hill Getaways (Mussoorie/Rishikesh)' },
+										].map(t => (
+											<button
+												key={t.id}
+												onClick={() => setConnectTab(t.id)}
+												className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex-shrink-0 ${
+													connectTab === t.id
+														? 'bg-gradient-to-r from-blue-900 to-indigo-900 text-white shadow-lg border border-blue-400/30'
+														: 'text-slate-600 dark:text-slate-300 hover:text-blue-800 dark:hover:text-amber-300'
+												}`}
+											>
+												{t.label}
+											</button>
+										))}
+									</div>
 								</div>
 							</div>
 						</FadeUp>

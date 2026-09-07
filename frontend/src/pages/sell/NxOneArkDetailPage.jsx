@@ -1224,14 +1224,14 @@ const NxOneArkDetailPage = () => {
 					<div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border border-amber-700/20 shadow-2xl shadow-black/40">
 
 						{/* ══ ROW 1: type tabs + view toggle + zoom — all in one bar ══ */}
-						<div className="bg-[#120800] px-4 py-3 flex items-center gap-3 flex-wrap border-b border-amber-900/20">
+						<div className="bg-[#120800] px-3 sm:px-4 py-3 flex items-center justify-between gap-2 sm:gap-3 flex-wrap border-b border-amber-900/20">
 							{/* type tabs */}
-							<div className="flex gap-1 flex-wrap">
+							<div className="w-full sm:w-auto overflow-x-auto no-scrollbar flex items-center gap-1 flex-nowrap pb-1 sm:pb-0">
 								{FLOOR_PLANS.map((fp, i) => (
 									<button
 										key={i}
 										onClick={() => resetPlan(i)}
-										className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${
+										className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap flex-shrink-0 transition-all duration-200 ${
 											selectedPlan === i
 												? 'bg-amber-500 text-white shadow-md shadow-amber-900/50'
 												: 'bg-white/5 text-white/45 hover:bg-white/10 hover:text-white'
@@ -1243,11 +1243,10 @@ const NxOneArkDetailPage = () => {
 								))}
 							</div>
 
-							{/* spacer */}
-							<div className="flex-1" />
-
-							{/* view toggle */}
-							<div className="flex bg-white/5 rounded-lg p-0.5 gap-0.5">
+							{/* controls container for mobile and desktop */}
+							<div className="flex items-center gap-2 sm:gap-3 ml-auto">
+								{/* view toggle */}
+								<div className="flex bg-white/5 rounded-lg p-0.5 gap-0.5 flex-shrink-0">
 								{[
 									{ key: '2d',     label: '2D' },
 									{ key: '3d',     label: '3D' },
@@ -1276,6 +1275,7 @@ const NxOneArkDetailPage = () => {
 									disabled={planZoom >= 3}
 									className="px-2 py-1 text-white/50 hover:text-amber-400 disabled:opacity-20 disabled:cursor-not-allowed transition-colors font-bold text-base leading-none"
 								>+</button>
+							</div>
 							</div>
 						</div>
 

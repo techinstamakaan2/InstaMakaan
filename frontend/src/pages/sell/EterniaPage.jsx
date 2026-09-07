@@ -935,12 +935,12 @@ export default function EterniaPage() {
 										</div>
 
 										{/* Filter category pills */}
-										<div className="flex flex-wrap gap-1.5 mb-4">
+										<div className="w-full overflow-x-auto no-scrollbar py-1 flex gap-1.5 flex-nowrap sm:flex-wrap mb-4">
 											{['All', 'Recreation', 'Nature', 'Water', 'Sports', 'Kids', 'Community'].map((cat) => (
 												<button
 													key={cat}
 													onClick={() => setActiveZoneFilter(cat)}
-													className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all ${
+													className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all whitespace-nowrap flex-shrink-0 ${
 														activeZoneFilter === cat
 															? 'bg-rose-600 text-white shadow-sm'
 															: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900'
@@ -1080,13 +1080,13 @@ export default function EterniaPage() {
 						</div>
 
 						{/* Typology Switcher Tabs */}
-						<div className="flex justify-center mb-10">
-							<div className="inline-flex p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 gap-2 flex-wrap justify-center shadow-sm">
+						<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mb-8 sm:mb-10">
+							<div className="inline-flex p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 gap-2 flex-nowrap min-w-max shadow-sm">
 								{UNIT_CONFIGS.map((cfg) => (
 									<button
 										key={cfg.id}
 										onClick={() => setActiveTab(cfg.id)}
-										className={`px-5 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center gap-2 ${
+										className={`px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex-shrink-0 ${
 											activeTab === cfg.id
 												? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-lg shadow-rose-600/30'
 												: 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
@@ -1379,13 +1379,13 @@ export default function EterniaPage() {
 						</div>
 
 						{/* Interactive Room Tabs */}
-						<div className="flex justify-center mb-8">
-							<div className="inline-flex p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 gap-1 sm:gap-2 flex-wrap justify-center shadow-sm">
+						<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mb-8">
+							<div className="inline-flex p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 gap-1 sm:gap-2 flex-nowrap sm:flex-wrap justify-start sm:justify-center shadow-sm min-w-max">
 								{SPECIFICATIONS.map((spec, i) => (
 									<button
 										key={i}
 										onClick={() => setActiveSpecCat(i)}
-										className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
+										className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap flex-shrink-0 transition-all duration-300 ${
 											activeSpecCat === i
 												? 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
 												: 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -1664,12 +1664,12 @@ export default function EterniaPage() {
 							<div className="lg:col-span-5 space-y-4">
 								<FadeUp delay={100}>
 									<div className="et-glass-panel et-shadow-rose rounded-3xl p-6">
-										<div className="flex flex-wrap gap-1.5 mb-5">
+										<div className="flex overflow-x-auto no-scrollbar gap-1.5 mb-5 pb-1 flex-nowrap sm:flex-wrap">
 											{LOCATION_ADVANTAGES.map((cat, i) => (
 												<button
 													key={i}
 													onClick={() => setActiveLocCat(i)}
-													className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ${
+													className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap flex-shrink-0 transition-all duration-300 ${
 														activeLocCat === i
 															? 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
 															: 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'

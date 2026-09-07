@@ -497,22 +497,25 @@ const FloorPlanViewer = ({ units }) => {
 		<Reveal>
 			<div className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-slate-200 dark:border-cyan-500/20 shadow-2xl">
 				{/* Tab bar */}
-				<div className="bg-slate-900 px-4 py-3 flex items-center gap-2 flex-wrap border-b border-cyan-900/30">
-					{units.map((unit, i) => (
-						<button key={i} onClick={() => reset(i)}
-							className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${sel === i ? 'bg-cyan-600 text-white shadow-md' : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'}`}>
-							{unit.label}
-							{unit.tag && <span className={`ml-2 text-[9px] font-bold px-1.5 py-0.5 rounded-full ${sel === i ? 'bg-white/20 text-white' : 'bg-cyan-500/20 text-cyan-400'}`}>{unit.tag}</span>}
-						</button>
-					))}
-					<div className="flex-1" />
-					{/* zoom controls */}
-					<div className="flex items-center bg-white/5 border border-white/10 rounded-lg overflow-hidden">
-						<button onClick={() => setZoom(z => { const n = Math.max(1, +(z - 0.5).toFixed(1)); if (n === 1) setPan({ x: 0, y: 0 }); return n; })}
-							disabled={zoom <= 1} className="px-3 py-1 text-white/50 hover:text-cyan-400 disabled:opacity-20 text-base font-bold leading-none">−</button>
-						<span className="text-white/40 text-[11px] font-mono px-2 w-9 text-center select-none">{zoom.toFixed(1)}×</span>
-						<button onClick={() => setZoom(z => Math.min(3, +(z + 0.5).toFixed(1)))}
-							disabled={zoom >= 3} className="px-3 py-1 text-white/50 hover:text-cyan-400 disabled:opacity-20 text-base font-bold leading-none">+</button>
+				<div className="bg-slate-900 px-4 py-3 flex items-center justify-between gap-2 flex-wrap border-b border-cyan-900/30">
+					<div className="w-full sm:w-auto overflow-x-auto no-scrollbar flex items-center gap-2 flex-nowrap pb-1 sm:pb-0">
+						{units.map((unit, i) => (
+							<button key={i} onClick={() => reset(i)}
+								className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap flex-shrink-0 transition-all ${sel === i ? 'bg-cyan-600 text-white shadow-md' : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'}`}>
+								{unit.label}
+								{unit.tag && <span className={`ml-2 text-[9px] font-bold px-1.5 py-0.5 rounded-full ${sel === i ? 'bg-white/20 text-white' : 'bg-cyan-500/20 text-cyan-400'}`}>{unit.tag}</span>}
+							</button>
+						))}
+					</div>
+					<div className="flex items-center ml-auto">
+						{/* zoom controls */}
+						<div className="flex items-center bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+							<button onClick={() => setZoom(z => { const n = Math.max(1, +(z - 0.5).toFixed(1)); if (n === 1) setPan({ x: 0, y: 0 }); return n; })}
+								disabled={zoom <= 1} className="px-3 py-1 text-white/50 hover:text-cyan-400 disabled:opacity-20 text-base font-bold leading-none">−</button>
+							<span className="text-white/40 text-[11px] font-mono px-2 w-9 text-center select-none">{zoom.toFixed(1)}×</span>
+							<button onClick={() => setZoom(z => Math.min(3, +(z + 0.5).toFixed(1)))}
+								disabled={zoom >= 3} className="px-3 py-1 text-white/50 hover:text-cyan-400 disabled:opacity-20 text-base font-bold leading-none">+</button>
+						</div>
 					</div>
 				</div>
 
@@ -1163,15 +1166,17 @@ export default function YamunaCommercialPage() {
 					</div>
 
 					{/* Zone tabs + grid */}
-					<div className="flex flex-wrap justify-center gap-2 mb-6">
-						{AMENITY_CATEGORIES.map((z, i) => (
-							<button key={i} onClick={() => setActiveZone(i)}
-								className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold transition-all ${activeZone === i ? 'text-white shadow-lg' : 'bg-white dark:bg-white/5 text-slate-700 dark:text-white/50 hover:bg-slate-50 dark:hover:bg-white/8 border border-slate-200 dark:border-transparent'}`}
-								style={activeZone === i ? { background: z.color } : {}}>
-								<z.icon size={14} />
-								{z.zone}
-							</button>
-						))}
+					<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mb-6">
+						<div className="inline-flex gap-2 flex-nowrap sm:flex-wrap justify-start sm:justify-center min-w-max">
+							{AMENITY_CATEGORIES.map((z, i) => (
+								<button key={i} onClick={() => setActiveZone(i)}
+									className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold whitespace-nowrap flex-shrink-0 transition-all ${activeZone === i ? 'text-white shadow-lg' : 'bg-white dark:bg-white/5 text-slate-700 dark:text-white/50 hover:bg-slate-50 dark:hover:bg-white/8 border border-slate-200 dark:border-transparent'}`}
+									style={activeZone === i ? { background: z.color } : {}}>
+									<z.icon size={14} />
+									{z.zone}
+								</button>
+							))}
+						</div>
 					</div>
 					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
 						{AMENITY_CATEGORIES[activeZone].items.map((item, i) => (
@@ -1273,20 +1278,22 @@ export default function YamunaCommercialPage() {
 					{/* ── Categorized Nearby Grid with Tabs ── */}
 					<div className="yc-glass-strong rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200 dark:border-cyan-500/20">
 						{/* Category switcher */}
-						<div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-							{Object.keys(NEARBY_HUBS).map((cat) => (
-								<button
-									key={cat}
-									onClick={() => setActiveNearbyCat(cat)}
-									className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-200 ${
-										activeNearbyCat === cat
-											? 'bg-gradient-to-r from-cyan-600 to-teal-500 text-white shadow-md shadow-cyan-500/20'
-											: 'bg-white dark:bg-white/5 text-slate-700 dark:text-white/60 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 border border-slate-200 dark:border-transparent'
-									}`}
-								>
-									{cat}
-								</button>
-							))}
+						<div className="w-full overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center mb-8">
+							<div className="inline-flex gap-2 flex-nowrap sm:flex-wrap justify-start sm:justify-center min-w-max">
+								{Object.keys(NEARBY_HUBS).map((cat) => (
+									<button
+										key={cat}
+										onClick={() => setActiveNearbyCat(cat)}
+										className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap flex-shrink-0 transition-all duration-200 ${
+											activeNearbyCat === cat
+												? 'bg-gradient-to-r from-cyan-600 to-teal-500 text-white shadow-md shadow-cyan-500/20'
+												: 'bg-white dark:bg-white/5 text-slate-700 dark:text-white/60 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 border border-slate-200 dark:border-transparent'
+										}`}
+									>
+										{cat}
+									</button>
+								))}
+							</div>
 						</div>
 
 						{/* Hub items */}

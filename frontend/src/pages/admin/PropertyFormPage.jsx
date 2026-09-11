@@ -265,6 +265,7 @@ const defaultFormData = {
 	status: 'active',
 	deposit: '',
 	brokerage: '15 Days',
+	move_charge: '3000',
 	owner_id: '',
 	monthly_rent_amount: 0,
 };
@@ -628,7 +629,16 @@ const PropertyFormPage = () => {
 	const fetchProperty = async () => {
 		try {
 			const { data } = await api.get(`/properties/${id}`);
-			setFormData({ ...defaultFormData, ...data });
+			setFormData({
+				...defaultFormData,
+				...data,
+				move_charge:
+					data.move_charge !== undefined && data.move_charge !== null && data.move_charge !== ''
+						? String(data.move_charge)
+						: data.property_type !== 'buy'
+						? '3000'
+						: '',
+			});
 			setImages(
 				(data.images || []).map((img) =>
 					typeof img === 'string' ? { url: img, label: 'Image' } : img,
@@ -867,7 +877,12 @@ const PropertyFormPage = () => {
 								<Label>Property Type *</Label>
 								<Select
 									value={formData.property_type}
-									onValueChange={(v) => set('property_type', v)}
+									onValueChange={(v) => {
+										set('property_type', v);
+										if (v !== 'buy' && !formData.move_charge) {
+											set('move_charge', '3000');
+										}
+									}}
 								>
 									<SelectTrigger>
 										<SelectValue />
@@ -1077,6 +1092,21 @@ const PropertyFormPage = () => {
 								/>
 							</div>
 						</div>
+						{formData.property_type !== 'buy' && (
+							<div className="grid sm:grid-cols-2 gap-4 mt-4">
+								<div>
+									<Label>Move Charge + Documentation (₹)</Label>
+									<Input
+										value={formData.move_charge !== undefined ? formData.move_charge : '3000'}
+										onChange={(e) => set('move_charge', e.target.value)}
+										placeholder="3000"
+									/>
+									<p className="text-xs text-slate-400 mt-1">
+										Standard ₹3,000 move-in & agreement fee (auto-calculated in Rent Details).
+									</p>
+								</div>
+							</div>
+						)}
 					</SectionCard>
 
 					{/* ── Property Details ── */}

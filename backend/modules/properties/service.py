@@ -10,6 +10,8 @@ async def create_property(data: PropertyCreate, user: dict):
     db = get_db()
     now = datetime.now(timezone.utc).isoformat()
     prop = data.model_dump()
+    if prop.get("property_type") != "buy" and not prop.get("move_charge"):
+        prop["move_charge"] = "3000"
     prop.update({
         "id": prop.get("id") or str(uuid4()),
         "images": prop.get("images", []),
@@ -104,6 +106,8 @@ async def get_property_by_id(property_id: str):
     prop = await db.properties.find_one({"id": property_id}, {"_id": 0})
     if not prop:
         raise HTTPException(status_code=404, detail="Property not found")
+    if prop.get("property_type") != "buy" and not prop.get("move_charge"):
+        prop["move_charge"] = "3000"
     return prop
 
 
@@ -117,6 +121,8 @@ async def get_property_by_short_id(short_id: str):
     )
     if not prop:
         raise HTTPException(status_code=404, detail="Property not found")
+    if prop.get("property_type") != "buy" and not prop.get("move_charge"):
+        prop["move_charge"] = "3000"
     return prop
 
 

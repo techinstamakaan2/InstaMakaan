@@ -218,6 +218,12 @@ const PropertyPreviewDrawer = ({ propertyId, isOpen, onClose }) => {
                   <p className="font-medium">{property.brokerage}</p>
                 </div>
               )}
+              {property.property_type !== 'buy' && (
+                <div>
+                  <p className="text-muted-foreground">Move Charge + Documentation</p>
+                  <p className="font-medium">₹{property.move_charge ? Number(property.move_charge).toLocaleString() : '3,000'}</p>
+                </div>
+              )}
               {property.preferred_tenant && (
                 <div>
                   <p className="text-muted-foreground">Preferred Tenant</p>

@@ -61,7 +61,20 @@ import DynamicFAQ, { generatePropertyFAQs } from '@/components/DynamicFAQ';
 const toNumber = (val) => {
 	if (!val) return 0;
 	if (typeof val === 'number') return val;
-	return Number(val.toString().replace(/[^\d]/g, '')) || 0;
+	const str = val.toString().trim().toLowerCase();
+	if (str.endsWith('k')) {
+		const parsed = parseFloat(str.replace(/[^0-9.]/g, ''));
+		return isNaN(parsed) ? 0 : Math.round(parsed * 1000);
+	}
+	if (str.endsWith('l') || str.endsWith('lac') || str.endsWith('lakh')) {
+		const parsed = parseFloat(str.replace(/[^0-9.]/g, ''));
+		return isNaN(parsed) ? 0 : Math.round(parsed * 100000);
+	}
+	if (str.endsWith('cr') || str.endsWith('crore')) {
+		const parsed = parseFloat(str.replace(/[^0-9.]/g, ''));
+		return isNaN(parsed) ? 0 : Math.round(parsed * 10000000);
+	}
+	return Number(str.replace(/[^\d]/g, '')) || 0;
 };
 
 /* ---------- ICON MAP — covers ALL amenities from PropertyFormPage ---------- */
@@ -352,7 +365,7 @@ const PropertyDetailPage = () => {
 			setVisitLoading(false);
 		}
 	};
-	const { monthlyRent, securityDeposit, brokerageAmount, totalPayable } =
+	const { monthlyRent, securityDeposit, brokerageAmount, moveCharge, totalPayable } =
 		useMemo(() => {
 			let monthlyRent = toNumber(property?.price || 0);
 
@@ -388,9 +401,23 @@ const PropertyDetailPage = () => {
 				}
 			}
 
-			const totalPayable = monthlyRent + securityDeposit + brokerageAmount;
+			const isBuy = property?.property_type?.toLowerCase() === 'buy';
+			let moveCharge = 0;
+			if (!isBuy) {
+				if (
+					property?.move_charge !== undefined &&
+					property?.move_charge !== null &&
+					property?.move_charge !== ''
+				) {
+					moveCharge = toNumber(property.move_charge);
+				} else {
+					moveCharge = 3000;
+				}
+			}
 
-			return { monthlyRent, securityDeposit, brokerageAmount, totalPayable };
+			const totalPayable = monthlyRent + securityDeposit + brokerageAmount + moveCharge;
+
+			return { monthlyRent, securityDeposit, brokerageAmount, moveCharge, totalPayable };
 		}, [property, selectedRoomIndex]);
 
 	/* ---------- IMAGES ---------- */
@@ -1143,6 +1170,12 @@ const PropertyDetailPage = () => {
 								show: propertyType !== 'buy',
 							},
 							{
+								label: 'Move Charge + Documentation',
+								sub: 'Move-in & agreement charges',
+								value: `₹ ${moveCharge.toLocaleString()}`,
+								show: propertyType !== 'buy',
+							},
+							{
 								label: 'One-Time Fees',
 								sub: 'Service fee',
 								value: `₹ ${Math.round(brokerageAmount).toLocaleString()}`,
@@ -1165,7 +1198,11 @@ const PropertyDetailPage = () => {
 						<div className="flex items-center justify-between px-4 py-3 bg-teal-50 dark:bg-teal-900/20 border-t border-teal-100 dark:border-teal-800/40">
 							<div>
 								<p className="text-sm font-bold text-teal-700 dark:text-teal-400">Total Payable</p>
-								<p className="text-xs text-gray-400">Rent + deposit + fees</p>
+								<p className="text-xs text-gray-400">
+									{propertyType === 'buy'
+										? 'Price + fees'
+										: 'Rent + deposit + move charge + fees'}
+								</p>
 							</div>
 							<p className="text-base font-black text-teal-700 dark:text-teal-400">
 								₹ {(propertyType === 'buy'

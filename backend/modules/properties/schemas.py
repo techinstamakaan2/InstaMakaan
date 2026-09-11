@@ -27,6 +27,7 @@ class PropertyBase(BaseModel):
     status: str = "active"
     deposit: Optional[str] = None
     brokerage: Optional[str] = None
+    move_charge: Optional[str] = "3000"
     owner_id: Optional[str] = None
     monthly_rent_amount: Optional[float] = None
 
@@ -90,6 +91,7 @@ class PropertyUpdate(BaseModel):
     status: Optional[str] = None
     deposit: Optional[str] = None
     brokerage: Optional[str] = None
+    move_charge: Optional[str] = None
     images: Optional[List[Union[str, dict]]] = None
     owner_id: Optional[str] = None
     monthly_rent_amount: Optional[float] = None

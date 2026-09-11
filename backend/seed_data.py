@@ -150,6 +150,7 @@ async def seed_database():
             "preferred_tenant": "family",
             "deposit": "2 Months",
             "brokerage": "15 Days",
+            "move_charge": "3000",
             "images": [
                 "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
                 "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800"
@@ -206,6 +207,7 @@ async def seed_database():
             "preferred_tenant": "any",
             "deposit": "1 Month",
             "brokerage": "10 Days",
+            "move_charge": "3000",
             "images": [
                 "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800"
             ],
@@ -261,6 +263,7 @@ async def seed_database():
             "preferred_tenant": "bachelor",
             "deposit": "1 Month",
             "brokerage": "7 Days",
+            "move_charge": "3000",
             "images": [
                 "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800"
             ],

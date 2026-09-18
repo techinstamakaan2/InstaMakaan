@@ -6,6 +6,8 @@ import uuid
 
 class InstagramPostBase(BaseModel):
     embed_url: str
+    thumbnail_url: Optional[str] = None
+    caption: Optional[str] = None
     has_video: bool = False
     order: int = 0
     is_active: bool = True
@@ -17,6 +19,8 @@ class InstagramPostCreate(InstagramPostBase):
 
 class InstagramPostUpdate(BaseModel):
     embed_url: Optional[str] = None
+    thumbnail_url: Optional[str] = None
+    caption: Optional[str] = None
     has_video: Optional[bool] = None
     order: Optional[int] = None
     is_active: Optional[bool] = None

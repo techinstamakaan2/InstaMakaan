@@ -11,78 +11,117 @@ import api from '@/lib/api';
 
 // ─── Instagram Card ─────────────────────────────────────────────
 const InstagramEmbedCard = ({ post, index }) => {
-	const [loaded, setLoaded] = useState(false);
-	const [inView, setInView] = useState(false);
+	const [imgLoaded, setImgLoaded] = useState(false);
+	const [imgError, setImgError] = useState(false);
 	const cardRef = useRef(null);
 
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			([entry]) => { if (entry.isIntersecting) setInView(true); },
-			{ rootMargin: '200px' }
-		);
-		if (cardRef.current) observer.observe(cardRef.current);
-		return () => observer.disconnect();
-	}, []);
+	const hasThumbnail = Boolean(post.thumbnail_url) && !imgError;
+	const cleanUrl = post.embed_url ? post.embed_url.split('?')[0].replace(/\/?$/, '/') : '';
+	const embedSrc = cleanUrl ? `${cleanUrl}embed/` : '';
 
-	const embedSrc = post.embed_url.replace(/\/?$/, '/') + 'embed/';
+	// Fallback to iframe embed if no custom thumbnail
+	if (!hasThumbnail) {
+		return (
+			<div
+				ref={cardRef}
+				style={{ animationDelay: `${index * 100}ms` }}
+				className="relative flex-shrink-0 w-[260px] sm:w-[300px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-neutral-900 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+			>
+				<div className="overflow-hidden rounded-2xl" style={{ height: '380px' }}>
+					{!imgLoaded && (
+						<div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-neutral-900 z-10">
+							<Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+						</div>
+					)}
+					<div className="overflow-hidden rounded-2xl h-[340px] sm:h-[380px]">
+						<iframe
+							src={embedSrc}
+							title={`InstaMakaan Instagram post ${index + 1}`}
+							className="w-full border-0 block"
+							style={{
+								marginTop: '-60px',
+								height: 'calc(100% + 60px)',
+							}}
+							scrolling="no"
+							onLoad={() => setImgLoaded(true)}
+						/>
+					</div>
+				</div>
+
+				<a
+					href={cleanUrl || post.embed_url}
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="Open on Instagram"
+					className="absolute inset-0 z-10 bg-black/0 hover:bg-black/30 transition-all duration-300 flex items-center justify-center group"
+				>
+					<Instagram className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-300" />
+				</a>
+			</div>
+		);
+	}
 
 	return (
-		<div
+		<a
 			ref={cardRef}
+			href={cleanUrl || post.embed_url}
+			target="_blank"
+			rel="noopener noreferrer"
 			style={{ animationDelay: `${index * 100}ms` }}
-			className="relative flex-shrink-0 w-[260px] sm:w-[300px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-neutral-900 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+			className="group relative flex-shrink-0 w-[260px] sm:w-[290px] h-[400px] sm:h-[430px] rounded-2xl overflow-hidden bg-neutral-950 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 block"
 		>
-			{/* ── Clip the Instagram embed header ──────────────────────
-			    The embed always renders a ~60px header (avatar + username +
-			    "View profile"). We clip it by pulling the iframe up with a
-			    negative marginTop and hiding overflow on this wrapper.       */}
-			<div className="overflow-hidden rounded-2xl" style={{ height: '340px' }}>
-				{/* Loader */}
-				{!loaded && (
-					<div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-neutral-900 z-10">
-						<Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+			{/* Thumbnail Image */}
+			<img
+				src={post.thumbnail_url}
+				alt={post.caption || `InstaMakaan Reel ${index + 1}`}
+				loading="lazy"
+				onError={() => setImgError(true)}
+				className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+			/>
+
+			{/* Gradient Overlays for readable text & Instagram style */}
+			<div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/60 pointer-events-none" />
+
+			{/* Top Bar: Handle & Reel Badge */}
+			<div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+				<div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-medium shadow-sm">
+					<Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
+					<span>@instamakaan</span>
+				</div>
+
+				{post.has_video && (
+					<div className="w-7 h-7 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-sm">
+						<Play className="w-3 h-3 fill-white ml-0.5" />
 					</div>
 				)}
+			</div>
 
-				<div className="overflow-hidden rounded-2xl h-[300px] sm:h-[340px]">
-					<iframe
-						src={embedSrc}
-						title={`InstaMakaan Instagram post ${index + 1}`}
-						className="w-full border-0 block"
-						style={{
-							marginTop: '-60px',
-							height: 'calc(100% + 60px)', // 🔥 magic fix
-						}}
-						scrolling="no"
-						onLoad={() => setLoaded(true)}
-					/>
+			{/* Center Play Button on hover */}
+			<div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+				<div className="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-tr group-hover:from-[#f09433] group-hover:via-[#dc2743] group-hover:to-[#bc1888] group-hover:border-transparent">
+					<Play className="w-6 h-6 fill-white ml-0.5 drop-shadow-md" />
 				</div>
 			</div>
 
-			{/* Reel badge */}
-			{post.has_video && (
-				<div className="absolute top-2 right-2 w-7 h-7 rounded-md bg-black/70 flex items-center justify-center z-20 pointer-events-none">
-					<Play className="w-3.5 h-3.5 text-white" fill="currentColor" />
+			{/* Bottom Caption & Watch Button */}
+			<div className="absolute bottom-3.5 left-3.5 right-3.5 z-10 pointer-events-none space-y-2">
+				{post.caption && (
+					<p className="text-xs sm:text-[13px] font-medium text-white/95 line-clamp-2 leading-snug drop-shadow">
+						{post.caption}
+					</p>
+				)}
+				<div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-white text-[11px] sm:text-xs font-semibold group-hover:bg-white group-hover:text-neutral-900 transition-colors duration-200">
+					<span>Watch Reel</span>
+					<Instagram className="w-3 h-3 text-[#E1306C]" />
 				</div>
-			)}
-
-			{/* Hover overlay — desktop only so mobile taps still open IG */}
-			<a
-				href={post.embed_url}
-				target="_blank"
-				rel="noopener noreferrer"
-				aria-label="Open on Instagram"
-				className="absolute inset-0 z-10 bg-black/0 hover:bg-black/30 transition-all duration-300 hidden sm:flex items-center justify-center group"
-			>
-				<Instagram className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-300" />
-			</a>
-		</div>
+			</div>
+		</a>
 	);
 };
 
 // ─── Skeleton ────────────────────────────────────────────────────
 const SkeletonCard = () => (
-	<div className="flex-shrink-0 w-[260px] sm:w-[300px] h-[340px] rounded-2xl bg-gray-100 dark:bg-neutral-900 animate-pulse" />
+	<div className="flex-shrink-0 w-[260px] sm:w-[290px] h-[400px] sm:h-[430px] rounded-2xl bg-gray-100 dark:bg-neutral-900 animate-pulse" />
 );
 
 // ─── Main Section ─────────────────────────────────────────────
@@ -160,14 +199,14 @@ export const InstagramSection = () => {
 					<div
 						ref={sliderRef}
 						onScroll={updateScrollButtons}
-						className="flex gap-4 overflow-x-auto scroll-smooth px-4 sm:px-6 lg:px-8 pb-2"
+						className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth px-4 sm:px-6 lg:px-8 pb-3 justify-start md:justify-center"
 						style={{
 							scrollbarWidth: 'none',
 							msOverflowStyle: 'none',
 							WebkitOverflowScrolling: 'touch',
 						}}
 					>
-						{loading && [1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
+						{loading && [1, 2, 3].map((i) => <SkeletonCard key={i} />)}
 
 						{!loading && error && (
 							<p className="text-red-700 text-sm mx-auto py-8">{error}</p>

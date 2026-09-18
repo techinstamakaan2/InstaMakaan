@@ -41,7 +41,8 @@ const extractShortcode = (url = '') => {
 	return match ? match[2] : null;
 };
 
-const getThumbnailUrl = (url) => {
+const getThumbnailUrl = (url = '', post = null) => {
+	if (post?.thumbnail_url) return post.thumbnail_url;
 	const code = extractShortcode(url);
 	return code ? `https://www.instagram.com/p/${code}/media/?size=m` : null;
 };
@@ -118,7 +119,7 @@ const PostRow = ({
 	dragHandleProps,
 	isDragging,
 }) => {
-	const thumb = getThumbnailUrl(post.embed_url);
+	const thumb = getThumbnailUrl(post.embed_url, post);
 
 	const handleCopyUrl = () => {
 		navigator.clipboard.writeText(post.embed_url);
@@ -171,6 +172,11 @@ const PostRow = ({
 
 				{/* Info */}
 				<div className="p-3">
+					{post.caption && (
+						<p className="text-xs font-medium text-foreground line-clamp-1 mb-1" title={post.caption}>
+							{post.caption}
+						</p>
+					)}
 					<p className="text-xs font-mono text-muted-foreground truncate">
 						{post.embed_url.replace('https://www.instagram.com/', '')}
 					</p>
@@ -262,7 +268,12 @@ const PostRow = ({
 
 			{/* URL + Meta */}
 			<div className="flex-1 min-w-0">
-				<p className="text-sm text-foreground font-mono truncate">
+				{post.caption && (
+					<p className="text-sm font-medium text-foreground truncate">
+						{post.caption}
+					</p>
+				)}
+				<p className="text-xs text-muted-foreground font-mono truncate">
 					{post.embed_url}
 				</p>
 				<div className="flex items-center gap-3 mt-0.5 flex-wrap">

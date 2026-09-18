@@ -577,7 +577,9 @@ async def seed_database(mongo_url: str, db_name: str = "instamakaan"):
     instagram_posts = [
         {
             "id": str(uuid4()),
-            "embed_url": "https://www.instagram.com/reel/instamakaan1/",
+            "embed_url": "https://www.instagram.com/reel/DUvhmygkTx3/",
+            "thumbnail_url": "/images/instagram/reel-1.jpg",
+            "caption": "Noida Move-In Checklist: Avoid rental nightmares before paying any token",
             "has_video": True,
             "order": 1,
             "is_active": True,
@@ -586,7 +588,9 @@ async def seed_database(mongo_url: str, db_name: str = "instamakaan"):
         },
         {
             "id": str(uuid4()),
-            "embed_url": "https://www.instagram.com/reel/instamakaan2/",
+            "embed_url": "https://www.instagram.com/reel/DUKRA9TARf8/",
+            "thumbnail_url": "/images/instagram/reel-2.jpg",
+            "caption": "Golden I, Greater Noida West: Verified flats for rent near D-Mart & Gym",
             "has_video": True,
             "order": 2,
             "is_active": True,
@@ -595,8 +599,10 @@ async def seed_database(mongo_url: str, db_name: str = "instamakaan"):
         },
         {
             "id": str(uuid4()),
-            "embed_url": "https://www.instagram.com/p/instamakaan3/",
-            "has_video": False,
+            "embed_url": "https://www.instagram.com/reel/DT74dHVgWgY/",
+            "thumbnail_url": "/images/instagram/reel-3.jpg",
+            "caption": "Choosing Sukoon: Safer place, real verified homes, zero rental drama",
+            "has_video": True,
             "order": 3,
             "is_active": True,
             "created_at": now_iso(),

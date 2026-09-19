@@ -217,7 +217,7 @@ export const Footer = () => {
 			<div className="border-t border-slate-200 dark:border-white/10">
 				<div className="container-custom py-6 pb-24 md:pb-6">
 					<div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-500 dark:text-slate-400 text-center">
-						<p>© 2025 InstaMakaan. All Rights Reserved.</p>
+						<p>© 2026 InstaMakaan. All Rights Reserved.</p>
 
 						<div className="flex items-center gap-3">
 							<Link to="/privacy-policy" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">

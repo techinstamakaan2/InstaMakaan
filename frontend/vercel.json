@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/sitemap.xml",
-      "destination": "https://instamakaann.onrender.com/sitemap.xml"
+      "destination": "https://instamakaan-website.onrender.com/sitemap.xml"
     },
     {
       "source": "/(.*)",

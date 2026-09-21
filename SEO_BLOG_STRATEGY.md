@@ -132,6 +132,27 @@ Example: "How to Break Rent Agreement Early in Noida"
 - **Search Intent:** Tenants shocked by unexpected ₹5,000 to ₹25,000 society shifting fees, lift maintenance charges, and move-in security deposits.
 - **Key Features:** Detailed itemized move-in fee comparison table, owner vs tenant legal responsibility, gate pass negotiation steps, UPERC & RWA jurisdiction rules, 5 Google FAQPage schemas.
 
+### Article 14: Pet Rules & Community Bylaws (Massive Viral & Emotional Search Volume)
+- **Title:** Pet-Friendly Societies in Noida & Greater Noida (2026): Authority Rules, Registration Fee, Lift Guidelines & RWA Pet Bans
+- **Slug:** `pet-friendly-societies-noida-pet-rules-registration-guide`
+- **Category:** `For Tenants`
+- **Search Intent:** Pet parents facing RWA pet bans, elevator restrictions, neighbor disputes, and Noida Authority's mandatory registration app & fine policies.
+- **Key Features:** AWBI Supreme Court guidelines, Noida Authority penalty breakdown table, list of 7 verified pet-friendly societies, rent agreement pet clause safeguards, 5 Google FAQPage schemas.
+
+### Article 15: Public Transit & Commuter Rental Decisions (Evergreen Daily Search Volume)
+- **Title:** Noida Metro Aqua Line vs Blue Line: Sector 51-52 Interchange, Smart Card Rules, Fares & Best Sectors to Rent (2026)
+- **Slug:** `noida-metro-aqua-line-vs-blue-line-interchange-rent-guide`
+- **Category:** `Noida Living`
+- **Search Intent:** Corporate commuters and families deciding where to live along the Noida-Greater Noida metro corridor.
+- **Key Features:** Sector 51-52 interchange reality (distance, walkway, e-rickshaws, security re-check), DMRC vs NMRC ticketing compatibility table, station-by-station rental price breakdown (Sectors 76, 101, 137, 142), Botanical Garden extension update, 5 Google FAQPage schemas.
+
+### Article 16: Mandatory Legal Documentation & Stamp Value (High-Intent Conversion Search)
+- **Title:** Rent Agreement Stamp Paper in Noida & UP (2026): ₹100 vs ₹500 Stamp Value, 11-Month Rule & Registration Cost
+- **Slug:** `rent-agreement-stamp-paper-value-noida-up-rules`
+- **Category:** `Renting Guide`
+- **Search Intent:** Landlords and tenants searching for the correct stamp paper denomination under UP Stamp Act, court admissibility, notarized vs registered lease agreements, and avoiding broker overcharges.
+- **Key Features:** Section 17 Registration Act 11-month exemption breakdown, ₹100 vs ₹500 stamp paper legal comparison table, complete fair cost breakdown, verified e-stamp procurement guide, 5 Google FAQPage schemas.
+
 ---
 
 ## 4. The 10-Point Checklist for Every New Blog You Write

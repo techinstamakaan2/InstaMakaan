@@ -86,7 +86,10 @@ BATCH4_SEO_BLOGS = [
                 "heading": "Noida Authority Pet Policy (2026 Update): Registration & Fines",
                 "body": (
                     "<p>To curb conflicts between residents and pet owners, the <strong>Noida Authority</strong> and <strong>Greater Noida Industrial Development Authority (GNIDA)</strong> enforce a standardized pet policy:</p>"
-                    "<table>"
+                    "<div class=\"table-outer\">"
+                    "<div class=\"table-scroll-hint\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 11 21 7 17 3\"/><polyline points=\"7 21 3 17 7 13\"/><line x1=\"21\" y1=\"7\" x2=\"9\" y2=\"7\"/><line x1=\"3\" y1=\"17\" x2=\"15\" y2=\"17\"/></svg><span>Scroll table horizontally to view full details &rarr;</span></div>"
+                    "<div class=\"table-scroll-viewport\" tabindex=\"0\" role=\"region\" aria-label=\"Scrollable Table\">"
+                    "<table class=\"blog-table\">"
                     "<thead>"
                     "<tr>"
                     "<th>Rule / Requirement</th>"
@@ -122,6 +125,8 @@ BATCH4_SEO_BLOGS = [
                     "</tr>"
                     "</tbody>"
                     "</table>"
+                    "</div>"
+                    "</div>"
                 )
             },
             {
@@ -256,7 +261,10 @@ BATCH4_SEO_BLOGS = [
                 "heading": "Ticketing & Smart Card Compatibility (DMRC vs NMRC)",
                 "body": (
                     "<p>One of the most frequent surprises for new NCR residents is card non-interoperability:</p>"
-                    "<table>"
+                    "<div class=\"table-outer\">"
+                    "<div class=\"table-scroll-hint\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 11 21 7 17 3\"/><polyline points=\"7 21 3 17 7 13\"/><line x1=\"21\" y1=\"7\" x2=\"9\" y2=\"7\"/><line x1=\"3\" y1=\"17\" x2=\"15\" y2=\"17\"/></svg><span>Scroll table horizontally to view full details &rarr;</span></div>"
+                    "<div class=\"table-scroll-viewport\" tabindex=\"0\" role=\"region\" aria-label=\"Scrollable Table\">"
+                    "<table class=\"blog-table\">"
                     "<thead>"
                     "<tr>"
                     "<th>Payment Method</th>"
@@ -292,6 +300,8 @@ BATCH4_SEO_BLOGS = [
                     "</tr>"
                     "</tbody>"
                     "</table>"
+                    "</div>"
+                    "</div>"
                 )
             },
             {
@@ -314,7 +324,10 @@ BATCH4_SEO_BLOGS = [
                 "heading": "Best Affordable & Premium Sectors to Rent Along the Aqua Line",
                 "body": (
                     "<p>Renting along the Aqua Line allows you to enjoy spacious society living at nearly 30–40% lower rent compared to Central Delhi or Central Noida:</p>"
-                    "<table>"
+                    "<div class=\"table-outer\">"
+                    "<div class=\"table-scroll-hint\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 11 21 7 17 3\"/><polyline points=\"7 21 3 17 7 13\"/><line x1=\"21\" y1=\"7\" x2=\"9\" y2=\"7\"/><line x1=\"3\" y1=\"17\" x2=\"15\" y2=\"17\"/></svg><span>Scroll table horizontally to view full details &rarr;</span></div>"
+                    "<div class=\"table-scroll-viewport\" tabindex=\"0\" role=\"region\" aria-label=\"Scrollable Table\">"
+                    "<table class=\"blog-table\">"
                     "<thead>"
                     "<tr>"
                     "<th>Metro Station</th>"
@@ -356,6 +369,8 @@ BATCH4_SEO_BLOGS = [
                     "</tr>"
                     "</tbody>"
                     "</table>"
+                    "</div>"
+                    "</div>"
                 )
             },
             {
@@ -453,7 +468,10 @@ BATCH4_SEO_BLOGS = [
                 "heading": "₹100 vs ₹500 Stamp Paper: What Does the Law Say in UP?",
                 "body": (
                     "<p>Brokers frequently charge unsuspecting tenants ₹1,500 to ₹2,500 for drafting agreements on arbitrary stamp paper denominations. Here is the legal ground reality in Uttar Pradesh under the <strong>Indian Stamp Act, 1899 (UP Amendment)</strong>:</p>"
-                    "<table>"
+                    "<div class=\"table-outer\">"
+                    "<div class=\"table-scroll-hint\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 11 21 7 17 3\"/><polyline points=\"7 21 3 17 7 13\"/><line x1=\"21\" y1=\"7\" x2=\"9\" y2=\"7\"/><line x1=\"3\" y1=\"17\" x2=\"15\" y2=\"17\"/></svg><span>Scroll table horizontally to view full details &rarr;</span></div>"
+                    "<div class=\"table-scroll-viewport\" tabindex=\"0\" role=\"region\" aria-label=\"Scrollable Table\">"
+                    "<table class=\"blog-table\">"
                     "<thead>"
                     "<tr>"
                     "<th>Stamp Paper Denomination</th>"
@@ -479,6 +497,8 @@ BATCH4_SEO_BLOGS = [
                     "</tr>"
                     "</tbody>"
                     "</table>"
+                    "</div>"
+                    "</div>"
                 )
             },
             {
@@ -499,7 +519,10 @@ BATCH4_SEO_BLOGS = [
                 "heading": "Complete Cost Breakdown for a Rent Agreement in Noida",
                 "body": (
                     "<p>Here is the realistic market cost for executing a legally sound 11-month rent agreement in Noida & Greater Noida:</p>"
-                    "<table>"
+                    "<div class=\"table-outer\">"
+                    "<div class=\"table-scroll-hint\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 11 21 7 17 3\"/><polyline points=\"7 21 3 17 7 13\"/><line x1=\"21\" y1=\"7\" x2=\"9\" y2=\"7\"/><line x1=\"3\" y1=\"17\" x2=\"15\" y2=\"17\"/></svg><span>Scroll table horizontally to view full details &rarr;</span></div>"
+                    "<div class=\"table-scroll-viewport\" tabindex=\"0\" role=\"region\" aria-label=\"Scrollable Table\">"
+                    "<table class=\"blog-table\">"
                     "<thead>"
                     "<tr>"
                     "<th>Component</th>"
@@ -530,6 +553,8 @@ BATCH4_SEO_BLOGS = [
                     "</tr>"
                     "</tbody>"
                     "</table>"
+                    "</div>"
+                    "</div>"
                 )
             },
             {

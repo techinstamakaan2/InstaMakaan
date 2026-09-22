@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
@@ -276,8 +276,8 @@ const styles = `
   ══════════════════════════════════════════════════════ */
 
   html, body {
-    overflow-x: clip !important;
-    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    max-width: 100% !important;
   }
 
   .toc-scrollbar::-webkit-scrollbar {
@@ -295,24 +295,28 @@ const styles = `
   }
 
   .article-content-col {
-    min-width: 0;
-    max-width: 100%;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 
   .prose-body {
-    max-width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
   }
 
-  /* ── Outer container: clips to column width ── */
+  /* ── Outer container: strictly clamped to column width ── */
   .table-outer {
     position: relative;
-    max-width: 100%;
-    width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
     margin: 1.5em 0;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
     background: #ffffff;
-    overflow: hidden;
+    overflow: hidden !important;
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .dark .table-outer {
@@ -322,11 +326,11 @@ const styles = `
 
   /* ── Mobile Scroll Hint Banner ── */
   .table-scroll-hint {
-    display: none;
+    display: flex !important;
     font-size: 0.72rem;
     color: #0d9488;
     font-weight: 600;
-    padding: 6px 12px;
+    padding: 7px 12px;
     background: #f0fdfa;
     border-bottom: 1px solid #ccfbf1;
     align-items: center;
@@ -338,27 +342,22 @@ const styles = `
     border-color: #134e4a;
     color: #5eead4;
   }
-  @media (max-width: 768px) {
-    .table-scroll-hint {
-      display: flex;
-    }
-  }
 
   /* ── Scrollable viewport: native smooth scrolling on mobile & desktop ── */
   .table-scroll-viewport {
-    display: block;
+    display: block !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
     -webkit-overflow-scrolling: touch !important;
     touch-action: pan-x pan-y !important;
-    overscroll-behavior-x: contain !important;
-    max-width: 100%;
-    width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
     scrollbar-width: thin !important;
     scrollbar-color: #0d9488 #f1f5f9 !important;
   }
   .table-scroll-viewport::-webkit-scrollbar {
-    height: 7px !important;
+    height: 6px !important;
     display: block !important;
   }
   .table-scroll-viewport::-webkit-scrollbar-track {
@@ -385,14 +384,14 @@ const styles = `
   .blog-table,
   .prose-body table {
     width: 100% !important;
-    min-width: 600px !important;
+    min-width: 580px !important;
     border-collapse: collapse !important;
     table-layout: auto !important;
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     margin: 0 !important;
   }
-  @media (min-width: 480px) { .blog-table, .prose-body table { font-size: 0.76rem; } }
-  @media (min-width: 640px) { .blog-table, .prose-body table { font-size: 0.84rem; } }
+  @media (min-width: 480px) { .blog-table, .prose-body table { font-size: 0.78rem; min-width: 600px !important; } }
+  @media (min-width: 640px) { .blog-table, .prose-body table { font-size: 0.84rem; min-width: 640px !important; } }
 
   /* ── Header cells ── */
   .blog-table th,
@@ -400,11 +399,11 @@ const styles = `
     background: #f0fdfa !important;
     color: #0f766e !important;
     font-weight: 600;
-    padding: 10px 12px !important;
+    padding: 10px 14px !important;
     text-align: left;
     border: 1px solid #ccfbf1 !important;
     white-space: nowrap !important;
-    min-width: 130px;
+    min-width: 120px;
     position: sticky;
     top: 0;
   }
@@ -418,13 +417,13 @@ const styles = `
   /* ── Data cells ── */
   .blog-table td,
   .prose-body table td {
-    padding: 8px 12px !important;
+    padding: 9px 14px !important;
     border: 1px solid #e5e7eb !important;
     color: #374151 !important;
     vertical-align: top;
     white-space: normal !important;
     word-break: normal !important;
-    min-width: 130px;
+    min-width: 120px;
   }
   @media (min-width: 640px) { .blog-table td, .prose-body table td { padding: 10px 16px !important; } }
   .dark .blog-table td, .dark .prose-body table td { border-color: #334155 !important; color: #d1d5db !important; }
@@ -925,142 +924,42 @@ const InlineImage = ({ block }) => (
 );
 
 /* ─────────────────────────────────────────────
+   TABLE HTML PROCESSOR
+   Ensures every <table> inside blog HTML is wrapped
+   in a responsive .table-outer + .table-scroll-viewport
+   so users on mobile can scroll horizontally without
+   any columns being cut off.
+───────────────────────────────────────────── */
+const processTableHtml = (rawHtml) => {
+	if (!rawHtml) return '';
+	if (rawHtml.includes('table-scroll-viewport')) return rawHtml;
+
+	return rawHtml.replace(/<table(\b[^>]*)>([\s\S]*?)<\/table>/gi, (match, attrs, content) => {
+		let tableAttrs = attrs || '';
+		if (/class=["']/i.test(tableAttrs)) {
+			tableAttrs = tableAttrs.replace(/class=["']([^"']*)["']/i, (m, c) => {
+				return c.includes('blog-table') ? m : `class="${c} blog-table"`;
+			});
+		} else {
+			tableAttrs = `${tableAttrs} class="blog-table"`;
+		}
+
+		return `<div class="table-outer"><div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 21 7 17 3"/><polyline points="7 21 3 17 7 13"/><line x1="21" y1="7" x2="9" y2="7"/><line x1="3" y1="17" x2="15" y2="17"/></svg><span>Scroll table horizontally to view full details &rarr;</span></div><div class="table-scroll-viewport" tabindex="0" role="region" aria-label="Scrollable Table"><table${tableAttrs}>${content}</table></div></div>`;
+	});
+};
+
+/* ─────────────────────────────────────────────
    PROSE BODY
-   Wraps raw HTML from TipTap.
-   Every <table> inside gets the slider treatment
-   via a React portal-style approach using a
-   post-render DOM walk.
+   Renders raw blog HTML with guaranteed responsive
+   scrollable table containers.
 ───────────────────────────────────────────── */
 const ProseBody = ({ html }) => {
-	const ref = useRef(null);
-
-	useEffect(() => {
-		if (!ref.current) return;
-
-		ref.current.querySelectorAll('table').forEach((table) => {
-			/* Already wrapped — skip */
-			if (table.closest('.table-outer')) return;
-
-			/* Build outer + viewport */
-			const outer    = document.createElement('div');
-			outer.className = 'table-outer';
-
-			const hint = document.createElement('div');
-			hint.className = 'table-scroll-hint';
-			hint.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 21 7 17 3"/><polyline points="7 21 3 17 7 13"/><line x1="21" y1="7" x2="9" y2="7"/><line x1="3" y1="17" x2="15" y2="17"/></svg><span>Scroll table horizontally to view full details</span>`;
-
-			const viewport = document.createElement('div');
-			viewport.className = 'table-scroll-viewport';
-
-			/* Build slider bar */
-			const sliderBar = document.createElement('div');
-			sliderBar.className = 'table-slider-bar';
-			sliderBar.setAttribute('role', 'scrollbar');
-			sliderBar.setAttribute('aria-valuemin', '0');
-			sliderBar.setAttribute('aria-valuemax', '100');
-			sliderBar.setAttribute('aria-orientation', 'horizontal');
-
-			/* Left arrow */
-			const leftBtn = document.createElement('button');
-			leftBtn.className = 'table-slider-arrow';
-			leftBtn.setAttribute('aria-label', 'Scroll table left');
-			leftBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
-
-			/* Track */
-			const track = document.createElement('div');
-			track.className = 'table-slider-track';
-			track.style.flex = '1';
-			track.style.margin = '0 4px';
-			track.style.position = 'relative';
-
-			const fill = document.createElement('div');
-			fill.className = 'table-slider-fill';
-			fill.style.width = '0%';
-
-			const thumb = document.createElement('div');
-			thumb.className = 'table-slider-thumb';
-			thumb.style.left = '0%';
-			thumb.setAttribute('tabindex', '0');
-			thumb.setAttribute('role', 'slider');
-			thumb.setAttribute('aria-label', 'Scroll table');
-
-			track.appendChild(fill);
-			track.appendChild(thumb);
-
-			/* Right arrow */
-			const rightBtn = document.createElement('button');
-			rightBtn.className = 'table-slider-arrow';
-			rightBtn.setAttribute('aria-label', 'Scroll table right');
-			rightBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
-
-			sliderBar.appendChild(leftBtn);
-			sliderBar.appendChild(track);
-			sliderBar.appendChild(rightBtn);
-
-			/* Wire up DOM */
-			table.parentNode.insertBefore(outer, table);
-			outer.appendChild(hint);
-			viewport.appendChild(table);
-			outer.appendChild(viewport);
-			outer.appendChild(sliderBar);
-
-			/* ── Scroll sync ── */
-			const updateSlider = () => {
-				const max = viewport.scrollWidth - viewport.clientWidth;
-				const isScrollable = max > 2;
-				sliderBar.style.display = isScrollable ? 'flex' : 'none';
-				if (!isScrollable) return;
-				const ratio = max > 0 ? viewport.scrollLeft / max : 0;
-				const pct = `${ratio * 100}%`;
-				fill.style.width  = pct;
-				thumb.style.left  = pct;
-				sliderBar.setAttribute('aria-valuenow', Math.round(ratio * 100));
-			};
-
-			const ro = new ResizeObserver(updateSlider);
-			ro.observe(viewport);
-			viewport.addEventListener('scroll', updateSlider, { passive: true });
-			updateSlider();
-
-			/* ── Arrow click ── */
-			leftBtn.addEventListener('click',  (e) => { e.stopPropagation(); viewport.scrollBy({ left: -120, behavior: 'smooth' }); });
-			rightBtn.addEventListener('click', (e) => { e.stopPropagation(); viewport.scrollBy({ left:  120, behavior: 'smooth' }); });
-
-			/* ── Track click to jump ── */
-			sliderBar.addEventListener('click', (e) => {
-				if (e.target === thumb || e.target === leftBtn || e.target === rightBtn) return;
-				const rect = track.getBoundingClientRect();
-				const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-				const max = viewport.scrollWidth - viewport.clientWidth;
-				viewport.scrollLeft = ratio * max;
-			});
-
-			/* ── Thumb drag (pointer events) ── */
-			let dragActive = false, startX = 0, startScroll = 0;
-			thumb.addEventListener('pointerdown', (e) => {
-				e.preventDefault();
-				dragActive = true;
-				startX = e.clientX;
-				startScroll = viewport.scrollLeft;
-				thumb.setPointerCapture(e.pointerId);
-			});
-			thumb.addEventListener('pointermove', (e) => {
-				if (!dragActive) return;
-				const trackW = track.clientWidth;
-				const max = viewport.scrollWidth - viewport.clientWidth;
-				const delta = ((e.clientX - startX) / trackW) * max;
-				viewport.scrollLeft = Math.max(0, Math.min(max, startScroll + delta));
-			});
-			thumb.addEventListener('pointerup',     () => { dragActive = false; });
-			thumb.addEventListener('pointercancel', () => { dragActive = false; });
-		});
-	}, [html]);
+	const processedHtml = useMemo(() => processTableHtml(html), [html]);
 
 	return (
 		<div
-			ref={ref}
 			className="prose-body text-base"
-			dangerouslySetInnerHTML={{ __html: html }}
+			dangerouslySetInnerHTML={{ __html: processedHtml }}
 		/>
 	);
 };
@@ -1511,7 +1410,7 @@ const BlogDetailPage = () => {
 														{block.heading}
 													</h2>
 												)}
-												{block.body?.startsWith('<') ? (
+												{block.body && (block.body.includes('<') || block.body.trim().startsWith('<')) ? (
 													<ProseBody html={block.body} />
 												) : (
 													block.body?.split('\n\n').map((p, j) => (

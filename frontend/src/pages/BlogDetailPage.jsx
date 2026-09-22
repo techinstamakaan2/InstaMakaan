@@ -297,11 +297,9 @@ const styles = `
   .article-content-col {
     min-width: 0;
     max-width: 100%;
-    overflow-x: clip;
   }
 
   .prose-body {
-    overflow-x: clip;
     max-width: 100%;
   }
 
@@ -311,65 +309,125 @@ const styles = `
     max-width: 100%;
     width: 100%;
     margin: 1.5em 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .dark .table-outer {
+    border-color: #334155;
+    background: #1e293b;
   }
 
-  /* ── Scrollable viewport ── */
+  /* ── Mobile Scroll Hint Banner ── */
+  .table-scroll-hint {
+    display: none;
+    font-size: 0.72rem;
+    color: #0d9488;
+    font-weight: 600;
+    padding: 6px 12px;
+    background: #f0fdfa;
+    border-bottom: 1px solid #ccfbf1;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+  }
+  .dark .table-scroll-hint {
+    background: #134e4a33;
+    border-color: #134e4a;
+    color: #5eead4;
+  }
+  @media (max-width: 768px) {
+    .table-scroll-hint {
+      display: flex;
+    }
+  }
+
+  /* ── Scrollable viewport: native smooth scrolling on mobile & desktop ── */
   .table-scroll-viewport {
     display: block;
-    overflow-x: auto;
-    overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x pan-y !important;
+    overscroll-behavior-x: contain !important;
     max-width: 100%;
     width: 100%;
-    border-radius: 10px 10px 0 0;
-    scrollbar-width: none; /* hide native scrollbar — we use custom slider */
+    scrollbar-width: thin !important;
+    scrollbar-color: #0d9488 #f1f5f9 !important;
   }
-  .table-scroll-viewport::-webkit-scrollbar { display: none; }
+  .table-scroll-viewport::-webkit-scrollbar {
+    height: 7px !important;
+    display: block !important;
+  }
+  .table-scroll-viewport::-webkit-scrollbar-track {
+    background: #f1f5f9 !important;
+  }
+  .table-scroll-viewport::-webkit-scrollbar-thumb {
+    background: #0d9488 !important;
+    border-radius: 99px;
+  }
+  .table-scroll-viewport::-webkit-scrollbar-thumb:hover {
+    background: #0f766e !important;
+  }
+  .dark .table-scroll-viewport {
+    scrollbar-color: #14b8a6 #1e293b !important;
+  }
+  .dark .table-scroll-viewport::-webkit-scrollbar-track {
+    background: #1e293b !important;
+  }
+  .dark .table-scroll-viewport::-webkit-scrollbar-thumb {
+    background: #14b8a6 !important;
+  }
 
   /* ── The table itself ── */
   .blog-table,
   .prose-body table {
-    width: max-content;
-    min-width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
-    font-size: 0.68rem;
+    width: 100% !important;
+    min-width: 600px !important;
+    border-collapse: collapse !important;
+    table-layout: auto !important;
+    font-size: 0.72rem;
+    margin: 0 !important;
   }
-  @media (min-width: 480px) { .blog-table, .prose-body table { font-size: 0.74rem; } }
-  @media (min-width: 640px) { .blog-table, .prose-body table { font-size: 0.85rem; } }
+  @media (min-width: 480px) { .blog-table, .prose-body table { font-size: 0.76rem; } }
+  @media (min-width: 640px) { .blog-table, .prose-body table { font-size: 0.84rem; } }
 
   /* ── Header cells ── */
   .blog-table th,
   .prose-body table th {
-    background: #f0fdfa;
-    color: #0f766e;
+    background: #f0fdfa !important;
+    color: #0f766e !important;
     font-weight: 600;
-    padding: 8px 10px;
+    padding: 10px 12px !important;
     text-align: left;
-    border: 1px solid #ccfbf1;
-    white-space: nowrap;
+    border: 1px solid #ccfbf1 !important;
+    white-space: nowrap !important;
+    min-width: 130px;
     position: sticky;
     top: 0;
   }
-  @media (min-width: 640px) { .blog-table th, .prose-body table th { padding: 10px 14px; } }
+  @media (min-width: 640px) { .blog-table th, .prose-body table th { padding: 10px 16px !important; } }
   .dark .blog-table th, .dark .prose-body table th {
-    background: #134e4a;
-    color: #5eead4;
-    border-color: #0d4f47;
+    background: #134e4a !important;
+    color: #5eead4 !important;
+    border-color: #0d4f47 !important;
   }
 
   /* ── Data cells ── */
   .blog-table td,
   .prose-body table td {
-    padding: 7px 10px;
-    border: 1px solid #e5e7eb;
-    color: #374151;
+    padding: 8px 12px !important;
+    border: 1px solid #e5e7eb !important;
+    color: #374151 !important;
     vertical-align: top;
-    white-space: normal;
-    word-break: break-word;
+    white-space: normal !important;
+    word-break: normal !important;
+    min-width: 130px;
   }
-  @media (min-width: 640px) { .blog-table td, .prose-body table td { padding: 9px 14px; } }
-  .dark .blog-table td, .dark .prose-body table td { border-color: #374151; color: #d1d5db; }
+  @media (min-width: 640px) { .blog-table td, .prose-body table td { padding: 10px 16px !important; } }
+  .dark .blog-table td, .dark .prose-body table td { border-color: #334155 !important; color: #d1d5db !important; }
 
   .blog-table tr:nth-child(even) td,
   .prose-body table tr:nth-child(even) td { background: #f9fafb; }
@@ -773,6 +831,10 @@ const TableWithSlider = ({ children, caption }) => {
 
 	return (
 		<div className="table-outer">
+			<div className="table-scroll-hint">
+				<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 21 7 17 3"/><polyline points="7 21 3 17 7 13"/><line x1="21" y1="7" x2="9" y2="7"/><line x1="3" y1="17" x2="15" y2="17"/></svg>
+				<span>Scroll table horizontally to view full details</span>
+			</div>
 			{/* Scrollable table viewport */}
 			<div ref={viewportRef} className="table-scroll-viewport">
 				{children}
@@ -883,6 +945,10 @@ const ProseBody = ({ html }) => {
 			const outer    = document.createElement('div');
 			outer.className = 'table-outer';
 
+			const hint = document.createElement('div');
+			hint.className = 'table-scroll-hint';
+			hint.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 21 7 17 3"/><polyline points="7 21 3 17 7 13"/><line x1="21" y1="7" x2="9" y2="7"/><line x1="3" y1="17" x2="15" y2="17"/></svg><span>Scroll table horizontally to view full details</span>`;
+
 			const viewport = document.createElement('div');
 			viewport.className = 'table-scroll-viewport';
 
@@ -933,6 +999,7 @@ const ProseBody = ({ html }) => {
 
 			/* Wire up DOM */
 			table.parentNode.insertBefore(outer, table);
+			outer.appendChild(hint);
 			viewport.appendChild(table);
 			outer.appendChild(viewport);
 			outer.appendChild(sliderBar);

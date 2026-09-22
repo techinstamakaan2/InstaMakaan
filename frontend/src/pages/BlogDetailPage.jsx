@@ -1280,15 +1280,19 @@ const BlogDetailPage = () => {
 	/* ── content blocks ── */
 	const blocks = post.blocks?.length
 		? post.blocks
-		: (post.sections || []).map((s, i) => ({
+		: post.sections?.length
+		? post.sections.map((s, i) => ({
 				type: 'section',
 				id: String(i),
 				heading: s.heading,
 				body: s.body,
-			}));
+			}))
+		: post.content
+		? [{ type: 'section', id: 'main', heading: '', body: post.content }]
+		: [];
 
 	const sectionBlocks = blocks.filter((b) => b.type === 'section');
-	const keyStats = post.keyStats?.length ? post.keyStats : null;
+	const keyStats = post.keyStats?.length ? post.keyStats : post.key_stats?.length ? post.key_stats : null;
 
 	const toc = post.toc?.length
 		? post.toc

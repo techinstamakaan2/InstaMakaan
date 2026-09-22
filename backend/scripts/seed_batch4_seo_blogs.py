@@ -400,8 +400,8 @@ BATCH4_SEO_BLOGS = [
         "category": "Renting Guide",
         "date": "2026-09-21",
         "readTime": "7 min read",
-        "heroImage": "https://instamakaan.com/images/rent-agreement-stamp-paper-100-500.jpg",
-        "image": "https://instamakaan.com/images/rent-agreement-stamp-paper-100-500.jpg",
+        "heroImage": "https://res.cloudinary.com/ynntzsbg/image/upload/v1790077956/instamakaan/blogs/rent-agreement-stamp-paper-noida-up-rules.jpg",
+        "image": "https://res.cloudinary.com/ynntzsbg/image/upload/v1790077956/instamakaan/blogs/rent-agreement-stamp-paper-noida-up-rules.jpg",
         "author": {
             "name": "InstaMakaan Team",
             "role": "Real Estate Legal Documentation"

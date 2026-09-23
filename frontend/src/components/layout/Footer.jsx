@@ -9,6 +9,7 @@ import {
 	MapPin,
 	ChevronRight,
 } from 'lucide-react';
+import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 
 const navigationLinks = [
 	{ name: 'Home', path: '/' },
@@ -184,12 +185,7 @@ export const Footer = () => {
 								<span className="w-8 h-8 rounded-lg bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center shrink-0">
 									<Mail className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
 								</span>
-								<a
-									href="mailto:support@instamakaan.com"
-									className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors break-all"
-								>
-									support@instamakaan.com
-								</a>
+								<ObfuscatedEmail className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors break-all" />
 							</li>
 
 							<li className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
@@ -228,6 +224,12 @@ export const Footer = () => {
 
 							<Link to="/terms" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
 								Terms of Service
+							</Link>
+
+							<span className="opacity-40">|</span>
+
+							<Link to="/refund-policy" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+								Refund Policy
 							</Link>
 						</div>
 					</div>

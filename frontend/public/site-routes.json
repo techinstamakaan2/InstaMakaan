@@ -46,6 +46,11 @@
       "changefreq": "yearly"
     },
     {
+      "path": "/refund-policy",
+      "priority": "0.4",
+      "changefreq": "yearly"
+    },
+    {
       "path": "/reviews",
       "priority": "0.8",
       "changefreq": "weekly"
@@ -141,6 +146,6 @@
       "changefreq": "monthly"
     }
   ],
-  "generatedAt": "2026-09-22T12:24:07.171Z",
-  "count": 28
+  "generatedAt": "2026-09-23T13:00:15.109Z",
+  "count": 29
 }

@@ -333,6 +333,15 @@ export const Header = () => {
 
 					{/* Utilities */}
 
+					<a href="tel:+919771034916"
+						className="flex items-center gap-3 px-3.5 py-3 rounded-2xl border-[1.5px] border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-[0.9rem] font-semibold text-slate-700 dark:text-white transition-colors"
+					>
+						<div className="w-[34px] h-[34px] rounded-xl bg-green-500/10 dark:bg-green-500/20 flex items-center justify-center shrink-0">
+							<Phone size={16} className="text-green-500" />
+						</div>
+						Call +91 97710 34916
+					</a>
+
 					<Link to="/contact" onClick={closeMenu}
 						className="flex items-center gap-3 px-3.5 py-3 rounded-2xl border-[1.5px] border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-[0.9rem] font-semibold text-slate-700 dark:text-white transition-colors"
 					>

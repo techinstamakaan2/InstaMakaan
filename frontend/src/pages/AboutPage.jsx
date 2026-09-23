@@ -54,7 +54,7 @@ const ABOUT_FAQS = [
 	{
 		question: 'How can I contact the InstaMakaan team?',
 		answer:
-			'You can reach us at support@instamakaan.com or call +91 9771034916. Our office is at Tower T2, Flat B809, Amrapali Dream Valley, Greater Noida 201310. Visit our Contact page for a full list of options.',
+			'You can reach us through our Contact page or call +91 9771034916. Our office is at Tower T2, Flat B809, Amrapali Dream Valley, Greater Noida 201310. Visit our Contact page for a full list of options.',
 	},
 ];
 

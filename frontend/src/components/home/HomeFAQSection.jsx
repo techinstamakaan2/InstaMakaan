@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import api from '@/lib/api';
 import { Plus, Minus } from 'lucide-react';
@@ -33,7 +33,6 @@ const STATIC_FAQS = [
 ];
 
 const HomeFAQSection = () => {
-	const navigate = useNavigate();
 	const [faqs, setFaqs] = useState(STATIC_FAQS);
 	const [openIndex, setOpenIndex] = useState(null);
 
@@ -124,8 +123,8 @@ const HomeFAQSection = () => {
 
 				{/* LOAD MORE → FAQ PAGE */}
 				<div className="flex justify-center mt-10">
-					<button
-						onClick={() => navigate('/faq')}
+					<Link
+						to="/faq"
 						className="flex items-center gap-2 border-2 border-gray-300 dark:border-neutral-600 text-gray-700 dark:text-gray-300 font-semibold px-10 py-3.5 rounded-full hover:border-teal-500 hover:text-teal-600 transition-all text-sm"
 					>
 						Load More
@@ -143,7 +142,7 @@ const HomeFAQSection = () => {
 								d="M19 9l-7 7-7-7"
 							/>
 						</svg>
-					</button>
+					</Link>
 				</div>
 			</div>
 		</section>

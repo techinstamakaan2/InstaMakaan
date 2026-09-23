@@ -18,14 +18,16 @@
 
     <meta property="og:title" content="Rental Properties in Noida, Greater Noida & Ghaziabad | InstaMakaan" />
     <meta property="og:description" content="Find rental flats, PGs & co-living spaces across Noida, Greater Noida, Noida Extension and Ghaziabad." />
-    <meta property="og:image" content="https://instamakaan.com/images/orglogo.png" />
+    <meta property="og:image" content="https://instamakaan.com/images/orglogo.webp" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
     <meta property="og:url" content="https://instamakaan.com/" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Rental Properties in Noida, Greater Noida & Ghaziabad | InstaMakaan" />
     <meta name="twitter:description" content="Find rental flats, PGs & co-living spaces across Noida, Greater Noida, Noida Extension and Ghaziabad." />
-    <meta name="twitter:image" content="https://instamakaan.com/images/orglogo.png" />
+    <meta name="twitter:image" content="https://instamakaan.com/images/orglogo.webp" />
 
     <link rel="icon" type="image/png" href="/images/orglogo.webp" />
     <link rel="apple-touch-icon" href="/images/orglogo.webp" />
@@ -64,48 +66,51 @@
         }
     </script>
 
-    <!-- Analytics deferred after load -->
+    <!-- Analytics deferred after load (skipped during headless pre-render) -->
     <script>
-        window.addEventListener('load', function () {
-            // Google Analytics
-            var gaScript = document.createElement('script');
-            gaScript.async = true;
-            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-J20D86R6G2';
-            document.head.appendChild(gaScript);
-            gaScript.onload = function () {
-                window.dataLayer = window.dataLayer || [];
-                function gtag() { dataLayer.push(arguments); }
-                gtag('js', new Date());
-                gtag('config', 'G-J20D86R6G2');
-            };
+        if (navigator.userAgent.indexOf('ReactSnap') === -1) {
+            window.addEventListener('load', function () {
+                // Google Analytics
+                var gaScript = document.createElement('script');
+                gaScript.async = true;
+                gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-J20D86R6G2';
+                document.head.appendChild(gaScript);
+                gaScript.onload = function () {
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() { dataLayer.push(arguments); }
+                    gtag('js', new Date());
+                    gtag('config', 'G-J20D86R6G2');
+                };
 
-            // Google Tag Manager
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                var f = d.getElementsByTagName(s)[0], j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-MVL2SLNC');
+                // Google Tag Manager
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                    var f = d.getElementsByTagName(s)[0], j = d.createElement(s),
+                        dl = l != 'dataLayer' ? '&l=' + l : '';
+                    j.async = true;
+                    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-MVL2SLNC');
 
-            // Microsoft Clarity
-            (function (c, l, a, r, i, t, y) {
-                c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-                t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-                y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-            })(window, document, "clarity", "script", "w8b64dj3zr");
+                // Microsoft Clarity
+                (function (c, l, a, r, i, t, y) {
+                    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+                    t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+                    y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+                })(window, document, "clarity", "script", "w8b64dj3zr");
 
-            // AiSensy desktop only
-            if (window.matchMedia("(min-width: 768px)").matches) {
-                var s = document.createElement('script');
-                s.src = "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js";
-                s.id = "aisensy-wa-widget";
-                s.setAttribute("widget-id", "aabbfc");
-                document.body.appendChild(s);
-            }
-        });
+                // AiSensy desktop only
+                if (window.matchMedia("(min-width: 768px)").matches) {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.src = "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js";
+                    s.id = "aisensy-wa-widget";
+                    s.setAttribute("widget-id", "aabnyv");
+                    document.body.appendChild(s);
+                }
+            });
+        }
     </script>
 
     <!-- Critical CSS inline to avoid render blocking -->
@@ -149,7 +154,11 @@
         { "@type": "City", "name": "Greater Noida" },
         { "@type": "City", "name": "Ghaziabad" }
       ],
-      "sameAs": []
+      "sameAs": [
+        "https://www.facebook.com/share/1DTjmoeU8R/",
+        "https://instagram.com/instamakaan",
+        "https://www.linkedin.com/company/instamakaan/"
+      ]
     }
     </script>
 </head>

@@ -42,6 +42,7 @@ const FAQPage = lazy(() => import('@/pages/FAQPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
+const RefundPolicy = lazy(() => import('@/pages/RefundPolicy'));
 import ScrollToTop from '@/components/ScrollToTop';
 import ScrollRevealObserver from '@/components/ScrollRevealObserver';
 const HeroReviews = lazy(() => import('@/pages/Reviews'));
@@ -120,6 +121,7 @@ function App() {
 							<Route path="/contact" element={<ContactPage />} />
 							<Route path="/privacy-policy" element={<PrivacyPolicy />} />
 							<Route path="/terms" element={<TermsOfService />} />
+							<Route path="/refund-policy" element={<RefundPolicy />} />
 							<Route path="/reviews" element={<HeroReviews />} />
 							<Route path="/tools" element={<ToolsDashboard />} />
 							<Route path="/tools/rent-vs-buy" element={<RentVsBuyCalculator />} />

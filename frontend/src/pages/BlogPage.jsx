@@ -55,7 +55,7 @@ const BLOG_FAQS = [
 	{
 		question: 'Can I suggest a topic for the blog?',
 		answer:
-			'Absolutely! We love hearing from our community. Send your topic suggestion to support@instamakaan.com and our content team will consider it for an upcoming article. We especially welcome questions about specific localities or renting scenarios.',
+			'Absolutely! We love hearing from our community. Share your topic suggestion via our Contact page and our content team will consider it for an upcoming article. We especially welcome questions about specific localities or renting scenarios.',
 	},
 ];
 

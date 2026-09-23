@@ -47,7 +47,7 @@ const contactInfo = [
 		icon: Mail,
 		title: 'Email',
 		value: 'support@instamakaan.com',
-		link: 'mailto:support@instamakaan.com',
+		isEmail: true,
 	},
 	{
 		icon: MapPin,
@@ -329,9 +329,17 @@ const ContactPage = () => {
 												className="bg-card border-0 shadow-card overflow-hidden rounded-3xl"
 											>
 												<CardContent className="p-3 sm:p-4">
-													{info.link ? (
+													{info.link || info.isEmail ? (
 														<a
-															href={info.link}
+															href={info.link || '#email'}
+															onClick={
+																info.isEmail
+																	? (e) => {
+																			e.preventDefault();
+																			window.location.href = `mailto:${'support'}@${'instamakaan.com'}`;
+																	  }
+																	: undefined
+															}
 															className="flex items-start gap-4 group"
 														>
 															<div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors shrink-0">

@@ -37,7 +37,7 @@ const PARTNER_FAQS = [
 	{
 		question: 'What happens if there is a dispute between me and a tenant?',
 		answer:
-			'InstaMakaan has a dedicated support team to help mediate disputes between owners and tenants. We also assist with rental agreement documentation to minimize disputes from the start. Contact us at support@instamakaan.com and we will step in promptly.',
+			'InstaMakaan has a dedicated support team to help mediate disputes between owners and tenants. We also assist with rental agreement documentation to minimize disputes from the start. Reach out to our support team through our Contact page and we will step in promptly.',
 	},
 	{
 		question: 'What documents do I need to list my property?',

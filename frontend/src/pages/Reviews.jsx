@@ -28,7 +28,7 @@ const REVIEWS_FAQS = [
 	{
 		question: 'What if I had a negative experience?',
 		answer:
-			'We take all feedback seriously. If you had a negative experience, please share it honestly in your review and also contact our support team at support@instamakaan.com. We will investigate and work to resolve the issue.',
+			'We take all feedback seriously. If you had a negative experience, please share it honestly in your review and also connect with our team through our Contact page. We will investigate and work to resolve the issue.',
 	},
 	{
 		question: 'How is the overall rating calculated?',

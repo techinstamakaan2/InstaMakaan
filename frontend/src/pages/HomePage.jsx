@@ -18,6 +18,7 @@ const LocationLinksSection = lazy(() => import('@/components/home/LocationLinksS
 const HomeFAQSection = lazy(() => import('@/components/home/HomeFAQSection'));
 const HowItWorksSection = lazy(() => import('@/components/home/HowItWorksSection').then(m => ({ default: m.HowItWorksSection })));
 const EMICalculatorSection = lazy(() => import('@/components/home/EMICalculatorSection').then(m => ({ default: m.EMICalculatorSection })));
+import { HomeEditorialSection } from '@/components/home/HomeEditorialSection';
 
 const HomePage = () => {
 	const navigate = useNavigate();
@@ -113,6 +114,9 @@ const HomePage = () => {
 			</div>
 			<div data-reveal>
 				<Suspense fallback={null}><CompanyTieUpsSection /></Suspense>
+			</div>
+			<div data-reveal>
+				<HomeEditorialSection />
 			</div>
 			<div data-reveal>
 				<Suspense fallback={null}><HomeFAQSection /></Suspense>

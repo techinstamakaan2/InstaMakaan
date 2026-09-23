@@ -26,13 +26,11 @@ def property_to_slug(prop_id: str, title: str, city: str = "", location: str = "
     return "-".join(p for p in parts if p)
 
 
-def _url(loc, priority, changefreq, lastmod):
+def _url(loc, lastmod):
     return f"""
   <url>
     <loc>{loc}</loc>
     <lastmod>{lastmod}</lastmod>
-    <changefreq>{changefreq}</changefreq>
-    <priority>{priority}</priority>
   </url>"""
 
 
@@ -66,8 +64,6 @@ async def generate_sitemap():
         for route in routes or []:
             urls.append(_url(
                 f"{BASE}{route['path']}",
-                route["priority"],
-                route["changefreq"],
                 today,
             ))
     except Exception:
@@ -98,8 +94,6 @@ async def generate_sitemap():
             # Base area page: /rent/flats-for-rent-in-[area]
             urls.append(_url(
                 f"{BASE}/rent/flats-for-rent-in-{area_slug}",
-                "0.8",
-                "daily",
                 today,
             ))
 
@@ -107,18 +101,14 @@ async def generate_sitemap():
             for bhk in sorted(beds_set):
                 urls.append(_url(
                     f"{BASE}/rent/{bhk}-bhk-flats-for-rent-in-{area_slug}",
-                    "0.7",
-                    "daily",
                     today,
                 ))
 
         # Society/locality review pages: /society-reviews/[area] — one entry per area
-        urls.append(_url(f"{BASE}/society-reviews", "0.6", "weekly", today))
+        urls.append(_url(f"{BASE}/society-reviews", today))
         for area_slug in area_beds_map:
             urls.append(_url(
                 f"{BASE}/society-reviews/{area_slug}",
-                "0.6",
-                "weekly",
                 today,
             ))
     except Exception:
@@ -136,7 +126,7 @@ async def generate_sitemap():
                 continue
             updated = post.get("updated_at")
             lastmod = updated.strftime("%Y-%m-%d") if updated else today
-            urls.append(_url(f"{BASE}/blog/{slug}", "0.7", "monthly", lastmod))
+            urls.append(_url(f"{BASE}/blog/{slug}", lastmod))
     except Exception:
         pass
 
@@ -155,7 +145,7 @@ async def generate_sitemap():
             )
             updated = prop.get("updated_at")
             lastmod = updated.strftime("%Y-%m-%d") if updated else today
-            urls.append(_url(f"{BASE}/property/{slug}", "0.6", "weekly", lastmod))
+            urls.append(_url(f"{BASE}/property/{slug}", lastmod))
     except Exception:
         pass
 

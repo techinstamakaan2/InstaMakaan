@@ -31,7 +31,7 @@ const RULES = [
 
   { match: /^\/(partner|refer)$/, priority: '0.6', changefreq: 'monthly' },
 
-  { match: /^\/(privacy-policy|terms)$/, priority: '0.4', changefreq: 'yearly' },
+  { match: /^\/(privacy-policy|terms|refund-policy)$/, priority: '0.4', changefreq: 'yearly' },
 ];
 
 const DEFAULT = { priority: '0.6', changefreq: 'monthly' };

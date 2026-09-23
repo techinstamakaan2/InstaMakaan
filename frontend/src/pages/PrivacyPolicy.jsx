@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Helmet } from 'react-helmet-async';
+import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 import {
 	ShieldCheck,
 	Users,
@@ -383,12 +384,7 @@ const PrivacyPolicy = () => {
 								<p className="text-sm text-gray-500 mb-1">
 									For any privacy-related queries
 								</p>
-								<a
-									href="mailto:support@instamakaan.com"
-									className="text-teal-600 font-semibold text-base hover:underline"
-								>
-									support@instamakaan.com
-								</a>
+								<ObfuscatedEmail className="text-teal-600 font-semibold text-base hover:underline" />
 								<p className="text-xs text-gray-400 mt-3">
 									Tower T2, Flat B809, Tech Zone 4,
 									<br />

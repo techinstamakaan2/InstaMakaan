@@ -18,10 +18,4 @@ const app = (
 	</HelmetProvider>
 );
 
-// If react-snap has pre-rendered HTML into #root, hydrate it
-// to preserve the server-rendered markup. Otherwise, do a fresh render.
-if (rootElement.hasChildNodes()) {
-	ReactDOM.hydrateRoot(rootElement, app);
-} else {
-	ReactDOM.createRoot(rootElement).render(app);
-}
+ReactDOM.createRoot(rootElement).render(app);

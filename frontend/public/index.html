@@ -18,16 +18,16 @@
 
     <meta property="og:title" content="Rental Flats, PG &amp; Co-Living in Noida | InstaMakaan" />
     <meta property="og:description" content="Find verified rental flats, PGs &amp; co-living in Noida, Greater Noida &amp; Ghaziabad with InstaMakaan. Verified listings and transparent agreements." />
-    <meta property="og:image" content="https://instamakaan.com/images/orglogo.webp" />
+    <meta property="og:image" content="https://www.instamakaan.com/images/orglogo.webp" />
     <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
-    <meta property="og:url" content="https://instamakaan.com/" />
+    <meta property="og:url" content="https://www.instamakaan.com/" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Rental Flats, PG &amp; Co-Living in Noida | InstaMakaan" />
     <meta name="twitter:description" content="Find verified rental flats, PGs &amp; co-living in Noida, Greater Noida &amp; Ghaziabad with InstaMakaan. Verified listings and transparent agreements." />
-    <meta name="twitter:image" content="https://instamakaan.com/images/orglogo.webp" />
+    <meta name="twitter:image" content="https://www.instamakaan.com/images/orglogo.webp" />
 
     <link rel="icon" type="image/png" href="/images/orglogo.webp" />
     <link rel="apple-touch-icon" href="/images/orglogo.webp" />
@@ -129,35 +129,104 @@
       .scrollbar-hide::-webkit-scrollbar{display:none}
     </style>
 
-    <!-- Organization structured data (site-wide) -->
+    <!-- Canonical URL (self-referencing, uses www as primary host) -->
+    <link rel="canonical" href="https://www.instamakaan.com/" />
+
+    <!-- Structured data (site-wide) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "RealEstateAgent",
-      "name": "InstaMakaan",
-      "url": "https://instamakaan.com",
-      "logo": "https://instamakaan.com/images/orglogo.webp",
-      "image": "https://instamakaan.com/images/orglogo.webp",
-      "description": "Verified rental flats, PGs and co-living spaces across Noida, Greater Noida, Noida Extension and Ghaziabad.",
-      "telephone": "+91-9771034916",
-      "email": "support@instamakaan.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Tower T2, Flat B809, Tech Zone 4, Plot 17, Amrapali Dream Valley",
-        "addressLocality": "Greater Noida",
-        "addressRegion": "Uttar Pradesh",
-        "postalCode": "201310",
-        "addressCountry": "IN"
-      },
-      "areaServed": [
-        { "@type": "City", "name": "Noida" },
-        { "@type": "City", "name": "Greater Noida" },
-        { "@type": "City", "name": "Ghaziabad" }
-      ],
-      "sameAs": [
-        "https://www.facebook.com/share/1DTjmoeU8R/",
-        "https://instagram.com/instamakaan",
-        "https://www.linkedin.com/company/instamakaan/"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.instamakaan.com/#organization",
+          "name": "InstaMakaan",
+          "url": "https://www.instamakaan.com",
+          "logo": "https://www.instamakaan.com/images/orglogo.webp",
+          "sameAs": [
+            "https://www.facebook.com/share/1DTjmoeU8R/",
+            "https://instagram.com/instamakaan",
+            "https://www.linkedin.com/company/instamakaan/"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-9771034916",
+            "contactType": "customer service",
+            "email": "support@instamakaan.com",
+            "areaServed": "IN",
+            "availableLanguage": ["English", "Hindi"]
+          }
+        },
+        {
+          "@type": ["RealEstateAgent", "LocalBusiness"],
+          "@id": "https://www.instamakaan.com/#business",
+          "name": "InstaMakaan",
+          "url": "https://www.instamakaan.com",
+          "logo": "https://www.instamakaan.com/images/orglogo.webp",
+          "image": "https://www.instamakaan.com/images/orglogo.webp",
+          "description": "Verified rental flats, PGs and co-living spaces across Noida, Greater Noida, Noida Extension and Ghaziabad.",
+          "telephone": "+91-9771034916",
+          "email": "support@instamakaan.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Tower T2, Flat B809, Tech Zone 4, Plot 17, Amrapali Dream Valley",
+            "addressLocality": "Greater Noida",
+            "addressRegion": "Uttar Pradesh",
+            "postalCode": "201310",
+            "addressCountry": "IN"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Noida" },
+            { "@type": "City", "name": "Greater Noida" },
+            { "@type": "City", "name": "Ghaziabad" }
+          ],
+          "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            "opens": "09:00",
+            "closes": "19:00"
+          }],
+          "priceRange": "₹₹",
+          "datePublished": "2024-01-01",
+          "dateModified": "2026-09-25"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.instamakaan.com/#website",
+          "name": "InstaMakaan",
+          "url": "https://www.instamakaan.com",
+          "publisher": { "@id": "https://www.instamakaan.com/#organization" }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.instamakaan.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I find a rental flat in Greater Noida?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Browse verified listings on InstaMakaan, filter by BHK, budget, or locality, and schedule a guided property visit. Every listing is inspected by our on-ground team before going live."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are the properties on InstaMakaan verified?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, every property listed on InstaMakaan is inspected and verified by our on-ground team before going live. We check amenities, furnishings, water supply, and tenancy criteria."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What documents do I need to rent a flat?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Aadhaar card, PAN card, and proof of employment or income. InstaMakaan handles the KYC process digitally and securely for both tenants and landlords."
+              }
+            }
+          ]
+        }
       ]
     }
     </script>
@@ -233,6 +302,7 @@
             </section>
         </main>
         <footer class="py-8 border-t border-slate-200 text-center text-xs text-slate-500">
+            <p class="mb-2"><a href="tel:+919771034916" class="text-teal-700 font-semibold">📞 +91 97710 34916</a> · <a href="https://wa.me/919771034916?text=Hi%20InstaMakaan%2C%20I%20need%20help%20finding%20a%20rental%20property" class="text-green-700 font-semibold" target="_blank" rel="noopener noreferrer">💬 WhatsApp Us</a></p>
             <p>© 2026 InstaMakaan. All rights reserved. | <a href="/refund-policy">Refund Policy</a> | <a href="/privacy-policy">Privacy Policy</a> | <a href="/terms">Terms of Service</a> | <a href="/contact">Contact Support</a></p>
         </footer>
     </div>

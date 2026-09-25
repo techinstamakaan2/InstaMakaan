@@ -7,4 +7,4 @@ Disallow: /user
 Disallow: /dashboard
 Disallow: /auth
 
-Sitemap: https://instamakaan.com/sitemap.xml
+Sitemap: https://www.instamakaan.com/sitemap.xml

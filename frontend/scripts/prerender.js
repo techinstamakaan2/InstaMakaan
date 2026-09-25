@@ -25,26 +25,26 @@ const ROUTE_METADATA = {
 		summary: 'InstaMakaan simplifies finding, renting, and managing homes across Noida, Greater Noida West (Noida Extension), and Ghaziabad with verified listings, transparent terms, and comprehensive support.'
 	},
 	'/about': {
-		title: 'About InstaMakaan | Verified Rental Platform in Noida & Greater Noida',
-		description: 'Learn about InstaMakaan — a direct rental platform connecting property owners with verified tenants in Noida, Greater Noida, Noida Extension and Ghaziabad. Transparent pricing, genuine listings.',
+		title: 'About InstaMakaan | Verified Rentals in Noida NCR',
+		description: 'Learn about InstaMakaan — a rental platform connecting owners with verified tenants in Noida, Greater Noida and Ghaziabad. Transparent pricing.',
 		h1: 'About InstaMakaan',
 		summary: 'Direct rental platform connecting property owners with verified tenants in Noida, Greater Noida and Ghaziabad. Transparent pricing, genuine listings, and zero brokerage stress.'
 	},
 	'/contact': {
-		title: 'Contact InstaMakaan | Rental Help in Noida, Greater Noida & Ghaziabad',
-		description: 'Get in touch with the InstaMakaan team. Reach out via phone, email, or visit our office in Greater Noida West.',
+		title: 'Contact InstaMakaan | Rental Help in Noida NCR',
+		description: 'Get in touch with InstaMakaan for rental help in Noida, Greater Noida West and Ghaziabad. Call, email, or visit our office.',
 		h1: 'Contact InstaMakaan',
 		summary: 'Need assistance finding a rental home or listing your property? Connect with the InstaMakaan team today.'
 	},
 	'/faq': {
-		title: 'FAQs - Rental Properties, PG & Flats in Noida | InstaMakaan Help',
-		description: 'Find answers to frequently asked questions about renting flats, PGs, tenant KYC, and owner services with InstaMakaan.',
+		title: 'FAQs — Rental Flats & PG in Noida | InstaMakaan',
+		description: 'Find answers to common questions about renting flats, PGs, tenant KYC, owner services, and agreements with InstaMakaan.',
 		h1: 'Frequently Asked Questions',
 		summary: 'Answers to the most common questions about renting flats, tenant KYC documents, owner onboarding, and services on InstaMakaan.'
 	},
 	'/refund-policy': {
 		title: 'Refund & Cancellation Policy | InstaMakaan',
-		description: 'InstaMakaan\'s refund and cancellation terms for rental facilitation services across Noida, Greater Noida, and Ghaziabad.',
+		description: 'Review InstaMakaan refund and cancellation terms for rental facilitation services in Noida, Greater Noida, and Ghaziabad.',
 		h1: 'Refund & Cancellation Policy',
 		summary: 'Detailed explanation of our cancellation terms, tenant service fee refunds, and dispute resolution guidelines.'
 	},
@@ -61,7 +61,7 @@ const ROUTE_METADATA = {
 		summary: 'Legal terms, usage guidelines, user responsibilities, and conditions for accessing the InstaMakaan real estate platform.'
 	},
 	'/blog': {
-		title: 'Real Estate Blog | Rental Tips, Property Guide Noida & Greater Noida | InstaMakaan',
+		title: 'Real Estate Blog | Rental Tips Noida | InstaMakaan',
 		description: 'Read latest rental tips, tenant rights, area comparisons, and real estate market insights across Noida and Greater Noida.',
 		h1: 'Real Estate Blog',
 		summary: 'Expert articles on tenant legal rights, rental agreements, stamp duty, market rates, and living guides in Noida & Greater Noida.'
@@ -241,7 +241,7 @@ function prerender() {
 		}
 
 		// 3. Update canonical tag
-		const canonicalUrl = `https://instamakaan.com${route === '/' ? '' : route}`;
+		const canonicalUrl = `https://www.instamakaan.com${route === '/' ? '' : route}`;
 		if (html.includes('rel="canonical"')) {
 			html = html.replace(/<link\s+rel="canonical"\s+href="[^"]*"/i, `<link rel="canonical" href="${canonicalUrl}"`);
 		} else {
@@ -293,6 +293,7 @@ function prerender() {
       </section>
     </main>
     <footer class="bg-slate-50 dark:bg-[#080f1e] py-8 border-t border-slate-200 dark:border-white/10 text-center text-xs text-slate-500">
+      <p class="mb-2"><a href="tel:+919771034916" class="text-teal-700 font-semibold">📞 +91 97710 34916</a> · <a href="https://wa.me/919771034916?text=Hi%20InstaMakaan%2C%20I%20need%20help%20finding%20a%20rental%20property" class="text-green-700 font-semibold" target="_blank" rel="noopener noreferrer">💬 WhatsApp Us</a></p>
       <p>© 2026 InstaMakaan. All rights reserved. | <a href="/refund-policy">Refund Policy</a> | <a href="/privacy-policy">Privacy</a> | <a href="/terms">Terms</a></p>
     </footer>
   </div>

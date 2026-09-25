@@ -19,8 +19,8 @@ const ROUTES_FILE = path.join(__dirname, '../public/site-routes.json');
 
 const ROUTE_METADATA = {
 	'/': {
-		title: 'Rental Properties in Noida, Greater Noida & Ghaziabad | Flats, PG & Co-Living | InstaMakaan',
-		description: 'Find rental flats, PGs & co-living spaces across Noida, Greater Noida, Noida Extension and Ghaziabad. Verified listings, transparent terms, and hassle-free experience.',
+		title: 'Rental Flats, PG & Co-Living in Noida | InstaMakaan',
+		description: 'Find verified rental flats, PGs & co-living in Noida, Greater Noida & Ghaziabad with InstaMakaan. Verified listings and transparent agreements.',
 		h1: 'Rental Properties in Noida, Greater Noida & Ghaziabad',
 		summary: 'InstaMakaan simplifies finding, renting, and managing homes across Noida, Greater Noida West (Noida Extension), and Ghaziabad with verified listings, transparent terms, and comprehensive support.'
 	},
@@ -297,13 +297,11 @@ function prerender() {
     </footer>
   </div>
 </div>`;
-			if (html.includes('<!--ROOT_CONTENT_START-->')) {
-				html = html.replace(
-					/<!--ROOT_CONTENT_START-->[\s\S]*?<!--ROOT_CONTENT_END-->/,
-					`<!--ROOT_CONTENT_START-->${routeContent}<!--ROOT_CONTENT_END-->`
-				);
-			} else {
-				html = html.replace('<div id="root"></div>', `<div id="root">${routeContent}</div>`);
+			const rootStart = html.indexOf('<div id="root">');
+			if (rootStart !== -1) {
+				const scriptStart = html.indexOf('<script>document.addEventListener("click"');
+				const rootEnd = scriptStart !== -1 ? scriptStart : html.indexOf('</body>');
+				html = html.slice(0, rootStart) + `<div id="root">${routeContent}</div>` + html.slice(rootEnd);
 			}
 		}
 
